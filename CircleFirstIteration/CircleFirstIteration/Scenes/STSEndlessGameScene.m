@@ -56,7 +56,9 @@
 
     SKAction *move = [SKAction moveTo:location duration:0.5];
     [self.hero runAction:move];
+
 }
+
 
 #pragma mark - Adding Nodes
 - (SKSpriteNode *)addHero {
@@ -70,8 +72,8 @@
     hero.physicsBody.categoryBitMask = STSColliderTypeHero;
     hero.physicsBody.collisionBitMask = STSColliderTypeVillain;
     hero.physicsBody.contactTestBitMask = STSColliderTypeVillain;
-    SKAction *roation = [SKAction rotateByAngle:M_PI_4 duration:0.5];
-    [hero runAction:[SKAction repeatActionForever:roation]];
+    SKAction *rotation = [SKAction rotateByAngle:M_PI_4 duration:0.5];
+    [hero runAction:[SKAction repeatActionForever:rotation]];
 
 
     return hero;
@@ -134,13 +136,43 @@ static inline CGFloat skRand(CGFloat low, CGFloat high) {
         villain.position = normalized;
         [self.hero addChild:villain];
     }
-    //[self.physicsWorld addJoint:joint];
 
+    if (self.hero.children.count >= 2) {
+        for (SKSpriteNode *child in self.hero.children) {
+            SKAction *removeNode = [self removeVillainsFromHero];
+            child.physicsBody.dynamic = NO;
+            [child runAction:removeNode];
+        }
+    }
+}
+
+#pragma mark - Removing Nodes
+- (SKAction *)removeVillainsFromHero {
+    SKAction *moveToHeroCenter = [SKAction moveTo:self.hero.anchorPoint duration:0.5];
+    SKAction *shrink = [SKAction scaleTo:0.1 duration:0.7];
+    SKAction *fadeAway = [SKAction fadeOutWithDuration:0.7];
+    SKAction *remove = [SKAction removeFromParent];
+    SKAction *absorbAction = [SKAction group:@[moveToHeroCenter, shrink, fadeAway]];
+    SKAction *sequence = [SKAction sequence:@[absorbAction, remove]];
+
+    return sequence;
 }
 
 #pragma mark - Frame Updates
 - (void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+    CGPoint heroPosition = self.hero.position;
+    if (self.hero.children.count == 100) {
+        for (SKSpriteNode *child in self.hero.children) {
+            [child removeFromParent];
+            child.position = heroPosition;
+            [self.scene addChild:child];
+            SKAction *removeNode = [self removeVillainsFromHero];
+            child.physicsBody.dynamic = NO;
+            [child runAction:removeNode withKey:@"remove"];
+        }
+    }
+
 }
 
 @end
