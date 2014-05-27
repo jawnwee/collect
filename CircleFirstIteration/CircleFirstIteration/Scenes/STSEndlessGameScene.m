@@ -116,9 +116,6 @@ static inline CGFloat skRand(CGFloat low, CGFloat high) {
     CGFloat hero_y = self.hero.position.y;
 
     CGPoint normalized = CGPointMake(contact_x - hero_x, contact_y - hero_y);
-    //SKPhysicsJointFixed *joint = [SKPhysicsJointFixed jointWithBodyA:contact.bodyA
-                                                               //bodyB:contact.bodyB
-                                                              //anchor:anchorPoint];
 
     if (contact.bodyA.categoryBitMask == STSColliderTypeVillain) {
         SKSpriteNode *villain = (SKSpriteNode *)contact.bodyA.node;
@@ -134,13 +131,43 @@ static inline CGFloat skRand(CGFloat low, CGFloat high) {
         villain.position = normalized;
         [self.hero addChild:villain];
     }
-    //[self.physicsWorld addJoint:joint];
+    if (self.hero.children.count == 10) {
+        for (SKSpriteNode *child in self.hero.children) {
+            [child removeFromParent];
+            [self.scene addChild:child];
+            SKAction *removeNode = [self removeVillainsFromHero];
+            child.physicsBody.dynamic = NO;
+            [child runAction:removeNode];
+        }
+    }
 
+
+}
+
+#pragma mark - Removing Nodes
+- (SKAction *)removeVillainsFromHero {
+    SKAction *moveToHeroCenter = [SKAction moveTo:self.hero.position duration:0.3];
+    SKAction *shrink = [SKAction scaleTo:0.1 duration:0.3];
+    SKAction *fadeAway = [SKAction fadeOutWithDuration:0.3];
+    SKAction *remove = [SKAction removeFromParent];
+    SKAction *absorbAction = [SKAction group:@[moveToHeroCenter, shrink, fadeAway]];
+    SKAction *sequence = [SKAction sequence:@[absorbAction, remove]];
+
+    return sequence;
 }
 
 #pragma mark - Frame Updates
 - (void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+//    if (self.hero.children.count == 6) {
+//        for (SKSpriteNode *child in self.hero.children) {
+//            [child removeFromParent];
+//            [self.scene addChild:child];
+//            SKAction *removeNode = [self removeVillainsFromHero];
+//            child.physicsBody.dynamic = NO;
+//            [child runAction:removeNode withKey:@"remove"];
+//        }
+//    }
 }
 
 @end

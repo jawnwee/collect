@@ -10,4 +10,11 @@
 
 @implementation STSHero
 
+#pragma mark - Initialization
+- (id)initAtPosition:(CGPoint)position {
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Hero"];
+    SKTexture *texture = [atlas textureNamed:@"hero.png"];
+    return  [super initWithTexture:texture atPosition:position];
+}
+
 @end

@@ -21,13 +21,14 @@
 		EB1F92761933B65100D08C7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F92511933B65100D08C7C /* UIKit.framework */; };
 		EB1F927E1933B65100D08C7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB1F927C1933B65100D08C7C /* InfoPlist.strings */; };
 		EB1F92801933B65100D08C7C /* CircleFirstIterationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F927F1933B65100D08C7C /* CircleFirstIterationTests.m */; };
-		EB6B53AE193418A60042C84B /* hero.png in Resources */ = {isa = PBXBuildFile; fileRef = EB6B53AD193418A60042C84B /* hero.png */; };
-		EB6B53B0193418AC0042C84B /* villain.png in Resources */ = {isa = PBXBuildFile; fileRef = EB6B53AF193418AC0042C84B /* villain.png */; };
+		EB3CFC4519342DEA000F2D84 /* Villain.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EB3CFC4419342DEA000F2D84 /* Villain.atlas */; };
+		EB3CFC4A19342DF9000F2D84 /* Hero.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EB3CFC4919342DF9000F2D84 /* Hero.atlas */; };
 		EB6B53B9193419D70042C84B /* STSHero.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53B8193419D70042C84B /* STSHero.m */; };
 		EB6B53BC193419E80042C84B /* STSVillain.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53BB193419E80042C84B /* STSVillain.m */; };
 		EB6B53C119341A030042C84B /* STSEndlessGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53BE19341A030042C84B /* STSEndlessGameScene.m */; };
 		EB6B53C219341A030042C84B /* STSWelcomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53C019341A030042C84B /* STSWelcomeScene.m */; };
 		EB6B53C519341E510042C84B /* STSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53C419341E510042C84B /* STSViewController.m */; };
+		EB6B53C8193424820042C84B /* STSCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53C7193424820042C84B /* STSCharacter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +61,8 @@
 		EB1F927B1933B65100D08C7C /* CircleFirstIterationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleFirstIterationTests-Info.plist"; sourceTree = "<group>"; };
 		EB1F927D1933B65100D08C7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EB1F927F1933B65100D08C7C /* CircleFirstIterationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleFirstIterationTests.m; sourceTree = "<group>"; };
-		EB6B53AD193418A60042C84B /* hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hero.png; path = "Textures Atlases/Hero/hero.png"; sourceTree = "<group>"; };
-		EB6B53AF193418AC0042C84B /* villain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = villain.png; path = "Textures Atlases/Villain/villain.png"; sourceTree = "<group>"; };
+		EB3CFC4419342DEA000F2D84 /* Villain.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Villain.atlas; path = "Textures Atlases/Villain/Villain.atlas"; sourceTree = "<group>"; };
+		EB3CFC4919342DF9000F2D84 /* Hero.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Hero.atlas; path = "Textures Atlases/Hero/Hero.atlas"; sourceTree = "<group>"; };
 		EB6B53B7193419D70042C84B /* STSHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSHero.h; path = Sprites/STSHero.h; sourceTree = "<group>"; };
 		EB6B53B8193419D70042C84B /* STSHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSHero.m; path = Sprites/STSHero.m; sourceTree = "<group>"; };
 		EB6B53BA193419E80042C84B /* STSVillain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSVillain.h; path = Sprites/STSVillain.h; sourceTree = "<group>"; };
@@ -71,6 +72,8 @@
 		EB6B53BF19341A030042C84B /* STSWelcomeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSWelcomeScene.h; path = Scenes/STSWelcomeScene.h; sourceTree = "<group>"; };
 		EB6B53C019341A030042C84B /* STSWelcomeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSWelcomeScene.m; path = Scenes/STSWelcomeScene.m; sourceTree = "<group>"; };
 		EB6B53C419341E510042C84B /* STSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSViewController.m; sourceTree = "<group>"; };
+		EB6B53C6193424820042C84B /* STSCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSCharacter.h; path = Sprites/STSCharacter.h; sourceTree = "<group>"; };
+		EB6B53C7193424820042C84B /* STSCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSCharacter.m; path = Sprites/STSCharacter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +199,7 @@
 		EB6B53A9193412AA0042C84B /* Hero */ = {
 			isa = PBXGroup;
 			children = (
-				EB6B53AD193418A60042C84B /* hero.png */,
+				EB3CFC4919342DF9000F2D84 /* Hero.atlas */,
 			);
 			name = Hero;
 			sourceTree = "<group>";
@@ -204,8 +207,7 @@
 		EB6B53AA193412BC0042C84B /* Villain */ = {
 			isa = PBXGroup;
 			children = (
-				EB6B53AF193418AC0042C84B /* villain.png */,
-				EB6B53C319341E110042C84B /* Villain.atlas */,
+				EB3CFC4419342DEA000F2D84 /* Villain.atlas */,
 			);
 			name = Villain;
 			sourceTree = "<group>";
@@ -224,6 +226,8 @@
 		EB6B53B2193419690042C84B /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				EB6B53C6193424820042C84B /* STSCharacter.h */,
+				EB6B53C7193424820042C84B /* STSCharacter.m */,
 				EB6B53B7193419D70042C84B /* STSHero.h */,
 				EB6B53B8193419D70042C84B /* STSHero.m */,
 				EB6B53BA193419E80042C84B /* STSVillain.h */,
@@ -237,13 +241,6 @@
 			children = (
 			);
 			name = Utilities;
-			sourceTree = "<group>";
-		};
-		EB6B53C319341E110042C84B /* Villain.atlas */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Villain.atlas;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,11 +320,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB3CFC4A19342DF9000F2D84 /* Hero.atlas in Resources */,
 				EB1F925A1933B65100D08C7C /* InfoPlist.strings in Resources */,
-				EB6B53AE193418A60042C84B /* hero.png in Resources */,
 				EB1F926D1933B65100D08C7C /* Images.xcassets in Resources */,
-				EB6B53B0193418AC0042C84B /* villain.png in Resources */,
 				EB1F92631933B65100D08C7C /* Main.storyboard in Resources */,
+				EB3CFC4519342DEA000F2D84 /* Villain.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB6B53C8193424820042C84B /* STSCharacter.m in Sources */,
 				EB6B53C119341A030042C84B /* STSEndlessGameScene.m in Sources */,
 				EB6B53B9193419D70042C84B /* STSHero.m in Sources */,
 				EB6B53BC193419E80042C84B /* STSVillain.m in Sources */,

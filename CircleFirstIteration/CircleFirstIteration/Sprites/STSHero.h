@@ -7,7 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "STSCharacter.h"
 
-@interface STSHero : SKNode
+@interface STSHero : STSCharacter
+
 
 @end

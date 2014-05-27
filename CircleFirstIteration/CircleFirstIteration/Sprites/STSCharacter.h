@@ -1,5 +1,5 @@
 //
-//  STSVillain.h
+//  STSCharacter.h
 //  CircleFirstIteration
 //
 //  Created by John Lee on 5/26/14.
@@ -7,8 +7,11 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "STSCharacter.h"
 
-@interface STSVillain : STSCharacter
+@interface STSCharacter : SKSpriteNode
+
+/* Initialize a standard SpriteNode */
+- (id)initWithTexture:(SKTexture *)texture atPosition:(CGPoint)position;
+
 
 @end

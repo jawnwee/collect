@@ -32,9 +32,9 @@
 }
 
 - (SKLabelNode *)addWelcomeNode {
-    SKLabelNode *welcome = [SKLabelNode labelNodeWithFontNamed:@"Helvetica-Light"];
+    SKLabelNode *welcome = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     welcome.text = @"Tap To Begin";
-    welcome.fontSize = 42.0;
+    welcome.fontSize = 36.0;
     welcome.fontColor = [SKColor blackColor];
     welcome.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
 
