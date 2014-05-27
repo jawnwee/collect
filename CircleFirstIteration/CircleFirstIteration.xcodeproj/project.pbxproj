@@ -1,0 +1,576 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EB1F924E1933B65100D08C7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F924D1933B65100D08C7C /* Foundation.framework */; };
+		EB1F92501933B65100D08C7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F924F1933B65100D08C7C /* CoreGraphics.framework */; };
+		EB1F92521933B65100D08C7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F92511933B65100D08C7C /* UIKit.framework */; };
+		EB1F92541933B65100D08C7C /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F92531933B65100D08C7C /* SpriteKit.framework */; };
+		EB1F925A1933B65100D08C7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB1F92581933B65100D08C7C /* InfoPlist.strings */; };
+		EB1F925C1933B65100D08C7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F925B1933B65100D08C7C /* main.m */; };
+		EB1F92601933B65100D08C7C /* STSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F925F1933B65100D08C7C /* STSAppDelegate.m */; };
+		EB1F92631933B65100D08C7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB1F92611933B65100D08C7C /* Main.storyboard */; };
+		EB1F926D1933B65100D08C7C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB1F926C1933B65100D08C7C /* Images.xcassets */; };
+		EB1F92741933B65100D08C7C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F92731933B65100D08C7C /* XCTest.framework */; };
+		EB1F92751933B65100D08C7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F924D1933B65100D08C7C /* Foundation.framework */; };
+		EB1F92761933B65100D08C7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F92511933B65100D08C7C /* UIKit.framework */; };
+		EB1F927E1933B65100D08C7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB1F927C1933B65100D08C7C /* InfoPlist.strings */; };
+		EB1F92801933B65100D08C7C /* CircleFirstIterationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F927F1933B65100D08C7C /* CircleFirstIterationTests.m */; };
+		EB6B53AE193418A60042C84B /* hero.png in Resources */ = {isa = PBXBuildFile; fileRef = EB6B53AD193418A60042C84B /* hero.png */; };
+		EB6B53B0193418AC0042C84B /* villain.png in Resources */ = {isa = PBXBuildFile; fileRef = EB6B53AF193418AC0042C84B /* villain.png */; };
+		EB6B53B9193419D70042C84B /* STSHero.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53B8193419D70042C84B /* STSHero.m */; };
+		EB6B53BC193419E80042C84B /* STSVillain.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53BB193419E80042C84B /* STSVillain.m */; };
+		EB6B53C119341A030042C84B /* STSEndlessGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53BE19341A030042C84B /* STSEndlessGameScene.m */; };
+		EB6B53C219341A030042C84B /* STSWelcomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53C019341A030042C84B /* STSWelcomeScene.m */; };
+		EB6B53C519341E510042C84B /* STSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6B53C419341E510042C84B /* STSViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EB1F92771933B65100D08C7C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB1F92421933B65100D08C7C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EB1F92491933B65100D08C7C;
+			remoteInfo = CircleFirstIteration;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EB1F924A1933B65100D08C7C /* CircleFirstIteration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleFirstIteration.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB1F924D1933B65100D08C7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EB1F924F1933B65100D08C7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EB1F92511933B65100D08C7C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EB1F92531933B65100D08C7C /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		EB1F92571933B65100D08C7C /* CircleFirstIteration-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleFirstIteration-Info.plist"; sourceTree = "<group>"; };
+		EB1F92591933B65100D08C7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EB1F925B1933B65100D08C7C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EB1F925D1933B65100D08C7C /* CircleFirstIteration-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CircleFirstIteration-Prefix.pch"; sourceTree = "<group>"; };
+		EB1F925E1933B65100D08C7C /* STSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSAppDelegate.h; sourceTree = "<group>"; };
+		EB1F925F1933B65100D08C7C /* STSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSAppDelegate.m; sourceTree = "<group>"; };
+		EB1F92621933B65100D08C7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EB1F92641933B65100D08C7C /* STSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSViewController.h; sourceTree = "<group>"; };
+		EB1F926C1933B65100D08C7C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EB1F92721933B65100D08C7C /* CircleFirstIterationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircleFirstIterationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB1F92731933B65100D08C7C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		EB1F927B1933B65100D08C7C /* CircleFirstIterationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleFirstIterationTests-Info.plist"; sourceTree = "<group>"; };
+		EB1F927D1933B65100D08C7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EB1F927F1933B65100D08C7C /* CircleFirstIterationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleFirstIterationTests.m; sourceTree = "<group>"; };
+		EB6B53AD193418A60042C84B /* hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hero.png; path = "Textures Atlases/Hero/hero.png"; sourceTree = "<group>"; };
+		EB6B53AF193418AC0042C84B /* villain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = villain.png; path = "Textures Atlases/Villain/villain.png"; sourceTree = "<group>"; };
+		EB6B53B7193419D70042C84B /* STSHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSHero.h; path = Sprites/STSHero.h; sourceTree = "<group>"; };
+		EB6B53B8193419D70042C84B /* STSHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSHero.m; path = Sprites/STSHero.m; sourceTree = "<group>"; };
+		EB6B53BA193419E80042C84B /* STSVillain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSVillain.h; path = Sprites/STSVillain.h; sourceTree = "<group>"; };
+		EB6B53BB193419E80042C84B /* STSVillain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSVillain.m; path = Sprites/STSVillain.m; sourceTree = "<group>"; };
+		EB6B53BD19341A030042C84B /* STSEndlessGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSEndlessGameScene.h; path = Scenes/STSEndlessGameScene.h; sourceTree = "<group>"; };
+		EB6B53BE19341A030042C84B /* STSEndlessGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSEndlessGameScene.m; path = Scenes/STSEndlessGameScene.m; sourceTree = "<group>"; };
+		EB6B53BF19341A030042C84B /* STSWelcomeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSWelcomeScene.h; path = Scenes/STSWelcomeScene.h; sourceTree = "<group>"; };
+		EB6B53C019341A030042C84B /* STSWelcomeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSWelcomeScene.m; path = Scenes/STSWelcomeScene.m; sourceTree = "<group>"; };
+		EB6B53C419341E510042C84B /* STSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EB1F92471933B65100D08C7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB1F92501933B65100D08C7C /* CoreGraphics.framework in Frameworks */,
+				EB1F92521933B65100D08C7C /* UIKit.framework in Frameworks */,
+				EB1F92541933B65100D08C7C /* SpriteKit.framework in Frameworks */,
+				EB1F924E1933B65100D08C7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB1F926F1933B65100D08C7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB1F92741933B65100D08C7C /* XCTest.framework in Frameworks */,
+				EB1F92761933B65100D08C7C /* UIKit.framework in Frameworks */,
+				EB1F92751933B65100D08C7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EB1F92411933B65100D08C7C = {
+			isa = PBXGroup;
+			children = (
+				EB6B53A31934127C0042C84B /* Assets */,
+				EB1F92551933B65100D08C7C /* CircleFirstIteration */,
+				EB1F92791933B65100D08C7C /* CircleFirstIterationTests */,
+				EB1F924C1933B65100D08C7C /* Frameworks */,
+				EB1F924B1933B65100D08C7C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EB1F924B1933B65100D08C7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F924A1933B65100D08C7C /* CircleFirstIteration.app */,
+				EB1F92721933B65100D08C7C /* CircleFirstIterationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EB1F924C1933B65100D08C7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F924D1933B65100D08C7C /* Foundation.framework */,
+				EB1F924F1933B65100D08C7C /* CoreGraphics.framework */,
+				EB1F92511933B65100D08C7C /* UIKit.framework */,
+				EB1F92531933B65100D08C7C /* SpriteKit.framework */,
+				EB1F92731933B65100D08C7C /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EB1F92551933B65100D08C7C /* CircleFirstIteration */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F925E1933B65100D08C7C /* STSAppDelegate.h */,
+				EB1F925F1933B65100D08C7C /* STSAppDelegate.m */,
+				EB1F92641933B65100D08C7C /* STSViewController.h */,
+				EB6B53C419341E510042C84B /* STSViewController.m */,
+				EB1F926C1933B65100D08C7C /* Images.xcassets */,
+				EB1F92611933B65100D08C7C /* Main.storyboard */,
+				EB6B53B1193418EF0042C84B /* Scenes */,
+				EB6B53B2193419690042C84B /* Sprites */,
+				EB1F92561933B65100D08C7C /* Supporting Files */,
+				EB6B53B3193419700042C84B /* Utilities */,
+			);
+			path = CircleFirstIteration;
+			sourceTree = "<group>";
+		};
+		EB1F92561933B65100D08C7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F92571933B65100D08C7C /* CircleFirstIteration-Info.plist */,
+				EB1F92581933B65100D08C7C /* InfoPlist.strings */,
+				EB1F925B1933B65100D08C7C /* main.m */,
+				EB1F925D1933B65100D08C7C /* CircleFirstIteration-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EB1F92791933B65100D08C7C /* CircleFirstIterationTests */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F927F1933B65100D08C7C /* CircleFirstIterationTests.m */,
+				EB1F927A1933B65100D08C7C /* Supporting Files */,
+			);
+			path = CircleFirstIterationTests;
+			sourceTree = "<group>";
+		};
+		EB1F927A1933B65100D08C7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F927B1933B65100D08C7C /* CircleFirstIterationTests-Info.plist */,
+				EB1F927C1933B65100D08C7C /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EB6B53A31934127C0042C84B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				EB6B53A81934129D0042C84B /* Texture Atlases */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		EB6B53A81934129D0042C84B /* Texture Atlases */ = {
+			isa = PBXGroup;
+			children = (
+				EB6B53AA193412BC0042C84B /* Villain */,
+				EB6B53A9193412AA0042C84B /* Hero */,
+			);
+			name = "Texture Atlases";
+			sourceTree = "<group>";
+		};
+		EB6B53A9193412AA0042C84B /* Hero */ = {
+			isa = PBXGroup;
+			children = (
+				EB6B53AD193418A60042C84B /* hero.png */,
+			);
+			name = Hero;
+			sourceTree = "<group>";
+		};
+		EB6B53AA193412BC0042C84B /* Villain */ = {
+			isa = PBXGroup;
+			children = (
+				EB6B53AF193418AC0042C84B /* villain.png */,
+				EB6B53C319341E110042C84B /* Villain.atlas */,
+			);
+			name = Villain;
+			sourceTree = "<group>";
+		};
+		EB6B53B1193418EF0042C84B /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				EB6B53BD19341A030042C84B /* STSEndlessGameScene.h */,
+				EB6B53BE19341A030042C84B /* STSEndlessGameScene.m */,
+				EB6B53BF19341A030042C84B /* STSWelcomeScene.h */,
+				EB6B53C019341A030042C84B /* STSWelcomeScene.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		EB6B53B2193419690042C84B /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				EB6B53B7193419D70042C84B /* STSHero.h */,
+				EB6B53B8193419D70042C84B /* STSHero.m */,
+				EB6B53BA193419E80042C84B /* STSVillain.h */,
+				EB6B53BB193419E80042C84B /* STSVillain.m */,
+			);
+			name = Sprites;
+			sourceTree = "<group>";
+		};
+		EB6B53B3193419700042C84B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		EB6B53C319341E110042C84B /* Villain.atlas */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Villain.atlas;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EB1F92491933B65100D08C7C /* CircleFirstIteration */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EB1F92831933B65100D08C7C /* Build configuration list for PBXNativeTarget "CircleFirstIteration" */;
+			buildPhases = (
+				EB1F92461933B65100D08C7C /* Sources */,
+				EB1F92471933B65100D08C7C /* Frameworks */,
+				EB1F92481933B65100D08C7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CircleFirstIteration;
+			productName = CircleFirstIteration;
+			productReference = EB1F924A1933B65100D08C7C /* CircleFirstIteration.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EB1F92711933B65100D08C7C /* CircleFirstIterationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EB1F92861933B65100D08C7C /* Build configuration list for PBXNativeTarget "CircleFirstIterationTests" */;
+			buildPhases = (
+				EB1F926E1933B65100D08C7C /* Sources */,
+				EB1F926F1933B65100D08C7C /* Frameworks */,
+				EB1F92701933B65100D08C7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EB1F92781933B65100D08C7C /* PBXTargetDependency */,
+			);
+			name = CircleFirstIterationTests;
+			productName = CircleFirstIterationTests;
+			productReference = EB1F92721933B65100D08C7C /* CircleFirstIterationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EB1F92421933B65100D08C7C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = STS;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "SummaTime Studio";
+				TargetAttributes = {
+					EB1F92711933B65100D08C7C = {
+						TestTargetID = EB1F92491933B65100D08C7C;
+					};
+				};
+			};
+			buildConfigurationList = EB1F92451933B65100D08C7C /* Build configuration list for PBXProject "CircleFirstIteration" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EB1F92411933B65100D08C7C;
+			productRefGroup = EB1F924B1933B65100D08C7C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EB1F92491933B65100D08C7C /* CircleFirstIteration */,
+				EB1F92711933B65100D08C7C /* CircleFirstIterationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EB1F92481933B65100D08C7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB1F925A1933B65100D08C7C /* InfoPlist.strings in Resources */,
+				EB6B53AE193418A60042C84B /* hero.png in Resources */,
+				EB1F926D1933B65100D08C7C /* Images.xcassets in Resources */,
+				EB6B53B0193418AC0042C84B /* villain.png in Resources */,
+				EB1F92631933B65100D08C7C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB1F92701933B65100D08C7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB1F927E1933B65100D08C7C /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EB1F92461933B65100D08C7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB6B53C119341A030042C84B /* STSEndlessGameScene.m in Sources */,
+				EB6B53B9193419D70042C84B /* STSHero.m in Sources */,
+				EB6B53BC193419E80042C84B /* STSVillain.m in Sources */,
+				EB1F925C1933B65100D08C7C /* main.m in Sources */,
+				EB6B53C219341A030042C84B /* STSWelcomeScene.m in Sources */,
+				EB1F92601933B65100D08C7C /* STSAppDelegate.m in Sources */,
+				EB6B53C519341E510042C84B /* STSViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB1F926E1933B65100D08C7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB1F92801933B65100D08C7C /* CircleFirstIterationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EB1F92781933B65100D08C7C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EB1F92491933B65100D08C7C /* CircleFirstIteration */;
+			targetProxy = EB1F92771933B65100D08C7C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EB1F92581933B65100D08C7C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EB1F92591933B65100D08C7C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EB1F92611933B65100D08C7C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EB1F92621933B65100D08C7C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EB1F927C1933B65100D08C7C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EB1F927D1933B65100D08C7C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EB1F92811933B65100D08C7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EB1F92821933B65100D08C7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EB1F92841933B65100D08C7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleFirstIteration/CircleFirstIteration-Prefix.pch";
+				INFOPLIST_FILE = "CircleFirstIteration/CircleFirstIteration-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EB1F92851933B65100D08C7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleFirstIteration/CircleFirstIteration-Prefix.pch";
+				INFOPLIST_FILE = "CircleFirstIteration/CircleFirstIteration-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EB1F92871933B65100D08C7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CircleFirstIteration.app/CircleFirstIteration";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleFirstIteration/CircleFirstIteration-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CircleFirstIterationTests/CircleFirstIterationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		EB1F92881933B65100D08C7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CircleFirstIteration.app/CircleFirstIteration";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleFirstIteration/CircleFirstIteration-Prefix.pch";
+				INFOPLIST_FILE = "CircleFirstIterationTests/CircleFirstIterationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EB1F92451933B65100D08C7C /* Build configuration list for PBXProject "CircleFirstIteration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB1F92811933B65100D08C7C /* Debug */,
+				EB1F92821933B65100D08C7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EB1F92831933B65100D08C7C /* Build configuration list for PBXNativeTarget "CircleFirstIteration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB1F92841933B65100D08C7C /* Debug */,
+				EB1F92851933B65100D08C7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EB1F92861933B65100D08C7C /* Build configuration list for PBXNativeTarget "CircleFirstIterationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB1F92871933B65100D08C7C /* Debug */,
+				EB1F92881933B65100D08C7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EB1F92421933B65100D08C7C /* Project object */;
+}
