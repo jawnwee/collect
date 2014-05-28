@@ -29,6 +29,7 @@
 - (void)collideWith:(SKPhysicsBody *)other contactAt:(SKPhysicsContact *)contact {
     // Handle a collision with another character; override this
     NSAssert(NO, @"This is an abstract method and should be overridden");
+
 }
 
 

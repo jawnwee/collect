@@ -8,6 +8,7 @@
 
 #import "STSWelcomeScene.h"
 #import "STSEndlessGameScene.h"
+#import "STSGameOverScene.h"
 
 @implementation STSWelcomeScene
 
@@ -36,8 +37,12 @@
     /* Called when a touch begins */
     SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                   duration:0.5];
-    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-    [self.view presentScene:newEndlessGameScene transition:reveal];
+//    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+//    [self.view presentScene:newEndlessGameScene transition:reveal];
+
+    SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+    [self.view presentScene:newGameOverScene transition:reveal];
+
 }
 
 -(void)update:(CFTimeInterval)currentTime {

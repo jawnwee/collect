@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4A4BD7819366729006E4C2E /* STSGameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A4BD7719366729006E4C2E /* STSGameOverScene.m */; };
 		EBBCEDE71935B6A600F257D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE61935B6A600F257D2 /* Foundation.framework */; };
 		EBBCEDE91935B6A600F257D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */; };
 		EBBCEDEB1935B6A600F257D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDEA1935B6A600F257D2 /* UIKit.framework */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C4A4BD7619366729006E4C2E /* STSGameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSGameOverScene.h; sourceTree = "<group>"; };
+		C4A4BD7719366729006E4C2E /* STSGameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSGameOverScene.m; sourceTree = "<group>"; };
 		EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleSecondIteration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBCEDE61935B6A600F257D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -190,6 +193,8 @@
 				EBBCEE241935BA4400F257D2 /* STSWelcomeScene.m */,
 				EBBCEE271935BA6800F257D2 /* STSEndlessGameScene.h */,
 				EBBCEE281935BA6800F257D2 /* STSEndlessGameScene.m */,
+				C4A4BD7619366729006E4C2E /* STSGameOverScene.h */,
+				C4A4BD7719366729006E4C2E /* STSGameOverScene.m */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 				EBBCEE251935BA4400F257D2 /* STSWelcomeScene.m in Sources */,
 				EBBCEDF51935B6A600F257D2 /* main.m in Sources */,
 				EBBCEDF91935B6A600F257D2 /* STSAppDelegate.m in Sources */,
+				C4A4BD7819366729006E4C2E /* STSGameOverScene.m in Sources */,
 				EBBCEE2F1935BA8700F257D2 /* STSHero.m in Sources */,
 				EBBCEE291935BA6800F257D2 /* STSEndlessGameScene.m in Sources */,
 				EBBCEE2C1935BA7900F257D2 /* STSCharacter.m in Sources */,
