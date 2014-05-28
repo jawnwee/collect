@@ -93,7 +93,7 @@
         xCoordinate = arc4random_uniform(self.frame.size.width);
         yCoordinate = -self.sizeOfVillainAndShield.height;
     }
-    return CGPointMake(0, 0);
+    return CGPointMake(xCoordinate, yCoordinate	);
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact{
