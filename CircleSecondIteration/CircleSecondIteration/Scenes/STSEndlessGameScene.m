@@ -45,7 +45,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     
     self.hero = [self addHero];
     [self addChild:self.hero];
-    [self createInitialShieldwith:4];
+    [self createNInitialShield:12];
     
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
@@ -90,6 +90,20 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     [newShield runAction:moveToHero];
 }
 
+-(void)createNInitialShield:(uint)nShields{
+    float incrementor = 360/nShields;
+    float nthPointInCirlce = 0;
+    for (uint i = 0; i<nShields; i++) {
+        CGPoint coordinates = findCoordinatesAlongACircle(CGPointMake(0, 0),
+                                                          self.hero.physicsBodyRadius,
+                                                          nthPointInCirlce);
+        SKSpriteNode *newShield = [[STSShield alloc] initAtPosition:coordinates];
+        [self.hero addChild:newShield];
+        nthPointInCirlce += incrementor;
+    }
+}
+
+#pragma mark - Helper Functions for creating Sprites
 -(CGPoint) createRandomPositionOutsideFrame{
     int sideBulletComesFrom = arc4random_uniform(4);
     float xCoordinate, yCoordinate;
@@ -213,19 +227,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             // NSLog(@"Pressing on left half");
             [self.hero runAction:rotateLeftForever];
         }
-    }
-}
-
--(void)createInitialShieldwith:(uint)nShields{
-    float incrementor = 360/nShields;
-    float nthPointInCirlce = 0;
-    for (uint i = 0; i<nShields; i++) {
-        CGPoint coordinates = findCoordinatesAlongACircle(CGPointMake(0, 0),
-                                                          self.hero.size.width/	2,
-                                                          nthPointInCirlce);
-        SKSpriteNode *newShield = [[STSShield alloc] initAtPosition:coordinates];
-        [self.hero addChild:newShield];
-        nthPointInCirlce += incrementor;
     }
 }
 

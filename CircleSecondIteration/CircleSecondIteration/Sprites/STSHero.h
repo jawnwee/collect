@@ -10,6 +10,8 @@
 
 @interface STSHero : STSCharacter
 
+@property float physicsBodyRadius;
+
 - (id)initAtPosition:(CGPoint)position;
 
 @end
