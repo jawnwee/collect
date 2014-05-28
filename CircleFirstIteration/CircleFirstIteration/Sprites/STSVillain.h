@@ -11,4 +11,6 @@
 
 @interface STSVillain : STSCharacter
 
+- (id)initAtPosition:(CGPoint)position;
+
 @end

@@ -7,10 +7,12 @@
 //
 
 #import "STSEndlessGameScene.h"
+#import "STSHero.h"
+#import "STSVillain.h"
 
 @interface STSEndlessGameScene () <SKPhysicsContactDelegate>
 
-@property (strong, nonatomic) SKSpriteNode *hero;
+@property (strong, nonatomic) STSHero *hero;
 
 @end
 
@@ -36,7 +38,6 @@
     self.physicsWorld.contactDelegate = self;
 
     self.hero = [self addHero];
-    self.hero.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 150.0);
     [self addChild:self.hero];
 
     SKAction *makeVillains = [SKAction sequence:@[
@@ -61,20 +62,12 @@
 
 
 #pragma mark - Adding Nodes
-- (SKSpriteNode *)addHero {
+- (STSHero *)addHero {
 
-    SKTexture *heroTexture = [SKTexture textureWithImageNamed:@"hero.png"];
-    SKSpriteNode *hero = [[SKSpriteNode alloc] initWithTexture:heroTexture];
-
-    hero.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:hero.size.width / 2.0];
-    hero.physicsBody.dynamic = NO;
-    hero.physicsBody.usesPreciseCollisionDetection = YES;
-    hero.physicsBody.categoryBitMask = STSColliderTypeHero;
-    hero.physicsBody.collisionBitMask = STSColliderTypeVillain;
-    hero.physicsBody.contactTestBitMask = STSColliderTypeVillain;
+    STSHero *hero = [[STSHero alloc] initAtPosition:CGPointMake(CGRectGetMidX(self.frame), 
+                                                                CGRectGetMidY(self.frame) - 150.0)];
     SKAction *rotation = [SKAction rotateByAngle:M_PI_4 duration:0.5];
     [hero runAction:[SKAction repeatActionForever:rotation]];
-
 
     return hero;
 }
@@ -89,18 +82,10 @@ static inline CGFloat skRand(CGFloat low, CGFloat high) {
 
 - (void)addVillain {
 
-    SKTexture *villainTexture = [SKTexture textureWithImageNamed:@"villain.png"];
-    SKSpriteNode *villain = [[SKSpriteNode alloc] initWithTexture:villainTexture];
-
-    villain.position = CGPointMake(skRand(0, self.size.width), self.size.height - 50.0);
-    villain.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:villain.size.width / 2.0];
-    villain.physicsBody.affectedByGravity = NO;
-    villain.physicsBody.categoryBitMask = STSColliderTypeVillain;
-    villain.physicsBody.collisionBitMask = STSColliderTypeVillain | STSColliderTypeHero;
-    villain.physicsBody.contactTestBitMask = STSColliderTypeVillain | STSColliderTypeHero;
+    STSVillain *villain = [[STSVillain alloc] initAtPosition:CGPointMake(skRand(0, self.size.width),
+                                                                        self.size.height - 50.0)];
 
     [self addChild:villain];
-
     SKAction *moveVillain = [SKAction moveBy:CGVectorMake(0, -self.size.height + 100) duration:2.0];
     SKAction *removeVillainFromScene = [SKAction removeFromParent];
 
@@ -119,6 +104,13 @@ static inline CGFloat skRand(CGFloat low, CGFloat high) {
 
     CGPoint normalized = CGPointMake(contact_x - hero_x, contact_y - hero_y);
 
+    SKNode *node = contact.bodyA.node;
+    if ([node isKindOfClass:[STSHero class]]) {
+        [(STSHero *)node collideWith:contact.bodyB contactAt:contact];
+    } else if ([node isKindOfClass:[STSVillain class]]) {
+        [(STSVillain *)node collideWith:contact.bodyB contactAt:contact];
+    }
+
     if (contact.bodyA.categoryBitMask == STSColliderTypeVillain) {
         SKSpriteNode *villain = (SKSpriteNode *)contact.bodyA.node;
         [villain removeAllActions];
@@ -134,12 +126,11 @@ static inline CGFloat skRand(CGFloat low, CGFloat high) {
         [self.hero addChild:villain];
     }
 
-
-    if (self.hero.children.count >= 2) {
+    if (self.hero.children.count == 10) {
         for (SKSpriteNode *child in self.hero.children) {
-            SKAction *removeNode = [self removeVillainsFromHero];
+            SKAction *removeVillainsAction = [self removeVillainsFromHero];
             child.physicsBody.dynamic = NO;
-            [child runAction:removeNode];
+            [child runAction:removeVillainsAction withKey:@"remove"];
         }
     }
 }

@@ -11,5 +11,7 @@
 
 @interface STSHero : STSCharacter
 
+- (id)initAtPosition:(CGPoint)position;
+
 
 @end
