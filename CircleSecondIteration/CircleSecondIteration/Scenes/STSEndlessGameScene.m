@@ -20,6 +20,11 @@
 
 @end
 
+static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, uint n){
+    return CGPointMake(center.x+(radius*cosf(n*(M_PI/180))),
+                       center.y+(radius*sinf(n*(M_PI/180))));
+}
+
 @implementation STSEndlessGameScene
 
 #pragma mark - Initialization
@@ -38,9 +43,10 @@
     self.scaleMode = SKSceneScaleModeAspectFill;
     self.physicsWorld.contactDelegate = self;
     
-    self.hero = [self addHeroWithShields];
+    self.hero = [self addHero];
     [self addChild:self.hero];
-
+    [self createInitialShieldwith:4];
+    
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
                                                      onTarget:self],
@@ -58,7 +64,7 @@
 
 
 #pragma mark - Creating Sprites
--(STSHero *)addHeroWithShields{
+-(STSHero *)addHero{
     CGPoint sceneCenter = CGPointMake(self.frame.size.width/2,
                                        self.frame.size.height/2);
     STSHero *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
@@ -210,5 +216,17 @@
     }
 }
 
+-(void)createInitialShieldwith:(uint)nShields{
+    float incrementor = 360/nShields;
+    float nthPointInCirlce = 0;
+    for (uint i = 0; i<nShields; i++) {
+        CGPoint coordinates = findCoordinatesAlongACircle(CGPointMake(0, 0),
+                                                          self.hero.size.width/	2,
+                                                          nthPointInCirlce);
+        SKSpriteNode *newShield = [[STSShield alloc] initAtPosition:coordinates];
+        [self.hero addChild:newShield];
+        nthPointInCirlce += incrementor;
+    }
+}
 
 @end
