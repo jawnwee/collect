@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D14ED6FF1935667900C06D40 /* landing_page_game_title.png in Resources */ = {isa = PBXBuildFile; fileRef = D14ED6FD1935667900C06D40 /* landing_page_game_title.png */; };
+		D14ED7001935667900C06D40 /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = D14ED6FE1935667900C06D40 /* Play.png */; };
 		EB1F924E1933B65100D08C7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F924D1933B65100D08C7C /* Foundation.framework */; };
 		EB1F92501933B65100D08C7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F924F1933B65100D08C7C /* CoreGraphics.framework */; };
 		EB1F92521933B65100D08C7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F92511933B65100D08C7C /* UIKit.framework */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D14ED6FD1935667900C06D40 /* landing_page_game_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landing_page_game_title.png; sourceTree = "<group>"; };
+		D14ED6FE1935667900C06D40 /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		EB1F924A1933B65100D08C7C /* CircleFirstIteration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleFirstIteration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB1F924D1933B65100D08C7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EB1F924F1933B65100D08C7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,6 +102,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D14ED6FC1935667900C06D40 /* Landing Page */ = {
+			isa = PBXGroup;
+			children = (
+				D14ED6FD1935667900C06D40 /* landing_page_game_title.png */,
+				D14ED6FE1935667900C06D40 /* Play.png */,
+			);
+			name = "Landing Page";
+			path = "Textures Atlases/Landing Page";
+			sourceTree = "<group>";
+		};
 		EB1F92411933B65100D08C7C = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +201,7 @@
 		EB6B53A81934129D0042C84B /* Texture Atlases */ = {
 			isa = PBXGroup;
 			children = (
+				D14ED6FC1935667900C06D40 /* Landing Page */,
 				EB6B53AA193412BC0042C84B /* Villain */,
 				EB6B53A9193412AA0042C84B /* Hero */,
 			);
@@ -327,7 +342,9 @@
 				EB6B53AE193418A60042C84B /* hero.png in Resources */,
 				EB1F926D1933B65100D08C7C /* Images.xcassets in Resources */,
 				EB6B53B0193418AC0042C84B /* villain.png in Resources */,
+				D14ED7001935667900C06D40 /* Play.png in Resources */,
 				EB1F92631933B65100D08C7C /* Main.storyboard in Resources */,
+				D14ED6FF1935667900C06D40 /* landing_page_game_title.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
