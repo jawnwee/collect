@@ -7,6 +7,7 @@
 //
 
 #import "STSWelcomeScene.h"
+#import "STSEndlessGameScene.h"
 
 @implementation STSWelcomeScene
 
@@ -14,23 +15,29 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-        
-        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-        
-        myLabel.text = @"Hello, World!";
-        myLabel.fontSize = 30;
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       CGRectGetMidY(self.frame));
-        
-        [self addChild:myLabel];
+        self.backgroundColor = [SKColor whiteColor];
+        self.scaleMode = SKSceneScaleModeAspectFill;
+        [self addChild:[self addGameTitleNode]];
     }
     return self;
 }
 
+-(SKLabelNode *)addGameTitleNode{
+    SKLabelNode *welcome = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    welcome.text = @"Tap to Begin";
+    welcome.fontSize = 36.0;
+    welcome.fontColor = [SKColor blackColor];
+    welcome.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    
+    return welcome;
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
-    
+    SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                  duration:0.5];
+    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+    [self.view presentScene:newEndlessGameScene transition:reveal];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
