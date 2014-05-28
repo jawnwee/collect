@@ -21,12 +21,18 @@
 #pragma mark - Overriden Methods
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
-    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width / 2.0];
+    NSLog(@"this got called");
+    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width / 2.0 + 20.0];
     self.physicsBody.dynamic = NO;
+    self.physicsBody.affectedByGravity = NO;
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.categoryBitMask = STSColliderTypeHero;
     self.physicsBody.collisionBitMask = STSColliderTypeVillain;
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
+}
+
+- (void)collideWith:(SKPhysicsBody *)other {
+    [other.node removeFromParent];
 }
 
 @end

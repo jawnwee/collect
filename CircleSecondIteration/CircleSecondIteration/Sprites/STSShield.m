@@ -8,6 +8,7 @@
 
 #import "STSShield.h"
 #import "STSHero.h"
+#import "STSVillain.h"
 
 @implementation STSShield
 
@@ -22,24 +23,26 @@
 #pragma mark - Overriden Methods
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
+    NSLog(@"shield physics got called");
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width / 2.0];
-    self.physicsBody.dynamic = NO;
+    self.physicsBody.dynamic = YES;
     self.physicsBody.usesPreciseCollisionDetection = YES;
-    self.physicsBody.categoryBitMask = STSColliderTypeVillain;
+    self.physicsBody.affectedByGravity = NO;
+    self.physicsBody.categoryBitMask = STSColliderTypeShield;
     self.physicsBody.collisionBitMask = STSColliderTypeHero | STSColliderTypeVillain;
     self.physicsBody.contactTestBitMask = STSColliderTypeHero | STSColliderTypeVillain;
 }
 
 - (void)collideWith:(SKPhysicsBody *)other contactAt:(SKPhysicsContact *)contact {
 
-    if ([other isKindOfClass:[STSHero class]]) {
+    if ([other.node isKindOfClass:[STSHero class]]) {
         SKSpriteNode *hero = (SKSpriteNode *)other.node;
         CGPoint anchorPoint = contact.contactPoint;
         CGFloat contact_x = anchorPoint.x;
         CGFloat contact_y = anchorPoint.y;
 
-        CGFloat hero_x = hero.position.x + 10.0;
-        CGFloat hero_y = hero.position.y + 10.0;
+        CGFloat hero_x = hero.position.x + 20.0;
+        CGFloat hero_y = hero.position.y + 20.0;
 
         CGPoint normalized = CGPointMake(contact_x - hero_x, contact_y - hero_y);
 
@@ -47,9 +50,13 @@
         [self removeFromParent];
 
         self.position = normalized;
+        self.physicsBody.dynamic = NO;
         self.physicsBody.collisionBitMask = STSColliderTypeVillain;
         self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
         [hero addChild:self];
+    } else if ([other.node isKindOfClass:[STSVillain class]]) {
+        [self removeFromParent];
+        [other.node removeFromParent];
     }
 }
 

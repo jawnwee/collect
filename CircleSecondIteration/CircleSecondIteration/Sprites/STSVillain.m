@@ -7,6 +7,7 @@
 //
 
 #import "STSVillain.h"
+#import "STSShield.h"
 
 @implementation STSVillain
 
@@ -22,11 +23,21 @@
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width / 2.0];
-    self.physicsBody.dynamic = NO;
+    self.physicsBody.dynamic = YES;
+    self.physicsBody.affectedByGravity = NO;
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.categoryBitMask = STSColliderTypeVillain;
     self.physicsBody.collisionBitMask = STSColliderTypeShield;
     self.physicsBody.contactTestBitMask = STSColliderTypeShield;
+}
+
+- (void)collideWith:(SKPhysicsBody *)other {
+    if ([other.node isKindOfClass:[STSShield class]]) {
+        [self removeFromParent];
+        [other.node removeFromParent];
+    } else {
+        [self removeFromParent];
+    }
 }
 
 @end
