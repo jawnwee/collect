@@ -8,6 +8,11 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+<<<<<<< HEAD
 @interface STSHero : SKNode
+=======
+- (id)initAtPosition:(CGPoint)position;
+
+>>>>>>> 02d86de... Scrapped Here
 
 @end

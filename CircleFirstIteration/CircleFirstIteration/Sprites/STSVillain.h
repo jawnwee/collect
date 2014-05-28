@@ -10,4 +10,6 @@
 
 @interface STSVillain : SKNode
 
+- (id)initAtPosition:(CGPoint)position;
+
 @end
