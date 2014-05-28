@@ -16,14 +16,18 @@
 		EBBCEDF91935B6A600F257D2 /* STSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEDF81935B6A600F257D2 /* STSAppDelegate.m */; };
 		EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEDFA1935B6A600F257D2 /* Main.storyboard */; };
 		EBBCEDFF1935B6A600F257D2 /* STSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEDFE1935B6A600F257D2 /* STSViewController.m */; };
-		EBBCEE021935B6A600F257D2 /* STSMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE011935B6A600F257D2 /* STSMyScene.m */; };
-		EBBCEE041935B6A600F257D2 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE031935B6A600F257D2 /* Spaceship.png */; };
 		EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE051935B6A600F257D2 /* Images.xcassets */; };
 		EBBCEE0D1935B6A600F257D2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEE0C1935B6A600F257D2 /* XCTest.framework */; };
 		EBBCEE0E1935B6A600F257D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE61935B6A600F257D2 /* Foundation.framework */; };
 		EBBCEE0F1935B6A600F257D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDEA1935B6A600F257D2 /* UIKit.framework */; };
 		EBBCEE171935B6A600F257D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE151935B6A600F257D2 /* InfoPlist.strings */; };
 		EBBCEE191935B6A700F257D2 /* CircleSecondIterationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE181935B6A700F257D2 /* CircleSecondIterationTests.m */; };
+		EBBCEE251935BA4400F257D2 /* STSWelcomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE241935BA4400F257D2 /* STSWelcomeScene.m */; };
+		EBBCEE291935BA6800F257D2 /* STSEndlessGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE281935BA6800F257D2 /* STSEndlessGameScene.m */; };
+		EBBCEE2C1935BA7900F257D2 /* STSCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE2B1935BA7900F257D2 /* STSCharacter.m */; };
+		EBBCEE2F1935BA8700F257D2 /* STSHero.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE2E1935BA8700F257D2 /* STSHero.m */; };
+		EBBCEE321935BAA200F257D2 /* STSVillain.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE311935BAA200F257D2 /* STSVillain.m */; };
+		EBBCEE351935BAAE00F257D2 /* STSShield.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE341935BAAE00F257D2 /* STSShield.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,15 +55,24 @@
 		EBBCEDFB1935B6A600F257D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EBBCEDFD1935B6A600F257D2 /* STSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSViewController.h; sourceTree = "<group>"; };
 		EBBCEDFE1935B6A600F257D2 /* STSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSViewController.m; sourceTree = "<group>"; };
-		EBBCEE001935B6A600F257D2 /* STSMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSMyScene.h; sourceTree = "<group>"; };
-		EBBCEE011935B6A600F257D2 /* STSMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSMyScene.m; sourceTree = "<group>"; };
-		EBBCEE031935B6A600F257D2 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		EBBCEE051935B6A600F257D2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EBBCEE0B1935B6A600F257D2 /* CircleSecondIterationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircleSecondIterationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBCEE0C1935B6A600F257D2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EBBCEE141935B6A600F257D2 /* CircleSecondIterationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleSecondIterationTests-Info.plist"; sourceTree = "<group>"; };
 		EBBCEE161935B6A600F257D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EBBCEE181935B6A700F257D2 /* CircleSecondIterationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleSecondIterationTests.m; sourceTree = "<group>"; };
+		EBBCEE231935BA4400F257D2 /* STSWelcomeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSWelcomeScene.h; sourceTree = "<group>"; };
+		EBBCEE241935BA4400F257D2 /* STSWelcomeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSWelcomeScene.m; sourceTree = "<group>"; };
+		EBBCEE271935BA6800F257D2 /* STSEndlessGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSEndlessGameScene.h; sourceTree = "<group>"; };
+		EBBCEE281935BA6800F257D2 /* STSEndlessGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSEndlessGameScene.m; sourceTree = "<group>"; };
+		EBBCEE2A1935BA7900F257D2 /* STSCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSCharacter.h; sourceTree = "<group>"; };
+		EBBCEE2B1935BA7900F257D2 /* STSCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSCharacter.m; sourceTree = "<group>"; };
+		EBBCEE2D1935BA8700F257D2 /* STSHero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSHero.h; sourceTree = "<group>"; };
+		EBBCEE2E1935BA8700F257D2 /* STSHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSHero.m; sourceTree = "<group>"; };
+		EBBCEE301935BAA200F257D2 /* STSVillain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSVillain.h; sourceTree = "<group>"; };
+		EBBCEE311935BAA200F257D2 /* STSVillain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSVillain.m; sourceTree = "<group>"; };
+		EBBCEE331935BAAE00F257D2 /* STSShield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSShield.h; sourceTree = "<group>"; };
+		EBBCEE341935BAAE00F257D2 /* STSShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSShield.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,9 +139,8 @@
 				EBBCEDFA1935B6A600F257D2 /* Main.storyboard */,
 				EBBCEDFD1935B6A600F257D2 /* STSViewController.h */,
 				EBBCEDFE1935B6A600F257D2 /* STSViewController.m */,
-				EBBCEE001935B6A600F257D2 /* STSMyScene.h */,
-				EBBCEE011935B6A600F257D2 /* STSMyScene.m */,
-				EBBCEE031935B6A600F257D2 /* Spaceship.png */,
+				EBBCEE221935BA4400F257D2 /* Scenes */,
+				EBBCEE261935BA4F00F257D2 /* Sprites */,
 				EBBCEE051935B6A600F257D2 /* Images.xcassets */,
 				EBBCEDEF1935B6A600F257D2 /* Supporting Files */,
 			);
@@ -162,6 +174,32 @@
 				EBBCEE151935B6A600F257D2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBBCEE221935BA4400F257D2 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE231935BA4400F257D2 /* STSWelcomeScene.h */,
+				EBBCEE241935BA4400F257D2 /* STSWelcomeScene.m */,
+				EBBCEE271935BA6800F257D2 /* STSEndlessGameScene.h */,
+				EBBCEE281935BA6800F257D2 /* STSEndlessGameScene.m */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		EBBCEE261935BA4F00F257D2 /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE2A1935BA7900F257D2 /* STSCharacter.h */,
+				EBBCEE2B1935BA7900F257D2 /* STSCharacter.m */,
+				EBBCEE2D1935BA8700F257D2 /* STSHero.h */,
+				EBBCEE2E1935BA8700F257D2 /* STSHero.m */,
+				EBBCEE301935BAA200F257D2 /* STSVillain.h */,
+				EBBCEE311935BAA200F257D2 /* STSVillain.m */,
+				EBBCEE331935BAAE00F257D2 /* STSShield.h */,
+				EBBCEE341935BAAE00F257D2 /* STSShield.m */,
+			);
+			path = Sprites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,7 +281,6 @@
 			files = (
 				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
-				EBBCEE041935B6A600F257D2 /* Spaceship.png in Resources */,
 				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,9 +300,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBBCEE351935BAAE00F257D2 /* STSShield.m in Sources */,
+				EBBCEE321935BAA200F257D2 /* STSVillain.m in Sources */,
+				EBBCEE251935BA4400F257D2 /* STSWelcomeScene.m in Sources */,
 				EBBCEDF51935B6A600F257D2 /* main.m in Sources */,
-				EBBCEE021935B6A600F257D2 /* STSMyScene.m in Sources */,
 				EBBCEDF91935B6A600F257D2 /* STSAppDelegate.m in Sources */,
+				EBBCEE2F1935BA8700F257D2 /* STSHero.m in Sources */,
+				EBBCEE291935BA6800F257D2 /* STSEndlessGameScene.m in Sources */,
+				EBBCEE2C1935BA7900F257D2 /* STSCharacter.m in Sources */,
 				EBBCEDFF1935B6A600F257D2 /* STSViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +515,7 @@
 				EBBCEE1E1935B6A700F257D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EBBCEE1F1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIterationTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +524,7 @@
 				EBBCEE211935B6A700F257D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
