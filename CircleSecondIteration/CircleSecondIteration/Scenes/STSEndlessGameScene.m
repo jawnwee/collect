@@ -52,26 +52,29 @@
     [self runAction:[SKAction repeatActionForever:makeExtraShields]];
 }
 
--(SKSpriteNode *)addHeroWithShields{
+-(STSHero *)addHeroWithShields{
     CGPoint sceneCenter = CGPointMake(self.frame.size.width/2,
                                        self.frame.size.height/2);
-    SKSpriteNode *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
-    
+    STSHero *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
     
     return newHero;
 }
 
--(SKSpriteNode *)addVillain{
+-(void)addVillain{
     CGPoint randomPositionOutsideFrame = [self createRandomPositionOutsideFrame];
-    SKSpriteNode *newVillain = [[STSVillain alloc] initAtPosition:randomPositionOutsideFrame];
+    STSVillain *newVillain = [[STSVillain alloc] initAtPosition:randomPositionOutsideFrame];
     self.sizeOfVillainAndShield = newVillain.size;
-    return newVillain;
+    [self addChild:newVillain];
+    SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:1.0];
+    [newVillain runAction:moveToHero];
 }
 
--(SKSpriteNode *)addShield{
+-(void)addShield{
     CGPoint randomPositionOutsideFrame = [self createRandomPositionOutsideFrame];
-    SKSpriteNode *newShield = [[STSShield alloc] initAtPosition:randomPositionOutsideFrame];
-    return newShield;
+    STSShield *newShield = [[STSShield alloc] initAtPosition:randomPositionOutsideFrame];
+    [self addChild:newShield];
+    SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:1.0];
+    [newShield runAction:moveToHero];
 }
 
 -(CGPoint) createRandomPositionOutsideFrame{

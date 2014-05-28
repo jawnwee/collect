@@ -10,4 +10,6 @@
 
 @interface STSShield : STSCharacter
 
+- (id)initAtPosition:(CGPoint)position;
+
 @end

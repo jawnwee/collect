@@ -13,8 +13,8 @@
 
 #pragma mark - Initialization
 - (id)initAtPosition:(CGPoint)position {
-    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Hero_Default"];
-    SKTexture *texture = [atlas textureNamed:@"Hero.png"];
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Shield_Default"];
+    SKTexture *texture = [atlas textureNamed:@"Shield.png"];
 
     return [super initWithTexture:texture atPosition:position];
 }
