@@ -8,13 +8,17 @@
 
 #import "STSVillain.h"
 #import "STSShield.h"
+#import "STSHero.h"
 
 @implementation STSVillain
+
+@synthesize hasBeenCollided;
 
 #pragma mark - Initialization
 - (id)initAtPosition:(CGPoint)position {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Villain_Default"];
     SKTexture *texture = [atlas textureNamed:@"Villain.png"];
+    self.hasBeenCollided = NO;
 
     return [super initWithTexture:texture atPosition:position];
 }
@@ -32,10 +36,11 @@
 }
 
 - (void)collideWith:(SKPhysicsBody *)other {
-    if ([other.node isKindOfClass:[STSShield class]]) {
+    if ([other.node isKindOfClass:[STSShield class]] && !self.hasBeenCollided) {
         [self removeFromParent];
         [other.node removeFromParent];
-    } else {
+        self.hasBeenCollided = YES;
+    } else if ([other.node isKindOfClass:[STSHero class]]){
         [self removeFromParent];
     }
 }

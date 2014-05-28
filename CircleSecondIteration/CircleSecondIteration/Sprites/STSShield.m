@@ -10,53 +10,67 @@
 #import "STSHero.h"
 #import "STSVillain.h"
 
+@interface STSShield ()
+
+@property (strong, nonatomic) SKTexture *savedTexture;
+@property BOOL shieldIsUp;
+
+@end
+
 @implementation STSShield
+
+@synthesize hasBeenCollided;
 
 #pragma mark - Initialization
 - (id)initAtPosition:(CGPoint)position {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Shield_Default"];
-    SKTexture *texture = [atlas textureNamed:@"Shield.png"];
+    self.savedTexture = [atlas textureNamed:@"Shield.png"];
+    self.shieldIsUp = YES;
 
-    return [super initWithTexture:texture atPosition:position];
+    return [super initWithTexture:self.savedTexture atPosition:position];
 }
 
 #pragma mark - Overriden Methods
+
+static inline CGFloat marginError(CGFloat radius) {
+    return radius + radius;
+}
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
     NSLog(@"shield physics got called");
-    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width / 2.0];
+    CGFloat normalizedRadius = marginError(self.size.width / 2.0);
+
+    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:normalizedRadius];
     self.physicsBody.dynamic = YES;
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.affectedByGravity = NO;
     self.physicsBody.categoryBitMask = STSColliderTypeShield;
-    self.physicsBody.collisionBitMask = STSColliderTypeHero | STSColliderTypeVillain;
-    self.physicsBody.contactTestBitMask = STSColliderTypeHero | STSColliderTypeVillain;
+    self.physicsBody.collisionBitMask = STSColliderTypeVillain | 
+                                        STSColliderTypeHero | 
+                                        STSColliderTypeShield;
+    self.physicsBody.contactTestBitMask = STSColliderTypeVillain |
+                                          STSColliderTypeHero |
+                                          STSColliderTypeShield;
 }
 
 - (void)collideWith:(SKPhysicsBody *)other contactAt:(SKPhysicsContact *)contact {
 
     if ([other.node isKindOfClass:[STSHero class]]) {
-        SKSpriteNode *hero = (SKSpriteNode *)other.node;
-        CGPoint anchorPoint = contact.contactPoint;
-        CGFloat contact_x = anchorPoint.x;
-        CGFloat contact_y = anchorPoint.y;
-
-        CGFloat hero_x = hero.position.x + 20.0;
-        CGFloat hero_y = hero.position.y + 20.0;
-
-        CGPoint normalized = CGPointMake(contact_x - hero_x, contact_y - hero_y);
-
-        [self removeAllActions];
         [self removeFromParent];
 
-        self.position = normalized;
-        self.physicsBody.dynamic = NO;
-        self.physicsBody.collisionBitMask = STSColliderTypeVillain;
-        self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
-        [hero addChild:self];
     } else if ([other.node isKindOfClass:[STSVillain class]]) {
-        [self removeFromParent];
+        self.texture = nil;
         [other.node removeFromParent];
+
+    } else if ([other.node isKindOfClass:[STSShield class]]) {
+        if (!self.shieldIsUp) {
+            [other.node removeFromParent];
+            self.texture = self.savedTexture;
+            self.shieldIsUp = YES;
+        } else {
+            self.shieldIsUp = NO;
+            [other.node removeFromParent];
+        }
     }
 }
 
