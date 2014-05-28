@@ -28,6 +28,9 @@
 		EBBCEE2F1935BA8700F257D2 /* STSHero.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE2E1935BA8700F257D2 /* STSHero.m */; };
 		EBBCEE321935BAA200F257D2 /* STSVillain.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE311935BAA200F257D2 /* STSVillain.m */; };
 		EBBCEE351935BAAE00F257D2 /* STSShield.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE341935BAAE00F257D2 /* STSShield.m */; };
+		EBBCEE3E1935C12F00F257D2 /* Hero_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE391935C12F00F257D2 /* Hero_Default.atlas */; };
+		EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE3B1935C12F00F257D2 /* Shield_Default.atlas */; };
+		EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE3D1935C12F00F257D2 /* Villain_Default.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		EBBCEE311935BAA200F257D2 /* STSVillain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSVillain.m; sourceTree = "<group>"; };
 		EBBCEE331935BAAE00F257D2 /* STSShield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSShield.h; sourceTree = "<group>"; };
 		EBBCEE341935BAAE00F257D2 /* STSShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSShield.m; sourceTree = "<group>"; };
+		EBBCEE391935C12F00F257D2 /* Hero_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Hero_Default.atlas; sourceTree = "<group>"; };
+		EBBCEE3B1935C12F00F257D2 /* Shield_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Shield_Default.atlas; sourceTree = "<group>"; };
+		EBBCEE3D1935C12F00F257D2 /* Villain_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Villain_Default.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				EBBCEDEE1935B6A600F257D2 /* CircleSecondIteration */,
+				EBBCEE361935C12F00F257D2 /* Assets */,
 				EBBCEE121935B6A600F257D2 /* CircleSecondIterationTests */,
 				EBBCEDE51935B6A600F257D2 /* Frameworks */,
 				EBBCEDE41935B6A600F257D2 /* Products */,
@@ -202,6 +209,48 @@
 			path = Sprites;
 			sourceTree = "<group>";
 		};
+		EBBCEE361935C12F00F257D2 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE371935C12F00F257D2 /* Texture Atlases */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		EBBCEE371935C12F00F257D2 /* Texture Atlases */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE381935C12F00F257D2 /* Hero */,
+				EBBCEE3A1935C12F00F257D2 /* Shield */,
+				EBBCEE3C1935C12F00F257D2 /* Villain */,
+			);
+			path = "Texture Atlases";
+			sourceTree = "<group>";
+		};
+		EBBCEE381935C12F00F257D2 /* Hero */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE391935C12F00F257D2 /* Hero_Default.atlas */,
+			);
+			path = Hero;
+			sourceTree = "<group>";
+		};
+		EBBCEE3A1935C12F00F257D2 /* Shield */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE3B1935C12F00F257D2 /* Shield_Default.atlas */,
+			);
+			path = Shield;
+			sourceTree = "<group>";
+		};
+		EBBCEE3C1935C12F00F257D2 /* Villain */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE3D1935C12F00F257D2 /* Villain_Default.atlas */,
+			);
+			path = Villain;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,7 +330,10 @@
 			files = (
 				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
+				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
+				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
 				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
+				EBBCEE3E1935C12F00F257D2 /* Hero_Default.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
