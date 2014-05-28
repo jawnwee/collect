@@ -1,0 +1,488 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EBBCEDE71935B6A600F257D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE61935B6A600F257D2 /* Foundation.framework */; };
+		EBBCEDE91935B6A600F257D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */; };
+		EBBCEDEB1935B6A600F257D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDEA1935B6A600F257D2 /* UIKit.framework */; };
+		EBBCEDED1935B6A600F257D2 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDEC1935B6A600F257D2 /* SpriteKit.framework */; };
+		EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEDF11935B6A600F257D2 /* InfoPlist.strings */; };
+		EBBCEDF51935B6A600F257D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEDF41935B6A600F257D2 /* main.m */; };
+		EBBCEDF91935B6A600F257D2 /* STSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEDF81935B6A600F257D2 /* STSAppDelegate.m */; };
+		EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEDFA1935B6A600F257D2 /* Main.storyboard */; };
+		EBBCEDFF1935B6A600F257D2 /* STSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEDFE1935B6A600F257D2 /* STSViewController.m */; };
+		EBBCEE021935B6A600F257D2 /* STSMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE011935B6A600F257D2 /* STSMyScene.m */; };
+		EBBCEE041935B6A600F257D2 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE031935B6A600F257D2 /* Spaceship.png */; };
+		EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE051935B6A600F257D2 /* Images.xcassets */; };
+		EBBCEE0D1935B6A600F257D2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEE0C1935B6A600F257D2 /* XCTest.framework */; };
+		EBBCEE0E1935B6A600F257D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE61935B6A600F257D2 /* Foundation.framework */; };
+		EBBCEE0F1935B6A600F257D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDEA1935B6A600F257D2 /* UIKit.framework */; };
+		EBBCEE171935B6A600F257D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE151935B6A600F257D2 /* InfoPlist.strings */; };
+		EBBCEE191935B6A700F257D2 /* CircleSecondIterationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE181935B6A700F257D2 /* CircleSecondIterationTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EBBCEE101935B6A600F257D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBBCEDDB1935B6A600F257D2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EBBCEDE21935B6A600F257D2;
+			remoteInfo = CircleSecondIteration;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleSecondIteration.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBCEDE61935B6A600F257D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EBBCEDEA1935B6A600F257D2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EBBCEDEC1935B6A600F257D2 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		EBBCEDF01935B6A600F257D2 /* CircleSecondIteration-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleSecondIteration-Info.plist"; sourceTree = "<group>"; };
+		EBBCEDF21935B6A600F257D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EBBCEDF41935B6A600F257D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EBBCEDF61935B6A600F257D2 /* CircleSecondIteration-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CircleSecondIteration-Prefix.pch"; sourceTree = "<group>"; };
+		EBBCEDF71935B6A600F257D2 /* STSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSAppDelegate.h; sourceTree = "<group>"; };
+		EBBCEDF81935B6A600F257D2 /* STSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSAppDelegate.m; sourceTree = "<group>"; };
+		EBBCEDFB1935B6A600F257D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EBBCEDFD1935B6A600F257D2 /* STSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSViewController.h; sourceTree = "<group>"; };
+		EBBCEDFE1935B6A600F257D2 /* STSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSViewController.m; sourceTree = "<group>"; };
+		EBBCEE001935B6A600F257D2 /* STSMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSMyScene.h; sourceTree = "<group>"; };
+		EBBCEE011935B6A600F257D2 /* STSMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSMyScene.m; sourceTree = "<group>"; };
+		EBBCEE031935B6A600F257D2 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		EBBCEE051935B6A600F257D2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EBBCEE0B1935B6A600F257D2 /* CircleSecondIterationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircleSecondIterationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBCEE0C1935B6A600F257D2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		EBBCEE141935B6A600F257D2 /* CircleSecondIterationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleSecondIterationTests-Info.plist"; sourceTree = "<group>"; };
+		EBBCEE161935B6A600F257D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EBBCEE181935B6A700F257D2 /* CircleSecondIterationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleSecondIterationTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EBBCEDE01935B6A600F257D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBBCEDE91935B6A600F257D2 /* CoreGraphics.framework in Frameworks */,
+				EBBCEDEB1935B6A600F257D2 /* UIKit.framework in Frameworks */,
+				EBBCEDED1935B6A600F257D2 /* SpriteKit.framework in Frameworks */,
+				EBBCEDE71935B6A600F257D2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBBCEE081935B6A600F257D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBBCEE0D1935B6A600F257D2 /* XCTest.framework in Frameworks */,
+				EBBCEE0F1935B6A600F257D2 /* UIKit.framework in Frameworks */,
+				EBBCEE0E1935B6A600F257D2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EBBCEDDA1935B6A600F257D2 = {
+			isa = PBXGroup;
+			children = (
+				EBBCEDEE1935B6A600F257D2 /* CircleSecondIteration */,
+				EBBCEE121935B6A600F257D2 /* CircleSecondIterationTests */,
+				EBBCEDE51935B6A600F257D2 /* Frameworks */,
+				EBBCEDE41935B6A600F257D2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EBBCEDE41935B6A600F257D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */,
+				EBBCEE0B1935B6A600F257D2 /* CircleSecondIterationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBBCEDE51935B6A600F257D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEDE61935B6A600F257D2 /* Foundation.framework */,
+				EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */,
+				EBBCEDEA1935B6A600F257D2 /* UIKit.framework */,
+				EBBCEDEC1935B6A600F257D2 /* SpriteKit.framework */,
+				EBBCEE0C1935B6A600F257D2 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EBBCEDEE1935B6A600F257D2 /* CircleSecondIteration */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEDF71935B6A600F257D2 /* STSAppDelegate.h */,
+				EBBCEDF81935B6A600F257D2 /* STSAppDelegate.m */,
+				EBBCEDFA1935B6A600F257D2 /* Main.storyboard */,
+				EBBCEDFD1935B6A600F257D2 /* STSViewController.h */,
+				EBBCEDFE1935B6A600F257D2 /* STSViewController.m */,
+				EBBCEE001935B6A600F257D2 /* STSMyScene.h */,
+				EBBCEE011935B6A600F257D2 /* STSMyScene.m */,
+				EBBCEE031935B6A600F257D2 /* Spaceship.png */,
+				EBBCEE051935B6A600F257D2 /* Images.xcassets */,
+				EBBCEDEF1935B6A600F257D2 /* Supporting Files */,
+			);
+			path = CircleSecondIteration;
+			sourceTree = "<group>";
+		};
+		EBBCEDEF1935B6A600F257D2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEDF01935B6A600F257D2 /* CircleSecondIteration-Info.plist */,
+				EBBCEDF11935B6A600F257D2 /* InfoPlist.strings */,
+				EBBCEDF41935B6A600F257D2 /* main.m */,
+				EBBCEDF61935B6A600F257D2 /* CircleSecondIteration-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBBCEE121935B6A600F257D2 /* CircleSecondIterationTests */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE181935B6A700F257D2 /* CircleSecondIterationTests.m */,
+				EBBCEE131935B6A600F257D2 /* Supporting Files */,
+			);
+			path = CircleSecondIterationTests;
+			sourceTree = "<group>";
+		};
+		EBBCEE131935B6A600F257D2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EBBCEE141935B6A600F257D2 /* CircleSecondIterationTests-Info.plist */,
+				EBBCEE151935B6A600F257D2 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EBBCEDE21935B6A600F257D2 /* CircleSecondIteration */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBBCEE1C1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIteration" */;
+			buildPhases = (
+				EBBCEDDF1935B6A600F257D2 /* Sources */,
+				EBBCEDE01935B6A600F257D2 /* Frameworks */,
+				EBBCEDE11935B6A600F257D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CircleSecondIteration;
+			productName = CircleSecondIteration;
+			productReference = EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EBBCEE0A1935B6A600F257D2 /* CircleSecondIterationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBBCEE1F1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIterationTests" */;
+			buildPhases = (
+				EBBCEE071935B6A600F257D2 /* Sources */,
+				EBBCEE081935B6A600F257D2 /* Frameworks */,
+				EBBCEE091935B6A600F257D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EBBCEE111935B6A600F257D2 /* PBXTargetDependency */,
+			);
+			name = CircleSecondIterationTests;
+			productName = CircleSecondIterationTests;
+			productReference = EBBCEE0B1935B6A600F257D2 /* CircleSecondIterationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EBBCEDDB1935B6A600F257D2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = STS;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "SummaTime Studio";
+				TargetAttributes = {
+					EBBCEE0A1935B6A600F257D2 = {
+						TestTargetID = EBBCEDE21935B6A600F257D2;
+					};
+				};
+			};
+			buildConfigurationList = EBBCEDDE1935B6A600F257D2 /* Build configuration list for PBXProject "CircleSecondIteration" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EBBCEDDA1935B6A600F257D2;
+			productRefGroup = EBBCEDE41935B6A600F257D2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EBBCEDE21935B6A600F257D2 /* CircleSecondIteration */,
+				EBBCEE0A1935B6A600F257D2 /* CircleSecondIterationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EBBCEDE11935B6A600F257D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
+				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
+				EBBCEE041935B6A600F257D2 /* Spaceship.png in Resources */,
+				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBBCEE091935B6A600F257D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBBCEE171935B6A600F257D2 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EBBCEDDF1935B6A600F257D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBBCEDF51935B6A600F257D2 /* main.m in Sources */,
+				EBBCEE021935B6A600F257D2 /* STSMyScene.m in Sources */,
+				EBBCEDF91935B6A600F257D2 /* STSAppDelegate.m in Sources */,
+				EBBCEDFF1935B6A600F257D2 /* STSViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBBCEE071935B6A600F257D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBBCEE191935B6A700F257D2 /* CircleSecondIterationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EBBCEE111935B6A600F257D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EBBCEDE21935B6A600F257D2 /* CircleSecondIteration */;
+			targetProxy = EBBCEE101935B6A600F257D2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EBBCEDF11935B6A600F257D2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EBBCEDF21935B6A600F257D2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EBBCEDFA1935B6A600F257D2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EBBCEDFB1935B6A600F257D2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EBBCEE151935B6A600F257D2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EBBCEE161935B6A600F257D2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EBBCEE1A1935B6A700F257D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EBBCEE1B1935B6A700F257D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EBBCEE1D1935B6A700F257D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleSecondIteration/CircleSecondIteration-Prefix.pch";
+				INFOPLIST_FILE = "CircleSecondIteration/CircleSecondIteration-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EBBCEE1E1935B6A700F257D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleSecondIteration/CircleSecondIteration-Prefix.pch";
+				INFOPLIST_FILE = "CircleSecondIteration/CircleSecondIteration-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EBBCEE201935B6A700F257D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CircleSecondIteration.app/CircleSecondIteration";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleSecondIteration/CircleSecondIteration-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CircleSecondIterationTests/CircleSecondIterationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		EBBCEE211935B6A700F257D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CircleSecondIteration.app/CircleSecondIteration";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CircleSecondIteration/CircleSecondIteration-Prefix.pch";
+				INFOPLIST_FILE = "CircleSecondIterationTests/CircleSecondIterationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EBBCEDDE1935B6A600F257D2 /* Build configuration list for PBXProject "CircleSecondIteration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBBCEE1A1935B6A700F257D2 /* Debug */,
+				EBBCEE1B1935B6A700F257D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBBCEE1C1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIteration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBBCEE1D1935B6A700F257D2 /* Debug */,
+				EBBCEE1E1935B6A700F257D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EBBCEE1F1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIterationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBBCEE201935B6A700F257D2 /* Debug */,
+				EBBCEE211935B6A700F257D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EBBCEDDB1935B6A600F257D2 /* Project object */;
+}
