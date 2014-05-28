@@ -41,12 +41,16 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     self.backgroundColor = [SKColor whiteColor];
     self.scaleMode = SKSceneScaleModeAspectFill;
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:[self frame]];
     self.physicsWorld.contactDelegate = self;
     
     self.hero = [self addHero];
     [self addChild:self.hero];
-    [self createNInitialShield:12];
-    
+
+    SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:self.hero.physicsBody bodyB:self.physicsBody anchor:self.hero.position];
+    [self.physicsWorld addJoint:joint];
+
+
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
                                                      onTarget:self],
@@ -68,7 +72,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     CGPoint sceneCenter = CGPointMake(self.frame.size.width/2,
                                        self.frame.size.height/2);
     STSHero *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
-    
+
     return newHero;
 }
 
@@ -142,12 +146,15 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     SKAction *rotateLeft = [SKAction rotateByAngle:M_PI / 4 duration:0.5];
 
     if (location.x > self.view.frame.size.width / 2) {
-        //        NSLog(@"Touch more than halfway");
+        NSLog(@"Touch more than halfway");
         [self.hero runAction:rotateRight];
+        [self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0) atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
     }
     else {
-        //        NSLog(@"Touch less than halfway");
+        NSLog(@"Touch less than halfway");
         [self.hero runAction:rotateLeft];
+        [self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0) atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
+
     }
 }
 

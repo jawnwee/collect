@@ -24,9 +24,11 @@
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
     NSLog(@"this got called");
-    self.physicsBodyRadius = self.size.width / 2.0 + 20.0;
-    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.physicsBodyRadius];
-    self.physicsBody.dynamic = NO;
+
+    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width / 2.0 + 20.0];
+    self.physicsBody.dynamic = YES;
+    self.physicsBody.allowsRotation = YES;
+
     self.physicsBody.affectedByGravity = NO;
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.categoryBitMask = STSColliderTypeHero;
