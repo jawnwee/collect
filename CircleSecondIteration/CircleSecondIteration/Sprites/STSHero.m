@@ -41,7 +41,7 @@
 }
 
 - (void)collideWith:(SKPhysicsBody *)other {
-    [other.node removeFromParent];
+    // [other.node removeFromParent];
 }
 
 @end

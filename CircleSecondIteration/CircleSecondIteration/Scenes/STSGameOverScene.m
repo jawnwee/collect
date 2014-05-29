@@ -83,7 +83,6 @@
 
     // Add the retry symbol below the retry label
     int y = self.retryLabel.frame.size.height;
-    NSLog(@"%d", y);
     self.retrySymbol.position = CGPointMake(self.retryLabel.position.x, 
                                             self.retryLabel.position.y - 2 * y + 10);
 }
@@ -95,7 +94,6 @@
 
     // Add the menu symbol below the retry symbol
     int y = self.menuLabel.frame.size.height;
-    NSLog(@"%d", y);
     self.menuSymbol.position = CGPointMake(self.menuLabel.position.x,
                                             self.menuLabel.position.y - 2 * y);
 

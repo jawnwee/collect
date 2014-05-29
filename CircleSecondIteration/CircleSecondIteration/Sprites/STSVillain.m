@@ -31,18 +31,8 @@
     self.physicsBody.affectedByGravity = NO;
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.categoryBitMask = STSColliderTypeVillain;
-    self.physicsBody.collisionBitMask = STSColliderTypeShield;
-    self.physicsBody.contactTestBitMask = STSColliderTypeShield;
-}
-
-- (void)collideWith:(SKPhysicsBody *)other {
-    if ([other.node isKindOfClass:[STSShield class]] && !self.hasBeenCollided) {
-        [self removeFromParent];
-        [other.node removeFromParent];
-        self.hasBeenCollided = YES;
-    } else if ([other.node isKindOfClass:[STSHero class]]){
-        [self removeFromParent];
-    }
+    self.physicsBody.collisionBitMask = STSColliderTypeHero;
+    self.physicsBody.contactTestBitMask = STSColliderTypeHero;
 }
 
 @end

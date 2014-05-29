@@ -40,7 +40,7 @@ static inline CGFloat marginError(CGFloat radius) {
 - (void)configurePhysicsBody {
     NSLog(@"shield physics got called");
     CGFloat normalizedRadius = marginError(self.size.width / 2.0);
-
+    //CGFloat normalizedRadius = self.size.width / 2.0;
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:normalizedRadius];
     self.physicsBody.dynamic = YES;
     self.physicsBody.usesPreciseCollisionDetection = YES;
@@ -55,17 +55,19 @@ static inline CGFloat marginError(CGFloat radius) {
     if ([other.node isKindOfClass:[STSVillain class]]) {
         self.texture = nil;
         self.shieldUp = NO;
+        self.physicsBody.collisionBitMask = STSColliderTypeShield;
+        self.physicsBody.contactTestBitMask = STSColliderTypeShield;
         [other.node removeFromParent];
-
     } else if ([other.node isKindOfClass:[STSShield class]]) {
         STSShield *node = (STSShield *)other.node;
         if (!self.shieldUp) {
             self.shieldUp = YES;
             [node removeFromParent];
             self.texture = self.savedTexture;
+            self.physicsBody.collisionBitMask = STSColliderTypeVillain | STSColliderTypeShield;
+            self.physicsBody.contactTestBitMask = STSColliderTypeVillain | STSColliderTypeShield;
         } else if (self.shieldUp && !node.hasCollided) {
             node.hasCollided = YES;
-            [node.physicsBody applyForce:CGVectorMake(10.0, 0.0)];
             [node removeFromParent];
         }
     }
