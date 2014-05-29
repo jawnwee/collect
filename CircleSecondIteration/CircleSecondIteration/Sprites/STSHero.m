@@ -25,7 +25,7 @@
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
     NSLog(@"this got called");
-    self.physicsBodyRadius = self.size.width / 2.0 + 4.0;
+    self.physicsBodyRadius = self.size.width / 2.0 + 5.0;
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.physicsBodyRadius];
     self.physicsBody.angularDamping = 0.2;
     
