@@ -41,7 +41,7 @@
     self.physicsWorld.contactDelegate = self;
 
     [self addHero];
-    [self createNInitialShield:10];
+    [self createNInitialShield:20];
 
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
@@ -101,7 +101,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     float nthPointInCirlce = 0;
     for (uint i = 0; i < nShields; i++) {
         CGPoint coordinates = findCoordinatesAlongACircle(self.hero.position,
-                                                          self.hero.physicsBodyRadius,
+                                                          self.hero.physicsBodyRadius + 32.0,
                                                           nthPointInCirlce);
         STSShield *newShield = [[STSShield alloc] initAtPosition:coordinates];
         newShield.isPartOfBarrier = YES;

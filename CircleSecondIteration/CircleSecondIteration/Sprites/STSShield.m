@@ -36,7 +36,7 @@
 #pragma mark - Overriden Methods
 
 static inline CGFloat marginError(CGFloat radius) {
-    return radius + radius;
+    return radius + 0.0 * radius;
 }
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
@@ -64,13 +64,12 @@ static inline CGFloat marginError(CGFloat radius) {
         }
     } else if ([other.node isKindOfClass:[STSShield class]]) {
         STSShield *node = (STSShield *)other.node;
-        if (!self.shieldUp && !node.isPartOfBarrier) {
+        if (!self.shieldUp && !node.isPartOfBarrier && !node.hasCollided) {
             self.shieldUp = YES;
             [node removeFromParent];
             self.texture = self.savedTexture;
             self.physicsBody.contactTestBitMask = STSColliderTypeVillain | STSColliderTypeShield;
-        } else if (self.shieldUp && !node.hasCollided &&
-                   !node.isPartOfBarrier) {
+        } else if (self.shieldUp && !node.hasCollided && !node.isPartOfBarrier) {
             node.hasCollided = YES;
             [node removeFromParent];
         }
