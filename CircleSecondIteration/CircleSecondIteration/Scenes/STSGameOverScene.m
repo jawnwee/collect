@@ -12,10 +12,12 @@
 
 @interface STSGameOverScene ()
 
+@property (nonatomic) SKLabelNode *scoreLabel;
 @property (nonatomic) SKLabelNode *retryLabel;
 @property (nonatomic) SKLabelNode *menuLabel;
 @property (nonatomic) SKSpriteNode *retrySymbol;
 @property (nonatomic) SKSpriteNode *menuSymbol;
+@property (nonatomic) NSString *scoreString;
 
 @end
 
@@ -37,6 +39,14 @@
     return self;
 }
 
+- (void)didMoveToView:(SKView *)view {
+    self.scoreString = [self.userData valueForKey:@"scoreString"];
+    [self addScoreLabel];
+
+}
+
+# pragma mark - Add nodes
+
 - (SKLabelNode *)addGameOverNode {
     SKLabelNode *gameOver = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     gameOver.text = @"Game Over";
@@ -47,7 +57,15 @@
     return gameOver;
 }
 
-# pragma mark - Add nodes
+- (void)addScoreLabel {
+    self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    self.scoreLabel.text = self.scoreString;
+    self.scoreLabel.fontSize = 72.0;
+    self.scoreLabel.fontColor = [SKColor blackColor];
+    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 35);
+
+    [self addChild:self.scoreLabel];
+}
 
 - (void)addRetryLabel {
     self.retryLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];

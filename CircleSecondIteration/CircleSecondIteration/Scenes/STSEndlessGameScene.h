@@ -10,4 +10,6 @@
 
 @interface STSEndlessGameScene : SKScene
 
+@property (nonatomic, readwrite) int score;
+
 @end

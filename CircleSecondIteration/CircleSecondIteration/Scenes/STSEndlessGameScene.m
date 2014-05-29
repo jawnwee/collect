@@ -16,6 +16,9 @@
 
 @property (strong, nonatomic) STSHero *hero;
 @property CGSize sizeOfVillainAndShield;
+@property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
+@property (nonatomic) NSTimeInterval lastIncreaseToScoreTimeInterval;
+@property (nonatomic) SKLabelNode *scoreLabel;
 
 @property (nonatomic) UILongPressGestureRecognizer *longPress;
 
@@ -42,6 +45,7 @@
 
     [self addHero];
     [self createNInitialShield:20];
+    [self addScore];
 
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
@@ -114,6 +118,16 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         [self.physicsWorld addJoint:joint];
         nthPointInCirlce += incrementor;
     }
+}
+
+- (void)addScore {
+    self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
+    self.scoreLabel.fontSize = 36.0;
+    self.scoreLabel.fontColor = [SKColor blackColor];
+    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 150);
+
+    [self addChild:self.scoreLabel];
 }
 
 #pragma mark - Helper Functions for creating Sprites
@@ -198,15 +212,20 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     first = contact.bodyA.node;
     second = contact.bodyB.node;
 
-    // Game over scene transition when villain hits hero
-    SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                  duration:0.5];
-    SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
-
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: hero, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB];
+
+        // Game over scene transition when villain hits hero
+        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                      duration:0.5];
+        SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+
+        newGameOverScene.userData = [NSMutableDictionary dictionary];
+        NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
+        [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
         [self.view presentScene:newGameOverScene transition:reveal];
+
     } else if ([first isKindOfClass:[STSShield class]] && [second isKindOfClass:[STSShield class]]) {
         NSLog(@"first: shield, second: shield");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
@@ -215,6 +234,8 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: shield, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
+        // Increment score for each villain blocked
+        self.score += 0;
 
     }
 }
@@ -222,25 +243,48 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 #pragma mark - Frame Updates
 - (void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
-    if (self.longPress.state == UIGestureRecognizerStateBegan) {
-        // Get long press location
-        CGPoint location = [self.longPress locationInView:self.view];
 
-        // Rotate actions
-        SKAction *rotateRight = [SKAction rotateByAngle:-M_PI duration:60];
-        SKAction *rotateRightForever = [SKAction repeatActionForever:rotateRight];
-        SKAction *rotateLeft = [SKAction rotateByAngle:M_PI duration:60];
-        SKAction *rotateLeftForever = [SKAction repeatActionForever:rotateLeft];
-        // NSLog(@"You pressed at - x: %f y: %f", location.x, location.y);
-        if (location.x > self.view.frame.size.width / 2) {
-            // NSLog(@"Pressing on right half");
-            [self.hero runAction:rotateRightForever];
-        }
-        else {
-            // NSLog(@"Pressing on left half");
-            [self.hero runAction:rotateLeftForever];
-        }
+    // Keep score by time
+    CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
+    self.lastUpdateTimeInterval = currentTime;
+    if (timeSinceLast > 1) {
+        timeSinceLast = 1.0 / 60.0;
+        self.lastUpdateTimeInterval = currentTime;
     }
+
+    self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
+    [self updateWithTimeSinceLastUpdate:timeSinceLast];
+
+//    // Uncomment to allot longPress activation
+//    if (self.longPress.state == UIGestureRecognizerStateBegan) {
+//        // Get long press location
+//        CGPoint location = [self.longPress locationInView:self.view];
+//
+//        // Rotate actions
+//        SKAction *rotateRight = [SKAction rotateByAngle:-M_PI duration:60];
+//        SKAction *rotateRightForever = [SKAction repeatActionForever:rotateRight];
+//        SKAction *rotateLeft = [SKAction rotateByAngle:M_PI duration:60];
+//        SKAction *rotateLeftForever = [SKAction repeatActionForever:rotateLeft];
+//        // NSLog(@"You pressed at - x: %f y: %f", location.x, location.y);
+//        if (location.x > self.view.frame.size.width / 2) {
+//            // NSLog(@"Pressing on right half");
+//            [self.hero runAction:rotateRightForever];
+//        }
+//        else {
+//            // NSLog(@"Pressing on left half");
+//            [self.hero runAction:rotateLeftForever];
+//        }
+//    }
+}
+
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
+
+    self.lastIncreaseToScoreTimeInterval += timeSinceLast;
+    if (self.lastIncreaseToScoreTimeInterval > 1) {
+        self.lastIncreaseToScoreTimeInterval = 0;
+        self.score++;
+    }
+
 }
 
 @end
