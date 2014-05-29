@@ -20,6 +20,7 @@
 
 @implementation STSShield
 
+@synthesize isPartOfBarrier;
 
 #pragma mark - Initialization
 - (id)initAtPosition:(CGPoint)position {
@@ -27,6 +28,7 @@
     self.savedTexture = [atlas textureNamed:@"Shield.png"];
     self.shieldUp = YES;
     self.hasCollided = NO;
+    self.isPartOfBarrier = NO;
 
     return [super initWithTexture:self.savedTexture atPosition:position];
 }
@@ -40,33 +42,35 @@ static inline CGFloat marginError(CGFloat radius) {
 - (void)configurePhysicsBody {
     NSLog(@"shield physics got called");
     CGFloat normalizedRadius = marginError(self.size.width / 2.0);
-    //CGFloat normalizedRadius = self.size.width / 2.0;
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:normalizedRadius];
     self.physicsBody.dynamic = YES;
-    self.physicsBody.usesPreciseCollisionDetection = YES;
+    self.physicsBody.usesPreciseCollisionDetection = NO;
     self.physicsBody.affectedByGravity = NO;
     self.physicsBody.categoryBitMask = STSColliderTypeShield;
-    self.physicsBody.collisionBitMask = STSColliderTypeVillain | STSColliderTypeShield;
+    self.physicsBody.collisionBitMask = 0;
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain | STSColliderTypeShield;
 }
 
 - (void)collideWith:(SKPhysicsBody *)other contactAt:(SKPhysicsContact *)contact {
 
     if ([other.node isKindOfClass:[STSVillain class]]) {
-        self.texture = nil;
-        self.shieldUp = NO;
-        self.physicsBody.collisionBitMask = STSColliderTypeShield;
-        self.physicsBody.contactTestBitMask = STSColliderTypeShield;
-        [other.node removeFromParent];
+        STSVillain *node = (STSVillain *)other.node;
+        if (!node.hasBeenCollided){
+            node.hasBeenCollided = YES;
+            self.texture = nil;
+            self.shieldUp = NO;
+            self.physicsBody.contactTestBitMask = STSColliderTypeShield;
+            [other.node removeFromParent];
+        }
     } else if ([other.node isKindOfClass:[STSShield class]]) {
         STSShield *node = (STSShield *)other.node;
-        if (!self.shieldUp) {
+        if (!self.shieldUp && !node.isPartOfBarrier) {
             self.shieldUp = YES;
             [node removeFromParent];
             self.texture = self.savedTexture;
-            self.physicsBody.collisionBitMask = STSColliderTypeVillain | STSColliderTypeShield;
             self.physicsBody.contactTestBitMask = STSColliderTypeVillain | STSColliderTypeShield;
-        } else if (self.shieldUp && !node.hasCollided) {
+        } else if (self.shieldUp && !node.hasCollided &&
+                   !node.isPartOfBarrier) {
             node.hasCollided = YES;
             [node removeFromParent];
         }

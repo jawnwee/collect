@@ -13,4 +13,6 @@
 
 - (id)initAtPosition:(CGPoint)position;
 
+@property BOOL isPartOfBarrier;
+
 @end

@@ -19,9 +19,6 @@
 
 @end
 
-//static inline float distFormula(CGPoint a, CGPoint b) {
-//    return sqrtf(powf(a.x - b.x, 2.0) + powf(a.y - b.y, 2.0));
-//}
 
 @implementation STSGameOverScene
 
@@ -36,10 +33,6 @@
         [self addMenuLabel];
         [self addRetrySymbol];
         [self addMenuSymbol];
-        [self addChild:self.retryLabel];
-        [self addChild:self.menuLabel];
-        [self addChild:self.retrySymbol];
-        [self addChild:self.menuSymbol];
     }
     return self;
 }
@@ -64,6 +57,7 @@
     self.retryLabel.fontColor = [SKColor blackColor];
     self.retryLabel.position = CGPointMake(CGRectGetMidX(self.frame) / 2,
                                       CGRectGetMidY(self.frame) / 1.5);
+    [self addChild:self.retryLabel];
 }
 
 - (void)addMenuLabel {
@@ -74,6 +68,7 @@
     self.menuLabel.fontColor = [SKColor blackColor];
     self.menuLabel.position = CGPointMake(CGRectGetMidX(self.frame) * 1.5,
                                      CGRectGetMidY(self.frame) / 1.5);
+    [self addChild:self.menuLabel];
 }
 
 - (void)addRetrySymbol {
@@ -85,6 +80,7 @@
     int y = self.retryLabel.frame.size.height;
     self.retrySymbol.position = CGPointMake(self.retryLabel.position.x, 
                                             self.retryLabel.position.y - 2 * y + 10);
+    [self addChild:self.retrySymbol];
 }
 
 - (void)addMenuSymbol {
@@ -96,7 +92,7 @@
     int y = self.menuLabel.frame.size.height;
     self.menuSymbol.position = CGPointMake(self.menuLabel.position.x,
                                             self.menuLabel.position.y - 2 * y);
-
+    [self addChild:self.menuSymbol];
 }
 
 # pragma mark - Handle touches

@@ -46,12 +46,12 @@
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
                                                      onTarget:self],
-                                    [SKAction waitForDuration:2.0
+                                    [SKAction waitForDuration:1.0
                                                     withRange:0.5]]];
     SKAction *makeExtraShields = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addShield)
                                                      onTarget:self],
-                                    [SKAction waitForDuration:2.0
+                                    [SKAction waitForDuration:1.0
                                                     withRange:0.5]]];
 
     [self runAction:[SKAction repeatActionForever:makeVillain]];
@@ -100,11 +100,13 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     float incrementor = 360 / nShields;
     float nthPointInCirlce = 0;
     for (uint i = 0; i < nShields; i++) {
-        CGPoint coordinates = findCoordinatesAlongACircle(CGPointMake(0.0, 0.0),
+        CGPoint coordinates = findCoordinatesAlongACircle(self.hero.position,
                                                           self.hero.physicsBodyRadius,
                                                           nthPointInCirlce);
-        SKSpriteNode *newShield = [[STSShield alloc] initAtPosition:coordinates];
-        [self.hero addChild:newShield];
+        STSShield *newShield = [[STSShield alloc] initAtPosition:coordinates];
+        newShield.isPartOfBarrier = YES;
+        
+        [self addChild:newShield];
         
         SKPhysicsJointFixed *joint = [SKPhysicsJointFixed jointWithBodyA:newShield.physicsBody
                                                                    bodyB:self.hero.physicsBody
@@ -153,13 +155,13 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         NSLog(@"Touch more than halfway");
         //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
                                   //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        [self.hero.physicsBody applyTorque:-0.2];
+        [self.hero.physicsBody applyTorque:-0.5];
     }
     else {
         NSLog(@"Touch less than halfway");
         //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
                                   //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        [self.hero.physicsBody applyTorque:0.2];
+        [self.hero.physicsBody applyTorque:0.5];
 
     }
 }
@@ -188,7 +190,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 //}
 
 
-#pragma mark - Collision Logic
+#pragma mark - Contact Logic
 
 /* Contact logic will be cleaned up accordingly, way too many else ifs */
 -(void)didBeginContact:(SKPhysicsContact *)contact{

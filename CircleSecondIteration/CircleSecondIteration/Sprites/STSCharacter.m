@@ -23,6 +23,7 @@
     // Configure the physics body property and set bitmasks for contact delegates; must override
     NSAssert(NO, @"Override configurePhysicsBody method");
 }
+
 - (void)collideWith:(SKPhysicsBody *)other {
     // Override if character will collide
 }

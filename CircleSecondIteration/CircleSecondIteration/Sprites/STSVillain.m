@@ -10,6 +10,7 @@
 #import "STSShield.h"
 #import "STSHero.h"
 
+
 @implementation STSVillain
 
 @synthesize hasBeenCollided;
@@ -29,10 +30,10 @@
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width / 2.0];
     self.physicsBody.dynamic = YES;
     self.physicsBody.affectedByGravity = NO;
-    self.physicsBody.usesPreciseCollisionDetection = YES;
+    self.physicsBody.usesPreciseCollisionDetection = NO;
     self.physicsBody.categoryBitMask = STSColliderTypeVillain;
-    self.physicsBody.collisionBitMask = STSColliderTypeHero;
-    self.physicsBody.contactTestBitMask = STSColliderTypeHero;
+    self.physicsBody.collisionBitMask = 0;
+    self.physicsBody.contactTestBitMask = 0;
 }
 
 @end
