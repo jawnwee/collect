@@ -23,7 +23,7 @@
 @implementation STSEndlessGameScene
 
 #pragma mark - Initialization
--(id)initWithSize:(CGSize)size {
+- (id)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
         [self createEndlessGameSceneContents];
@@ -32,7 +32,7 @@
 }
 
 #pragma mark - Scene Contents
--(void)createEndlessGameSceneContents {
+- (void)createEndlessGameSceneContents {
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     self.backgroundColor = [SKColor whiteColor];
     self.scaleMode = SKSceneScaleModeAspectFill;
@@ -40,7 +40,7 @@
     self.physicsWorld.contactDelegate = self;
 
     [self addHero];
-    [self createNInitialShield:15];
+    [self createNInitialShield:10];
 
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
@@ -59,7 +59,7 @@
 
 
 #pragma mark - Creating Sprites
--(void)addHero{
+- (void)addHero{
     CGPoint sceneCenter = CGPointMake(self.frame.size.width/2,
                                        self.frame.size.height/2);
     STSHero *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
@@ -72,7 +72,7 @@
     [self.physicsWorld addJoint:joint];
 }
 
--(void)addVillain{
+- (void)addVillain{
     CGPoint randomPositionOutsideFrame = [self createRandomPositionOutsideFrame];
     STSVillain *newVillain = [[STSVillain alloc] initAtPosition:randomPositionOutsideFrame];
     self.sizeOfVillainAndShield = newVillain.size;
@@ -81,7 +81,7 @@
     [newVillain runAction:moveToHero];
 }
 
--(void)addShield{
+- (void)addShield{
     CGPoint randomPositionOutsideFrame = [self createRandomPositionOutsideFrame];
     STSShield *newShield = [[STSShield alloc] initAtPosition:randomPositionOutsideFrame];
     [self addChild:newShield];
@@ -91,14 +91,14 @@
 }
 
 static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, uint n){
-    return CGPointMake(center.x +(radius*cosf(n*(M_PI/180))),
-                       center.y +(radius*sinf(n*(M_PI/180))));
+    return CGPointMake(center.x + (radius * cosf(n * (M_PI/180))),
+                       center.y + (radius * sinf(n * (M_PI/180))));
 }
 
--(void)createNInitialShield:(uint)nShields{
-    float incrementor = 360/nShields;
+- (void)createNInitialShield:(uint)nShields{
+    float incrementor = 360 / nShields;
     float nthPointInCirlce = 0;
-    for (uint i = 0; i<nShields; i++) {
+    for (uint i = 0; i < nShields; i++) {
         CGPoint coordinates = findCoordinatesAlongACircle(self.hero.position,
                                                           self.hero.physicsBodyRadius,
                                                           nthPointInCirlce);
@@ -114,7 +114,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 }
 
 #pragma mark - Helper Functions for creating Sprites
--(CGPoint) createRandomPositionOutsideFrame{
+- (CGPoint)createRandomPositionOutsideFrame{
     int sideBulletComesFrom = arc4random_uniform(4);
     float xCoordinate, yCoordinate;
     if (sideBulletComesFrom == 0) {
@@ -148,17 +148,17 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
 
-    if (location.x > self.view.frame.size.width / 2) {
+    if (location.x > self.view.frame.size.width / 2.0) {
         NSLog(@"Touch more than halfway");
-        [self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0) 
-                                  atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        //[self.hero.physicsBody applyTorque:-0.1];
+        //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
+                                  //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
+        [self.hero.physicsBody applyTorque:-0.2];
     }
     else {
         NSLog(@"Touch less than halfway");
-        [self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0) 
-                                  atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        //[self.hero.physicsBody applyTorque:0.1];
+        //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
+                                  //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
+        [self.hero.physicsBody applyTorque:0.2];
 
     }
 }
@@ -194,7 +194,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     SKNode *first, *second;
     first = contact.bodyA.node;
     second = contact.bodyB.node;
-    NSLog(@"hit");
 
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: hero, second: villain");
@@ -204,7 +203,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         NSLog(@"first: villain, second: hero");
         [(STSCharacter *)second collideWith:contact.bodyA];
     } else if ([first isKindOfClass:[STSShield class]] && [second isKindOfClass:[STSShield class]]) {
-        NSLog(@"first: shield, second: hero");
+        NSLog(@"first: shield, second: shield");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
     } else if ([first isKindOfClass:[STSShield class]]

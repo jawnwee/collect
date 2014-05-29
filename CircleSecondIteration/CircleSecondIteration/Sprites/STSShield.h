@@ -10,7 +10,6 @@
 
 @interface STSShield : STSCharacter
 
-@property BOOL hasBeenCollided;
 
 - (id)initAtPosition:(CGPoint)position;
 
