@@ -42,7 +42,6 @@
         self.hasBeenCollided = YES;
     } else if ([other.node isKindOfClass:[STSHero class]]){
         [self removeFromParent];
-        // Transition to game over scene
     }
 }
 

@@ -38,9 +38,14 @@
     playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
                                           CGRectGetMidY(self.frame)	);
     playButtonNode.name = @"playButton";
-    
     return playButtonNode;
 }
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    /* Called when a touch begins */
+    SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                  duration:0.5];
+    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+    [self.view presentScene:newEndlessGameScene transition:reveal];
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */

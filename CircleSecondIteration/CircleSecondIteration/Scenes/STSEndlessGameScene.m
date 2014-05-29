@@ -7,6 +7,7 @@
 //
 
 #import "STSEndlessGameScene.h"
+#import "STSGameOverScene.h"
 #import "STSHero.h"
 #import "STSVillain.h"
 #import "STSShield.h"
@@ -45,12 +46,12 @@
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
                                                      onTarget:self],
-                                    [SKAction waitForDuration:1.0
+                                    [SKAction waitForDuration:2.0
                                                     withRange:0.5]]];
     SKAction *makeExtraShields = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addShield)
                                                      onTarget:self],
-                                    [SKAction waitForDuration:1.0
+                                    [SKAction waitForDuration:2.0
                                                     withRange:0.5]]];
 
     [self runAction:[SKAction repeatActionForever:makeVillain]];
@@ -195,13 +196,19 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     first = contact.bodyA.node;
     second = contact.bodyB.node;
 
+    // Game over scene transition when villain hits hero
+    SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                  duration:0.5];
+    SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: hero, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB];
-
+        [self.view presentScene:newGameOverScene transition:reveal];
     } else if ([first isKindOfClass:[STSVillain class]] && [second isKindOfClass:[STSHero class]]) {
         NSLog(@"first: villain, second: hero");
         [(STSCharacter *)second collideWith:contact.bodyA];
+        [self.view presentScene:newGameOverScene transition:reveal];
     } else if ([first isKindOfClass:[STSShield class]] && [second isKindOfClass:[STSShield class]]) {
         NSLog(@"first: shield, second: shield");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
@@ -215,6 +222,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                && [second isKindOfClass:[STSShield class]]) {
         NSLog(@"first: villain, second: hero");
         [(STSCharacter *)second collideWith:contact.bodyA contactAt:contact];
+        [self.view presentScene:newGameOverScene transition:reveal];
     }
 }
 
