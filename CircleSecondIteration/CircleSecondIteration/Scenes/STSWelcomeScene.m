@@ -38,7 +38,6 @@
     playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
                                           CGRectGetMidY(self.frame)	);
     playButtonNode.name = @"playButton";
-    
     return playButtonNode;
 }
 

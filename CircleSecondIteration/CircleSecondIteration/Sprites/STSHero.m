@@ -16,7 +16,7 @@
 - (id)initAtPosition:(CGPoint)position {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Hero_Default"];
     SKTexture *texture = [atlas textureNamed:@"Hero.png"];
-
+    
     return [super initWithTexture:texture atPosition:position];
 }
 
@@ -30,18 +30,15 @@
     
     self.physicsBody.dynamic = YES;
     self.physicsBody.allowsRotation = YES;
-
+    
     self.physicsBody.affectedByGravity = NO;
-    self.physicsBody.usesPreciseCollisionDetection = YES;
+    self.physicsBody.usesPreciseCollisionDetection = NO;
     self.physicsBody.categoryBitMask = STSColliderTypeHero;
-    self.physicsBody.collisionBitMask = STSColliderTypeVillain;
+    self.physicsBody.collisionBitMask = 0;
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
 
 
 }
 
-- (void)collideWith:(SKPhysicsBody *)other {
-    [other.node removeFromParent];
-}
 
 @end

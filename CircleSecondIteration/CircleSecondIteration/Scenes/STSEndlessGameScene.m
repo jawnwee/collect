@@ -7,6 +7,7 @@
 //
 
 #import "STSEndlessGameScene.h"
+#import "STSGameOverScene.h"
 #import "STSHero.h"
 #import "STSVillain.h"
 #import "STSShield.h"
@@ -85,7 +86,7 @@
     CGPoint randomPositionOutsideFrame = [self createRandomPositionOutsideFrame];
     STSShield *newShield = [[STSShield alloc] initAtPosition:randomPositionOutsideFrame];
     [self addChild:newShield];
-    NSLog(@"%f, %f", self.hero.position.x,self.hero.position.y);
+
     SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:1.0];
     [newShield runAction:moveToHero];
 }
@@ -102,7 +103,9 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         CGPoint coordinates = findCoordinatesAlongACircle(self.hero.position,
                                                           self.hero.physicsBodyRadius,
                                                           nthPointInCirlce);
-        SKSpriteNode *newShield = [[STSShield alloc] initAtPosition:coordinates];
+        STSShield *newShield = [[STSShield alloc] initAtPosition:coordinates];
+        newShield.isPartOfBarrier = YES;
+        
         [self addChild:newShield];
         
         SKPhysicsJointFixed *joint = [SKPhysicsJointFixed jointWithBodyA:newShield.physicsBody
@@ -152,13 +155,13 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         NSLog(@"Touch more than halfway");
         //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
                                   //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        [self.hero.physicsBody applyTorque:-0.2];
+        [self.hero.physicsBody applyTorque:-0.5];
     }
     else {
         NSLog(@"Touch less than halfway");
         //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
                                   //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        [self.hero.physicsBody applyTorque:0.2];
+        [self.hero.physicsBody applyTorque:0.5];
 
     }
 }
@@ -187,7 +190,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 //}
 
 
-#pragma mark - Collision Logic
+#pragma mark - Contact Logic
 
 /* Contact logic will be cleaned up accordingly, way too many else ifs */
 -(void)didBeginContact:(SKPhysicsContact *)contact{
@@ -195,13 +198,15 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     first = contact.bodyA.node;
     second = contact.bodyB.node;
 
+    // Game over scene transition when villain hits hero
+    SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                  duration:0.5];
+    SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: hero, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB];
-
-    } else if ([first isKindOfClass:[STSVillain class]] && [second isKindOfClass:[STSHero class]]) {
-        NSLog(@"first: villain, second: hero");
-        [(STSCharacter *)second collideWith:contact.bodyA];
+        [self.view presentScene:newGameOverScene transition:reveal];
     } else if ([first isKindOfClass:[STSShield class]] && [second isKindOfClass:[STSShield class]]) {
         NSLog(@"first: shield, second: shield");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
@@ -211,10 +216,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         NSLog(@"first: shield, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
-    } else if ([first isKindOfClass:[STSVillain class]] 
-               && [second isKindOfClass:[STSShield class]]) {
-        NSLog(@"first: villain, second: hero");
-        [(STSCharacter *)second collideWith:contact.bodyA contactAt:contact];
     }
 }
 
