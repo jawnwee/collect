@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C4A4BD7819366729006E4C2E /* STSGameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A4BD7719366729006E4C2E /* STSGameOverScene.m */; };
+		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
+		D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */; };
 		EBBCEDE71935B6A600F257D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE61935B6A600F257D2 /* Foundation.framework */; };
 		EBBCEDE91935B6A600F257D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */; };
 		EBBCEDEB1935B6A600F257D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDEA1935B6A600F257D2 /* UIKit.framework */; };
@@ -47,6 +49,8 @@
 /* Begin PBXFileReference section */
 		C4A4BD7619366729006E4C2E /* STSGameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSGameOverScene.h; sourceTree = "<group>"; };
 		C4A4BD7719366729006E4C2E /* STSGameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSGameOverScene.m; sourceTree = "<group>"; };
+		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
+		D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShieldUp_Title_Image@2x.png"; sourceTree = "<group>"; };
 		EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleSecondIteration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBCEDE61935B6A600F257D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -109,6 +113,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D1FFABF41937265F004A2485 /* WelcomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D1FFABF51937265F004A2485 /* Play_Button@2x.png */,
+				D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */,
+			);
+			path = WelcomeScreen;
+			sourceTree = "<group>";
+		};
 		EBBCEDDA1935B6A600F257D2 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +238,7 @@
 		EBBCEE371935C12F00F257D2 /* Texture Atlases */ = {
 			isa = PBXGroup;
 			children = (
+				D1FFABF41937265F004A2485 /* WelcomeScreen */,
 				EBBCEE381935C12F00F257D2 /* Hero */,
 				EBBCEE3A1935C12F00F257D2 /* Shield */,
 				EBBCEE3C1935C12F00F257D2 /* Villain */,
@@ -334,9 +348,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
+				D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
 				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
 				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
+				D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */,
 				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
 				EBBCEE3E1935C12F00F257D2 /* Hero_Default.atlas in Resources */,
 			);

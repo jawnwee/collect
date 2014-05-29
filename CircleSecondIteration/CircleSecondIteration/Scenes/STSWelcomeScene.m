@@ -19,30 +19,41 @@
         self.backgroundColor = [SKColor whiteColor];
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self addChild:[self addGameTitleNode]];
+        [self addChild:[self addPlayButton]];
     }
     return self;
 }
 
--(SKLabelNode *)addGameTitleNode{
-    SKLabelNode *welcome = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    welcome.text = @"Tap to Begin";
-    welcome.fontSize = 36.0;
-    welcome.fontColor = [SKColor blackColor];
-    welcome.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+- (SKSpriteNode *)addGameTitleNode{
+    SKTexture *gameTitleTexture = [SKTexture textureWithImageNamed:@"ShieldUp_Title_Image.png"];
+    SKSpriteNode *gameTitleNode = [SKSpriteNode spriteNodeWithTexture:gameTitleTexture];
+    gameTitleNode.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height-80);
     
-    return welcome;
+    return gameTitleNode;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (SKSpriteNode *)addPlayButton{
+    SKTexture *playButtonTexture = [SKTexture textureWithImageNamed:@"Play_Button.png"];
+    SKSpriteNode *playButtonNode = [SKSpriteNode spriteNodeWithTexture:playButtonTexture];
+    playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
+                                          CGRectGetMidY(self.frame)	);
+    playButtonNode.name = @"playButton";
+    
+    return playButtonNode;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
-    SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                  duration:0.5];
-//    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-//    [self.view presentScene:newEndlessGameScene transition:reveal];
-
-    SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
-    [self.view presentScene:newGameOverScene transition:reveal];
-
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:touchLocation];
+    
+    if ([node.name isEqualToString:@"playButton"]) {
+        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                      duration:0.5];
+        SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+        [self.view presentScene:newEndlessGameScene transition:reveal];
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
