@@ -7,6 +7,7 @@
 //
 
 #import "STSHero.h"
+#import "STSVillain.h"
 
 @implementation STSHero
 
@@ -24,7 +25,7 @@
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
     NSLog(@"this got called");
-    self.physicsBodyRadius = self.size.width / 2.0 + 20.0;
+    self.physicsBodyRadius = self.size.width / 2.0 + 4.0;
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.physicsBodyRadius];
     self.physicsBody.angularDamping = 0.2;
     
@@ -36,8 +37,13 @@
     self.physicsBody.categoryBitMask = STSColliderTypeHero;
     self.physicsBody.collisionBitMask = 0;
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
+}
 
-
+- (void)collideWith:(SKPhysicsBody *)other {
+    STSVillain *node = (STSVillain *)other.node;
+    if (node.hasBeenCollided) {
+        [node removeFromParent];
+    }
 }
 
 
