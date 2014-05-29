@@ -13,19 +13,20 @@
 @interface STSShield ()
 
 @property (strong, nonatomic) SKTexture *savedTexture;
-@property BOOL shieldIsUp;
+@property BOOL shieldUp;
+@property BOOL hasCollided;
 
 @end
 
 @implementation STSShield
 
-@synthesize hasBeenCollided;
 
 #pragma mark - Initialization
 - (id)initAtPosition:(CGPoint)position {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Shield_Default"];
     self.savedTexture = [atlas textureNamed:@"Shield.png"];
-    self.shieldIsUp = YES;
+    self.shieldUp = YES;
+    self.hasCollided = NO;
 
     return [super initWithTexture:self.savedTexture atPosition:position];
 }
@@ -45,31 +46,27 @@ static inline CGFloat marginError(CGFloat radius) {
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.affectedByGravity = NO;
     self.physicsBody.categoryBitMask = STSColliderTypeShield;
-    self.physicsBody.collisionBitMask = STSColliderTypeVillain | 
-                                        STSColliderTypeHero | 
-                                        STSColliderTypeShield;
-    self.physicsBody.contactTestBitMask = STSColliderTypeVillain |
-                                          STSColliderTypeHero |
-                                          STSColliderTypeShield;
+    self.physicsBody.collisionBitMask = STSColliderTypeVillain | STSColliderTypeShield;
+    self.physicsBody.contactTestBitMask = STSColliderTypeVillain | STSColliderTypeShield;
 }
 
 - (void)collideWith:(SKPhysicsBody *)other contactAt:(SKPhysicsContact *)contact {
 
-    if ([other.node isKindOfClass:[STSHero class]]) {
-        [self removeFromParent];
-
-    } else if ([other.node isKindOfClass:[STSVillain class]]) {
+    if ([other.node isKindOfClass:[STSVillain class]]) {
         self.texture = nil;
+        self.shieldUp = NO;
         [other.node removeFromParent];
 
     } else if ([other.node isKindOfClass:[STSShield class]]) {
-        if (!self.shieldIsUp) {
-            [other.node removeFromParent];
+        STSShield *node = (STSShield *)other.node;
+        if (!self.shieldUp) {
+            self.shieldUp = YES;
+            [node removeFromParent];
             self.texture = self.savedTexture;
-            self.shieldIsUp = YES;
-        } else {
-            self.shieldIsUp = NO;
-            [other.node removeFromParent];
+        } else if (self.shieldUp && !node.hasCollided) {
+            node.hasCollided = YES;
+            [node.physicsBody applyForce:CGVectorMake(10.0, 0.0)];
+            [node removeFromParent];
         }
     }
 }
