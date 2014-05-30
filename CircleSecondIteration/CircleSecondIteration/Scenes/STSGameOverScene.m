@@ -13,11 +13,13 @@
 @interface STSGameOverScene ()
 
 @property (nonatomic) SKLabelNode *scoreLabel;
+@property (nonatomic) SKLabelNode *highScoreLabel;
 @property (nonatomic) SKLabelNode *retryLabel;
 @property (nonatomic) SKLabelNode *menuLabel;
 @property (nonatomic) SKSpriteNode *retrySymbol;
 @property (nonatomic) SKSpriteNode *menuSymbol;
 @property (nonatomic) NSString *scoreString;
+@property (nonatomic) NSString *highScoreString;
 
 @end
 
@@ -40,8 +42,12 @@
 }
 
 - (void)didMoveToView:(SKView *)view {
+    NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
+    self.highScoreString = [NSString stringWithFormat:@"%ld", (long)highScore];
     self.scoreString = [self.userData valueForKey:@"scoreString"];
+
     [self addScoreLabel];
+    [self addHighScoreLabel];
 
 }
 
@@ -62,9 +68,21 @@
     self.scoreLabel.text = self.scoreString;
     self.scoreLabel.fontSize = 72.0;
     self.scoreLabel.fontColor = [SKColor blackColor];
-    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 35);
+    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                           CGRectGetMidY(self.frame) + 35);
 
     [self addChild:self.scoreLabel];
+}
+
+- (void)addHighScoreLabel {
+    self.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    self.highScoreLabel.text = self.highScoreString;
+    self.highScoreLabel.fontSize = 72.0;
+    self.highScoreLabel.fontColor = [SKColor blackColor];
+    self.highScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                               CGRectGetMidY(self.frame) + 35);
+
+    [self addChild:self.highScoreLabel];
 }
 
 - (void)addRetryLabel {

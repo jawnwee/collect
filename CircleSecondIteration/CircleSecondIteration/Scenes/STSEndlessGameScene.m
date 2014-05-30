@@ -229,6 +229,12 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                       duration:0.5];
         SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+        /* Test for high score */
+
+        NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
+        if (highScore == 0 || highScore < self.score) {
+            [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
+        }
 
         newGameOverScene.userData = [NSMutableDictionary dictionary];
         NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
