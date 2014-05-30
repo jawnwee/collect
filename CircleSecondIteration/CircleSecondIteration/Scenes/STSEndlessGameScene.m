@@ -38,7 +38,10 @@
 #pragma mark - Scene Contents
 - (void)createEndlessGameSceneContents {
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
-    self.backgroundColor = [SKColor whiteColor];
+    self.backgroundColor = [SKColor colorWithRed:235.0 / 255.0 
+                                           green:113.0 / 255.0 
+                                            blue:61.0 / 255.0 
+                                           alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFill;
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:[self frame]];
     self.physicsWorld.contactDelegate = self;
@@ -111,6 +114,8 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         newShield.isPartOfBarrier = YES;
         
         [self addChild:newShield];
+        SKAction *fadeIn = [SKAction fadeInWithDuration:1.5];
+        [newShield runAction:fadeIn];
         
         SKPhysicsJointFixed *joint = [SKPhysicsJointFixed jointWithBodyA:newShield.physicsBody
                                                                    bodyB:self.hero.physicsBody
@@ -124,8 +129,12 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
     self.scoreLabel.fontSize = 36.0;
-    self.scoreLabel.fontColor = [SKColor blackColor];
-    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 150);
+    self.scoreLabel.fontColor = [SKColor colorWithRed:211.0 / 255.0 
+                                                green:92.0 / 255.0 
+                                                 blue:41.0 / 255.0 
+                                                alpha:1.0];
+    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
+                                           CGRectGetMidY(self.frame) + 150);
 
     [self addChild:self.scoreLabel];
 }
