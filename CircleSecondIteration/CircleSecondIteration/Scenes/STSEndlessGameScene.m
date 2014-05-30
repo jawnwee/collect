@@ -229,14 +229,16 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             // Game over scene transition when villain hits hero
             SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                           duration:0.5];
+            NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
+            if (highScore == 0 || highScore < self.score) {
+                [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
+            }
             SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
-
             newGameOverScene.userData = [NSMutableDictionary dictionary];
             NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
             [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
             [self.view presentScene:newGameOverScene transition:reveal];
-
-        }];
+            }];
 
     } else if ([first isKindOfClass:[STSShield class]] && 
                [second isKindOfClass:[STSShield class]]) {
