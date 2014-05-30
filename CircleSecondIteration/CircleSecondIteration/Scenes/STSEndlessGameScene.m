@@ -243,8 +243,9 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: shield, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
+        
         // Increment score for each villain blocked
-        self.score += 0;
+        self.score++;
 
     }
 }
@@ -291,7 +292,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     self.lastIncreaseToScoreTimeInterval += timeSinceLast;
     if (self.lastIncreaseToScoreTimeInterval > 1) {
         self.lastIncreaseToScoreTimeInterval = 0;
-        self.score++;
+//        self.score++;
     }
 
 }
