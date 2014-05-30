@@ -9,12 +9,26 @@
 #import "STSWelcomeScene.h"
 #import "STSEndlessGameScene.h"
 #import "STSGameOverScene.h"
+@import AVFoundation;
+
+@interface STSWelcomeScene ()
+@property (nonatomic) AVAudioPlayer *welcomeBackgroundMusicPlayer;
+@end
 
 @implementation STSWelcomeScene
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+        NSError *error;
+        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
+                                                            withExtension:@"caf"];
+        self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc] 
+                                             initWithContentsOfURL:backgroundMusicURL
+                                                             error:&error];
+        self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
+        [self.welcomeBackgroundMusicPlayer prepareToPlay];
+        [self.welcomeBackgroundMusicPlayer play];
         
         self.backgroundColor = [SKColor whiteColor];
         self.scaleMode = SKSceneScaleModeAspectFill;

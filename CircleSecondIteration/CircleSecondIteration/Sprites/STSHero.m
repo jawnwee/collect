@@ -39,12 +39,12 @@
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
 }
 
-- (void)collideWith:(SKPhysicsBody *)other {
-    STSVillain *node = (STSVillain *)other.node;
-    if (node.hasBeenCollided) {
-        [node removeFromParent];
-    }
-}
+//- (void)collideWith:(SKPhysicsBody *)other {
+//    STSVillain *node = (STSVillain *)other.node;
+//    if (node.hasBeenCollided) {
+//        [node removeFromParent];
+//    }
+//}
 
 
 @end

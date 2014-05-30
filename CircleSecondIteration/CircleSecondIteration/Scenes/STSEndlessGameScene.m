@@ -223,19 +223,23 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: hero, second: villain");
-        [(STSCharacter *)first collideWith:contact.bodyB];
 
-        // Game over scene transition when villain hits hero
-        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                      duration:0.5];
-        SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+        [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
+                                          completion:^{
+            // Game over scene transition when villain hits hero
+            SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                          duration:0.5];
+            SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
 
-        newGameOverScene.userData = [NSMutableDictionary dictionary];
-        NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
-        [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
-        [self.view presentScene:newGameOverScene transition:reveal];
+            newGameOverScene.userData = [NSMutableDictionary dictionary];
+            NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
+            [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
+            [self.view presentScene:newGameOverScene transition:reveal];
 
-    } else if ([first isKindOfClass:[STSShield class]] && [second isKindOfClass:[STSShield class]]) {
+        }];
+
+    } else if ([first isKindOfClass:[STSShield class]] && 
+               [second isKindOfClass:[STSShield class]]) {
         NSLog(@"first: shield, second: shield");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
@@ -243,7 +247,10 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                && [second isKindOfClass:[STSVillain class]]) {
         NSLog(@"first: shield, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
-        
+
+        // Play sound effect
+        [self runAction:[SKAction playSoundFileNamed:@"Beep.caf" waitForCompletion:YES]];
+
         // Increment score for each villain blocked
         self.score++;
 
