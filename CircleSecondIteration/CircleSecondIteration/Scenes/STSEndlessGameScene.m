@@ -35,12 +35,13 @@
     return self;
 }
 
+
 #pragma mark - Scene Contents
 - (void)createEndlessGameSceneContents {
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
-    self.backgroundColor = [SKColor colorWithRed:235.0 / 255.0 
-                                           green:113.0 / 255.0 
-                                            blue:61.0 / 255.0 
+    self.backgroundColor = [SKColor colorWithRed:235.0 / 255.0
+                                           green:113.0 / 255.0
+                                            blue:61.0 / 255.0
                                            alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFill;
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:[self frame]];
@@ -49,7 +50,7 @@
     [self addHero];
     [self createNInitialShield:20];
     [self addScore];
-
+    
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
                                                      onTarget:self],
@@ -85,7 +86,10 @@
     STSVillain *newVillain = [[STSVillain alloc] initAtPosition:randomPositionOutsideFrame];
     self.sizeOfVillainAndShield = newVillain.size;
     [self addChild:newVillain];
-    SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:1.0];
+    
+    float realMoveDuration = distanceFormula(self.hero.position,
+                                             newVillain.position) / PROJECTILE_VELOCITY;
+    SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:realMoveDuration];
     [newVillain runAction:moveToHero];
 }
 
@@ -94,8 +98,16 @@
     STSShield *newShield = [[STSShield alloc] initAtPosition:randomPositionOutsideFrame];
     [self addChild:newShield];
 
-    SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:1.0];
+    float realMoveDuration = distanceFormula(self.hero.position,
+                                             newShield.position) / PROJECTILE_VELOCITY;
+    SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:realMoveDuration];
     [newShield runAction:moveToHero];
+}
+
+static float PROJECTILE_VELOCITY = 200/1;
+
+static inline float distanceFormula(CGPoint a, CGPoint b){
+    return sqrtf(powf(a.x-b.x, 2)+powf(a.y-b.y, 2));
 }
 
 static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, uint n){
