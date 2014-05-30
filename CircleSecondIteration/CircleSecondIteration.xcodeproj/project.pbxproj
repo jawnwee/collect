@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		C4A4BD7819366729006E4C2E /* STSGameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A4BD7719366729006E4C2E /* STSGameOverScene.m */; };
 		C4BE5AAE19392693007B7D28 /* STSEndlessGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BE5AAD19392693007B7D28 /* STSEndlessGameScene.m */; };
-		C4BE5AC419392859007B7D28 /* Beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5AC019392859007B7D28 /* Beep.caf */; };
-		C4BE5AC519392859007B7D28 /* herobeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5AC119392859007B7D28 /* herobeep.caf */; };
-		C4BE5AC619392859007B7D28 /* Intro.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5AC219392859007B7D28 /* Intro.caf */; };
-		C4BE5AC719392859007B7D28 /* welcome.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5AC319392859007B7D28 /* welcome.caf */; };
+		C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5AC919392D0C007B7D28 /* Beep.caf */; };
+		C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACA19392D0C007B7D28 /* herobeep.caf */; };
+		C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACB19392D0C007B7D28 /* welcome.caf */; };
 		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
 		D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */; };
 		EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */; };
@@ -55,10 +54,9 @@
 		C4A4BD7619366729006E4C2E /* STSGameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSGameOverScene.h; sourceTree = "<group>"; };
 		C4A4BD7719366729006E4C2E /* STSGameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSGameOverScene.m; sourceTree = "<group>"; };
 		C4BE5AAD19392693007B7D28 /* STSEndlessGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSEndlessGameScene.m; sourceTree = "<group>"; };
-		C4BE5AC019392859007B7D28 /* Beep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Beep.caf; sourceTree = "<group>"; };
-		C4BE5AC119392859007B7D28 /* herobeep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = herobeep.caf; sourceTree = "<group>"; };
-		C4BE5AC219392859007B7D28 /* Intro.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intro.caf; sourceTree = "<group>"; };
-		C4BE5AC319392859007B7D28 /* welcome.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome.caf; sourceTree = "<group>"; };
+		C4BE5AC919392D0C007B7D28 /* Beep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Beep.caf; sourceTree = "<group>"; };
+		C4BE5ACA19392D0C007B7D28 /* herobeep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = herobeep.caf; sourceTree = "<group>"; };
+		C4BE5ACB19392D0C007B7D28 /* welcome.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome.caf; sourceTree = "<group>"; };
 		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShieldUp_Title_Image@2x.png"; sourceTree = "<group>"; };
 		EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameOverSymbols.atlas; sourceTree = "<group>"; };
@@ -123,13 +121,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C4BE5ABF19392859007B7D28 /* Sounds */ = {
+		C4BE5AC819392D0C007B7D28 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				C4BE5AC019392859007B7D28 /* Beep.caf */,
-				C4BE5AC119392859007B7D28 /* herobeep.caf */,
-				C4BE5AC219392859007B7D28 /* Intro.caf */,
-				C4BE5AC319392859007B7D28 /* welcome.caf */,
+				C4BE5AC919392D0C007B7D28 /* Beep.caf */,
+				C4BE5ACA19392D0C007B7D28 /* herobeep.caf */,
+				C4BE5ACB19392D0C007B7D28 /* welcome.caf */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -259,7 +256,7 @@
 		EBBCEE361935C12F00F257D2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				C4BE5ABF19392859007B7D28 /* Sounds */,
+				C4BE5AC819392D0C007B7D28 /* Sounds */,
 				EBBCEE371935C12F00F257D2 /* Texture Atlases */,
 			);
 			path = Assets;
@@ -378,17 +375,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4BE5AC719392859007B7D28 /* welcome.caf in Resources */,
 				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
 				D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */,
-				C4BE5AC519392859007B7D28 /* herobeep.caf in Resources */,
+				C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */,
+				C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
 				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
-				C4BE5AC419392859007B7D28 /* Beep.caf in Resources */,
+				C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */,
 				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
 				D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */,
 				EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */,
-				C4BE5AC619392859007B7D28 /* Intro.caf in Resources */,
 				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
 				EBBCEE3E1935C12F00F257D2 /* Hero_Default.atlas in Resources */,
 			);
