@@ -55,7 +55,7 @@ static inline CGFloat marginError(CGFloat radius) {
 
     if ([other.node isKindOfClass:[STSVillain class]]) {
         STSVillain *node = (STSVillain *)other.node;
-        if (!node.hasBeenCollided){
+        if (!node.hasBeenCollided && self.isPartOfBarrier){
             node.hasBeenCollided = YES;
             self.texture = nil;
             self.shieldUp = NO;
