@@ -187,19 +187,23 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     CGPoint location = [touch locationInNode:self];
 
     if (location.x > self.view.frame.size.width / 2.0) {
-        NSLog(@"Touch more than halfway");
         //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
                                   //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        [self.hero.physicsBody applyTorque:-0.5];
+        if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
+            [self.hero.physicsBody applyTorque:-0.5];
+        }
     }
     else {
-        NSLog(@"Touch less than halfway");
         //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
                                   //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        [self.hero.physicsBody applyTorque:0.5];
-
+        if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
+            [self.hero.physicsBody applyTorque:0.5];
+        }
     }
 }
+
+static float MAX_TORQUE = 2.5;
+static float MIN_TORQUE = -2.5;
 
 // Uncomment to allot longPress
 //- (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer {
@@ -234,7 +238,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     second = contact.bodyB.node;
 
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
-        NSLog(@"first: hero, second: villain");
 
         [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
                                           completion:^{
@@ -254,12 +257,10 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
     } else if ([first isKindOfClass:[STSShield class]] && 
                [second isKindOfClass:[STSShield class]]) {
-        NSLog(@"first: shield, second: shield");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
     } else if ([first isKindOfClass:[STSShield class]]
                && [second isKindOfClass:[STSVillain class]]) {
-        NSLog(@"first: shield, second: villain");
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
         // Play sound effect

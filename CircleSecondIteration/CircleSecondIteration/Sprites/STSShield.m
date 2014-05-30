@@ -40,7 +40,6 @@ static inline CGFloat marginError(CGFloat radius) {
 }
 /* If ever in contact with shield or enemy; either add shield or lose game */
 - (void)configurePhysicsBody {
-    NSLog(@"shield physics got called");
     CGFloat normalizedRadius = marginError(self.size.width / 2.0);
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:normalizedRadius];
     self.physicsBody.dynamic = YES;
