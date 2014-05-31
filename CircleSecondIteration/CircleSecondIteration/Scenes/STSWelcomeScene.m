@@ -9,6 +9,7 @@
 #import "STSWelcomeScene.h"
 #import "STSEndlessGameScene.h"
 #import "STSGameOverScene.h"
+#import "STSOptionsScene.h"
 @import AVFoundation;
 
 @interface STSWelcomeScene ()
@@ -20,6 +21,8 @@
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+
+        // Play music
         NSError *error;
         NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
                                                             withExtension:@"caf"];
@@ -34,11 +37,12 @@
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self addChild:[self addGameTitleNode]];
         [self addChild:[self addPlayButton]];
+        [self addChild:[self addOptionMenu]];
     }
     return self;
 }
 
-- (SKSpriteNode *)addGameTitleNode{
+- (SKSpriteNode *)addGameTitleNode {
     SKTexture *gameTitleTexture = [SKTexture textureWithImageNamed:@"ShieldUp_Title_Image.png"];
     SKSpriteNode *gameTitleNode = [SKSpriteNode spriteNodeWithTexture:gameTitleTexture];
     gameTitleNode.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height-80);
@@ -46,13 +50,24 @@
     return gameTitleNode;
 }
 
-- (SKSpriteNode *)addPlayButton{
+- (SKSpriteNode *)addPlayButton {
     SKTexture *playButtonTexture = [SKTexture textureWithImageNamed:@"Play_Button.png"];
     SKSpriteNode *playButtonNode = [SKSpriteNode spriteNodeWithTexture:playButtonTexture];
     playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
-                                          CGRectGetMidY(self.frame)	);
+                                          CGRectGetMidY(self.frame));
     playButtonNode.name = @"playButton";
     return playButtonNode;
+}
+
+- (SKLabelNode *)addOptionMenu {
+    SKLabelNode *optionNode = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    optionNode.text = @"Options";
+    optionNode.fontColor = [SKColor blackColor];
+    optionNode.fontSize = 36.0;
+    optionNode.position = CGPointMake(CGRectGetMidX(self.frame),
+                                      CGRectGetMidY(self.frame) - 100);
+    optionNode.name = @"OptionMenu";
+    return optionNode;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -66,6 +81,13 @@
                                                       duration:0.5];
         SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
         [self.view presentScene:newEndlessGameScene transition:reveal];
+    }
+
+    if ([node.name isEqualToString:@"OptionMenu"]) {
+        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                      duration:0.5];
+        SKScene *newOptionsScene = [[STSOptionsScene alloc] initWithSize:self.size];
+        [self.view presentScene:newOptionsScene transition:reveal];
     }
 }
 

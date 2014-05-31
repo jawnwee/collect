@@ -13,6 +13,7 @@
 		C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACA19392D0C007B7D28 /* herobeep.caf */; };
 		C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACB19392D0C007B7D28 /* welcome.caf */; };
 		D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */; };
+		C4BE5AD119392FA7007B7D28 /* STSOptionsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */; };
 		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
 		D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */; };
 		EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */; };
@@ -59,6 +60,8 @@
 		C4BE5ACA19392D0C007B7D28 /* herobeep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = herobeep.caf; sourceTree = "<group>"; };
 		C4BE5ACB19392D0C007B7D28 /* welcome.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome.caf; sourceTree = "<group>"; };
 		D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause_Button@2x.png"; sourceTree = "<group>"; };
+		C4BE5ACF19392FA7007B7D28 /* STSOptionsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSOptionsScene.h; sourceTree = "<group>"; };
+		C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSOptionsScene.m; sourceTree = "<group>"; };
 		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShieldUp_Title_Image@2x.png"; sourceTree = "<group>"; };
 		EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameOverSymbols.atlas; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				EBBCEE241935BA4400F257D2 /* STSWelcomeScene.m */,
 				EBBCEE271935BA6800F257D2 /* STSEndlessGameScene.h */,
 				C4BE5AAD19392693007B7D28 /* STSEndlessGameScene.m */,
+				C4BE5ACF19392FA7007B7D28 /* STSOptionsScene.h */,
+				C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */,
 				C4A4BD7619366729006E4C2E /* STSGameOverScene.h */,
 				C4A4BD7719366729006E4C2E /* STSGameOverScene.m */,
 			);
@@ -425,6 +430,7 @@
 				C4A4BD7819366729006E4C2E /* STSGameOverScene.m in Sources */,
 				EBBCEE2F1935BA8700F257D2 /* STSHero.m in Sources */,
 				EBBCEE2C1935BA7900F257D2 /* STSCharacter.m in Sources */,
+				C4BE5AD119392FA7007B7D28 /* STSOptionsScene.m in Sources */,
 				C4BE5AAE19392693007B7D28 /* STSEndlessGameScene.m in Sources */,
 				EBBCEDFF1935B6A600F257D2 /* STSViewController.m in Sources */,
 			);
