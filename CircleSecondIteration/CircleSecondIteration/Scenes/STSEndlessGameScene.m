@@ -19,6 +19,7 @@
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) NSTimeInterval lastIncreaseToScoreTimeInterval;
 @property (nonatomic) SKLabelNode *scoreLabel;
+@property BOOL isPaused;
 
 @property (nonatomic) UILongPressGestureRecognizer *longPress;
 
@@ -50,6 +51,7 @@
     [self addHero];
     [self createNInitialShield:20];
     [self addScore];
+    [self addPauseButton];
     
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
@@ -68,6 +70,17 @@
 
 
 #pragma mark - Creating Sprites
+- (void)addPauseButton{
+    SKTexture *pauseTexture = [SKTexture textureWithImageNamed:@"Pause_Button.png"];
+    SKSpriteNode *pauseNode = [SKSpriteNode spriteNodeWithTexture:pauseTexture];
+    CGPoint topRightCorner = CGPointMake(self.frame.size.width-pauseNode.size.width/2,
+                                         self.frame.size.height-pauseNode.size.height/2-30);
+    pauseNode.position = topRightCorner;
+    pauseNode.name = @"pause";
+    self.isPaused = NO;
+    [self addChild:pauseNode];
+}
+
 - (void)addHero{
     CGPoint sceneCenter = CGPointMake(self.frame.size.width/2,
                                        self.frame.size.height/2);
@@ -186,19 +199,31 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
 
-    if (location.x > self.view.frame.size.width / 2.0) {
-        //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
-                                  //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
-            [self.hero.physicsBody applyTorque:-0.5];
+    SKNode *node = [self nodeAtPoint:location];
+    
+    if (!self.paused){
+        if ([node.name isEqualToString:@"pause"]) {
+                self.paused = YES;
+                self.isPaused = YES;
+        }
+        else if (location.x > self.view.frame.size.width / 2.0) {
+            //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
+                                      //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
+            if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
+                [self.hero.physicsBody applyTorque:-0.5];
+            }
+        }
+        else {
+            //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
+                                      //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
+            if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
+                [self.hero.physicsBody applyTorque:0.5];
+            }
         }
     }
     else {
-        //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
-                                  //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-        if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
-            [self.hero.physicsBody applyTorque:0.5];
-        }
+        self.paused = NO;
+        self.isPaused = NO;
     }
 }
 

@@ -12,6 +12,7 @@
 		C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5AC919392D0C007B7D28 /* Beep.caf */; };
 		C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACA19392D0C007B7D28 /* herobeep.caf */; };
 		C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACB19392D0C007B7D28 /* welcome.caf */; };
+		D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */; };
 		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
 		D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */; };
 		EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */; };
@@ -57,6 +58,7 @@
 		C4BE5AC919392D0C007B7D28 /* Beep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Beep.caf; sourceTree = "<group>"; };
 		C4BE5ACA19392D0C007B7D28 /* herobeep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = herobeep.caf; sourceTree = "<group>"; };
 		C4BE5ACB19392D0C007B7D28 /* welcome.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome.caf; sourceTree = "<group>"; };
+		D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShieldUp_Title_Image@2x.png"; sourceTree = "<group>"; };
 		EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameOverSymbols.atlas; sourceTree = "<group>"; };
@@ -129,6 +131,14 @@
 				C4BE5ACB19392D0C007B7D28 /* welcome.caf */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		D1EA2C591939406600175FA6 /* GameScreenButtons */ = {
+			isa = PBXGroup;
+			children = (
+				D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */,
+			);
+			path = GameScreenButtons;
 			sourceTree = "<group>";
 		};
 		D1FFABF41937265F004A2485 /* WelcomeScreen */ = {
@@ -265,6 +275,7 @@
 		EBBCEE371935C12F00F257D2 /* Texture Atlases */ = {
 			isa = PBXGroup;
 			children = (
+				D1EA2C591939406600175FA6 /* GameScreenButtons */,
 				EBA1C0F21938F9DD00BA1572 /* GameOver */,
 				D1FFABF41937265F004A2485 /* WelcomeScreen */,
 				EBBCEE381935C12F00F257D2 /* Hero */,
@@ -382,6 +393,7 @@
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
 				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
 				C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */,
+				D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */,
 				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
 				D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */,
 				EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */,
