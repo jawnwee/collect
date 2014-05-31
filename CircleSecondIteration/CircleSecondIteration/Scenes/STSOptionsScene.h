@@ -10,4 +10,6 @@
 
 @interface STSOptionsScene : SKScene
 
+@property (strong, nonatomic) SKScene *prevScene;
+
 @end

@@ -22,17 +22,6 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
 
-        // Play music
-        NSError *error;
-        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
-                                                            withExtension:@"caf"];
-        self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc] 
-                                             initWithContentsOfURL:backgroundMusicURL
-                                                             error:&error];
-        self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
-        [self.welcomeBackgroundMusicPlayer prepareToPlay];
-        [self.welcomeBackgroundMusicPlayer play];
-        
         self.backgroundColor = [SKColor whiteColor];
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self addChild:[self addGameTitleNode]];
@@ -40,6 +29,22 @@
         [self addChild:[self addOptionMenu]];
     }
     return self;
+}
+
+- (void)didMoveToView:(SKView *)view {
+    // Play music depending on toggle
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+        NSError *error;
+        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
+                                                            withExtension:@"caf"];
+        self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
+                                             initWithContentsOfURL:backgroundMusicURL
+                                             error:&error];
+        self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
+        [self.welcomeBackgroundMusicPlayer prepareToPlay];
+        [self.welcomeBackgroundMusicPlayer play];
+    }
 }
 
 - (SKSpriteNode *)addGameTitleNode {
@@ -83,10 +88,13 @@
         [self.view presentScene:newEndlessGameScene transition:reveal];
     }
 
+    // Set up option menu
     if ([node.name isEqualToString:@"OptionMenu"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                       duration:0.5];
-        SKScene *newOptionsScene = [[STSOptionsScene alloc] initWithSize:self.size];
+        STSOptionsScene *newOptionsScene = [[STSOptionsScene alloc] initWithSize:self.size];
+        newOptionsScene.prevScene = self.scene;
+        [self.welcomeBackgroundMusicPlayer pause];
         [self.view presentScene:newOptionsScene transition:reveal];
     }
 }

@@ -8,6 +8,7 @@
 
 #import "STSEndlessGameScene.h"
 #import "STSGameOverScene.h"
+#import "STSOptionsScene.h"
 #import "STSHero.h"
 #import "STSVillain.h"
 #import "STSShield.h"
@@ -270,8 +271,23 @@ static float MIN_TORQUE = -2.5;
 
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
 
-        [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
-                                          completion:^{
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+            [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
+                 completion:^{
+                     // Game over scene transition when villain hits hero
+                     SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                                   duration:0.5];
+                     NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
+                     if (highScore == 0 || highScore < self.score) {
+                         [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
+                     }
+                     SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+                     newGameOverScene.userData = [NSMutableDictionary dictionary];
+                     NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
+                     [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
+                     [self.view presentScene:newGameOverScene transition:reveal];
+                 }];
+        } else {
             // Game over scene transition when villain hits hero
             SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                           duration:0.5];
@@ -284,9 +300,8 @@ static float MIN_TORQUE = -2.5;
             NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
             [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
             [self.view presentScene:newGameOverScene transition:reveal];
-            }];
-
-    } else if ([first isKindOfClass:[STSShield class]] && 
+        };
+    } else if ([first isKindOfClass:[STSShield class]] &&
                [second isKindOfClass:[STSShield class]]) {
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
@@ -295,7 +310,9 @@ static float MIN_TORQUE = -2.5;
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
         // Play sound effect
-        [self runAction:[SKAction playSoundFileNamed:@"Beep.caf" waitForCompletion:YES]];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+            [self runAction:[SKAction playSoundFileNamed:@"Beep.caf" waitForCompletion:YES]];
+        }
 
         // Increment score for each villain blocked
         self.score++;
