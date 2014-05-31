@@ -16,6 +16,8 @@
 @interface STSEndlessGameScene () <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) STSHero *hero;
+@property (strong, nonatomic) SKSpriteNode *shadow;
+
 @property CGSize sizeOfVillainAndShield;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) NSTimeInterval lastIncreaseToScoreTimeInterval;
@@ -74,7 +76,7 @@
 - (void)addPauseButton{
     SKTexture *pauseTexture = [SKTexture textureWithImageNamed:@"Pause_Button.png"];
     SKSpriteNode *pauseNode = [SKSpriteNode spriteNodeWithTexture:pauseTexture];
-    CGPoint topRightCorner = CGPointMake(self.frame.size.width-pauseNode.size.width/2,
+    CGPoint topRightCorner = CGPointMake(self.frame.size.width-pauseNode.size.width,
                                          self.frame.size.height-pauseNode.size.height/2-30);
     pauseNode.position = topRightCorner;
     pauseNode.name = @"pause";
@@ -87,6 +89,11 @@
                                        self.frame.size.height/2);
     STSHero *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
     self.hero = newHero;
+
+    SKSpriteNode *shadow = [self.hero createShadow];
+    shadow.position = CGPointMake(CGRectGetMidX(self.frame) + 0.8, CGRectGetMidY(self.frame) - 1.5);
+    [self addChild:shadow];
+
     [self addChild:self.hero];
 
     SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:self.hero.physicsBody
@@ -154,7 +161,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 - (void)addScore {
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
-    self.scoreLabel.fontSize = 36.0;
+    self.scoreLabel.fontSize = 60.0;
     self.scoreLabel.fontColor = [SKColor colorWithRed:211.0 / 255.0 
                                                 green:92.0 / 255.0 
                                                  blue:41.0 / 255.0 
@@ -208,20 +215,14 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                 self.isPaused = YES;
         }
         else if (location.x > self.view.frame.size.width / 2.0) {
-            //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
-                                      //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-            NSLog(@"right: %f", self.hero.physicsBody.angularVelocity);
-            if (self.hero.physicsBody.angularVelocity >= 1.0) {
+            if (self.hero.physicsBody.angularVelocity >= 0.8) {
                 [self.hero.physicsBody applyTorque:-4.0];
             } else if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
                 [self.hero.physicsBody applyTorque:-0.5];
             }
         }
         else {
-            //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
-                                      //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-            NSLog(@"left: %f", self.hero.physicsBody.angularVelocity);
-            if (self.hero.physicsBody.angularVelocity <= -1.0) {
+            if (self.hero.physicsBody.angularVelocity <= -0.8) {
                 [self.hero.physicsBody applyTorque:4.0];
             } else if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
                 [self.hero.physicsBody applyTorque:0.5];

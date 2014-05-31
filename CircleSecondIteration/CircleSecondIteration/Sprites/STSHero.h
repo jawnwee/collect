@@ -14,4 +14,6 @@
 
 - (id)initAtPosition:(CGPoint)position;
 
+- (SKSpriteNode *)createShadow;
+
 @end

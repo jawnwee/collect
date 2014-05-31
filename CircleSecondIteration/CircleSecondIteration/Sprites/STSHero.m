@@ -9,6 +9,12 @@
 #import "STSHero.h"
 #import "STSVillain.h"
 
+@interface STSHero ()
+
+@property (strong, nonatomic) SKSpriteNode *shadow;
+
+@end
+
 @implementation STSHero
 
 @synthesize physicsBodyRadius;
@@ -17,7 +23,8 @@
 - (id)initAtPosition:(CGPoint)position {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Hero_Default"];
     SKTexture *texture = [atlas textureNamed:@"Hero.png"];
-    
+    SKTexture *shadowTexture = [atlas textureNamed:@"Hero_Shadow.png"];
+    self.shadow = [SKSpriteNode spriteNodeWithTexture:shadowTexture];
     return [super initWithTexture:texture atPosition:position];
 }
 
@@ -38,8 +45,8 @@
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
 }
 
-- (void)applyRotation {
-
+- (SKSpriteNode *)createShadow {
+    return self.shadow;
 }
 
 //- (void)collideWith:(SKPhysicsBody *)other {
