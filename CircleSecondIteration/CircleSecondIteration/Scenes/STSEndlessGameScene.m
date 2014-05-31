@@ -209,14 +209,20 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         else if (location.x > self.view.frame.size.width / 2.0) {
             //[self.hero.physicsBody applyForce:CGVectorMake(100.0, 0.0)
                                       //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-            if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
+            NSLog(@"right: %f", self.hero.physicsBody.angularVelocity);
+            if (self.hero.physicsBody.angularVelocity >= 1.0) {
+                [self.hero.physicsBody applyTorque:-4.0];
+            } else if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
                 [self.hero.physicsBody applyTorque:-0.5];
             }
         }
         else {
             //[self.hero.physicsBody applyForce:CGVectorMake(-100.0, 0.0)
                                       //atPoint:CGPointMake(self.hero.position.x, self.hero.position.y + 15)];
-            if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
+            NSLog(@"left: %f", self.hero.physicsBody.angularVelocity);
+            if (self.hero.physicsBody.angularVelocity <= -1.0) {
+                [self.hero.physicsBody applyTorque:4.0];
+            } else if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
                 [self.hero.physicsBody applyTorque:0.5];
             }
         }

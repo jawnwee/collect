@@ -38,6 +38,10 @@
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
 }
 
+- (void)applyRotation {
+
+}
+
 //- (void)collideWith:(SKPhysicsBody *)other {
 //    STSVillain *node = (STSVillain *)other.node;
 //    if (node.hasBeenCollided) {
