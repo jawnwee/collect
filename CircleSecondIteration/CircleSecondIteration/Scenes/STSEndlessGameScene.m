@@ -7,6 +7,7 @@
 //
 
 #import "STSEndlessGameScene.h"
+#import "STSAppDelegate.h"
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
 #import "STSHero.h"
@@ -19,7 +20,6 @@
 @property (strong, nonatomic) SKSpriteNode *shadow;
 
 @property CGSize sizeOfVillainAndShield;
-@property BOOL isPaused;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) NSTimeInterval lastIncreaseToScoreTimeInterval;
 @property (nonatomic) SKLabelNode *scoreLabel;
@@ -60,7 +60,7 @@
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
                                                      onTarget:self],
-                                    [SKAction waitForDuration:1.0
+                                    [SKAction waitForDuration:1.5
                                                     withRange:0.5]]];
     SKAction *makeExtraShields = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addShield)
@@ -81,7 +81,6 @@
                                          self.frame.size.height - pauseNode.size.height/2-30);
     pauseNode.position = topRightCorner;
     pauseNode.name = @"pause";
-    self.isPaused = NO;
     [self addChild:pauseNode];
 }
 
@@ -282,8 +281,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     
     if (!self.paused){
         if ([node.name isEqualToString:@"pause"]) {
-                self.paused = YES;
-                self.isPaused = YES;
+            self.paused = YES;
         }
         else {
             [self.hero rotate:location];
@@ -291,7 +289,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     }
     else {
         self.paused = NO;
-        self.isPaused = NO;
     }
 }
 
@@ -306,7 +303,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         if (self.longGestureTimer != nil) {
-            NSLog(@"LONG");
             [self.longGestureTimer invalidate];
             self.longGestureTimer = nil;
         }
