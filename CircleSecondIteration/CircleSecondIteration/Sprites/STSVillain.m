@@ -36,4 +36,36 @@
     self.physicsBody.contactTestBitMask = 0;
 }
 
+- (SKSpriteNode *)showWarning:(CGPoint)originalPos padding:(float)padding {
+    // Set up coordinates
+    CGRect temp = CGRectMake(100, 100, 50, 50);
+    SKSpriteNode *warning = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:temp.size];
+    float selfX = self.position.x;
+    float selfY = self.position.y;
+    float heroX = self.frame.size.width / 2;
+    float heroY = self.frame.size.height / 2;
+    float dX = selfX - heroX;
+    float dY = selfY - heroY;
+
+    warning.position = CGPointMake(originalPos.x, originalPos.y);
+
+    // Coming from the top or bottom
+    if (selfX - originalPos.x == 0) {
+        float paddingY = padding;
+        float paddingX = (dX * paddingY) / dY;
+        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY);
+    }
+
+    // Coming from the left or right
+    else {
+        float paddingX = padding;
+        float paddingY = (dY * paddingX) / dX;
+        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY);
+    }
+
+    return warning;
+}
+
+
+
 @end

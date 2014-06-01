@@ -103,15 +103,33 @@
 }
 
 - (void)addVillain{
-    CGPoint randomPositionOutsideFrame = [self createRandomPositionOutsideFrame];
-    STSVillain *newVillain = [[STSVillain alloc] initAtPosition:randomPositionOutsideFrame];
+
+    // Get the villain's original position and padded current position
+    NSArray *originalCoordinateArray = [self createRandomPositionOutsideFrameArray];
+    float originalX = [[originalCoordinateArray objectAtIndex:0] floatValue];
+    float originalY = [[originalCoordinateArray objectAtIndex:1] floatValue];
+    int padding = (int) [[originalCoordinateArray objectAtIndex:2] integerValue];
+    CGPoint originalPosition = CGPointMake(originalX, originalY);
+    CGPoint currentPosition = [self createPaddedRandomPositionOutsideFrame:originalCoordinateArray];
+
+    STSVillain *newVillain = [[STSVillain alloc] initAtPosition:currentPosition];
     self.sizeOfVillainAndShield = newVillain.size;
     [self addChild:newVillain];
-    
-    float realMoveDuration = distanceFormula(self.hero.position,
+
+    // Implement warning
+    SKSpriteNode *warning = [newVillain showWarning:originalPosition padding:padding];
+    [self addChild:warning];
+    warning.position = CGPointMake(originalX, originalY);
+
+    float realMoveDuration = distanceFormula(self.hero.position, 
                                              newVillain.position) / PROJECTILE_VELOCITY;
+    SKAction *wait = [SKAction waitForDuration:1.5];
     SKAction *moveToHero = [SKAction moveTo:self.hero.position duration:realMoveDuration];
-    [newVillain runAction:moveToHero];
+    SKAction *villainWaitThenMove = [SKAction sequence:@[wait, moveToHero]];
+    SKAction *warningWaitThenRemove = [SKAction sequence:@[wait, [SKAction removeFromParent]]];
+    [newVillain runAction:villainWaitThenMove];
+    [warning runAction:warningWaitThenRemove];
+    
 }
 
 - (void)addShield{
@@ -190,6 +208,52 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         yCoordinate = -self.sizeOfVillainAndShield.height;
     }
     return CGPointMake(xCoordinate, yCoordinate	);
+}
+
+- (NSArray *)createRandomPositionOutsideFrameArray {
+    int padding = 10;
+    int sideBulletComesFrom = arc4random_uniform(4);
+    float xCoordinate, yCoordinate;
+    if (sideBulletComesFrom == 0) {
+        xCoordinate = -self.sizeOfVillainAndShield.width;
+        yCoordinate = arc4random_uniform(self.frame.size.height);
+    } else if (sideBulletComesFrom == 1){
+        xCoordinate = arc4random_uniform(self.frame.size.width);
+        yCoordinate = self.frame.size.height+self.sizeOfVillainAndShield.height;
+    } else if (sideBulletComesFrom == 2){
+        xCoordinate = self.frame.size.width+self.sizeOfVillainAndShield.width;
+        yCoordinate = arc4random_uniform(self.frame.size.height);
+    } else {
+        xCoordinate = arc4random_uniform(self.frame.size.width);
+        yCoordinate = -self.sizeOfVillainAndShield.height;
+    }
+
+    NSNumber *xC = [NSNumber numberWithFloat:xCoordinate];
+    NSNumber *yC = [NSNumber numberWithFloat:yCoordinate];
+    NSNumber *pad = [NSNumber numberWithInt:padding];
+    NSNumber *whichSide = [NSNumber numberWithInt:sideBulletComesFrom];
+
+    NSArray *array = @[xC, yC, pad, whichSide];
+    return array;
+}
+
+- (CGPoint)createPaddedRandomPositionOutsideFrame:(NSArray *)array {
+    float xCoordinate = [[array objectAtIndex:0] floatValue];
+    float yCoordinate = [[array objectAtIndex:1] floatValue];
+    int padding = (int) [[array objectAtIndex:2] integerValue];
+    int sideBulletComesFrom = (int) [[array objectAtIndex:3] integerValue];
+
+    if (sideBulletComesFrom == 0) {
+        xCoordinate -= padding;
+    } else if (sideBulletComesFrom == 1) {
+        yCoordinate += padding;
+    } else if (sideBulletComesFrom == 2) {
+        xCoordinate += padding;
+    } else {
+        yCoordinate -= padding;
+    }
+
+    return CGPointMake(xCoordinate, yCoordinate);
 }
 
 
