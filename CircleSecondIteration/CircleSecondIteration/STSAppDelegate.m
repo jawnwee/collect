@@ -8,6 +8,7 @@
 
 #import "STSAppDelegate.h"
 
+
 @implementation STSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

@@ -65,6 +65,7 @@ static inline CGFloat marginError(CGFloat radius) {
         STSShield *node = (STSShield *)other.node;
         if (!self.shieldUp && !node.isPartOfBarrier && !node.hasCollided) {
             self.shieldUp = YES;
+            node.hasCollided = YES;
             [node removeFromParent];
             self.texture = self.savedTexture;
             self.physicsBody.contactTestBitMask = STSColliderTypeVillain | STSColliderTypeShield;

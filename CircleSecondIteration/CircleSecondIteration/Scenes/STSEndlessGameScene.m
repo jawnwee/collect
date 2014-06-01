@@ -43,9 +43,9 @@
 #pragma mark - Scene Contents
 - (void)createEndlessGameSceneContents {
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
-    self.backgroundColor = [SKColor colorWithRed:235.0 / 255.0
-                                           green:113.0 / 255.0
-                                            blue:61.0 / 255.0
+    self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0
+                                           green:144.0 / 255.0
+                                            blue:68.0 / 255.0
                                            alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFill;
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:[self frame]];
@@ -76,8 +76,8 @@
 - (void)addPauseButton{
     SKTexture *pauseTexture = [SKTexture textureWithImageNamed:@"Pause_Button.png"];
     SKSpriteNode *pauseNode = [SKSpriteNode spriteNodeWithTexture:pauseTexture];
-    CGPoint topRightCorner = CGPointMake(self.frame.size.width-pauseNode.size.width,
-                                         self.frame.size.height-pauseNode.size.height/2-30);
+    CGPoint topRightCorner = CGPointMake(self.frame.size.width - pauseNode.size.width,
+                                         self.frame.size.height - pauseNode.size.height/2-30);
     pauseNode.position = topRightCorner;
     pauseNode.name = @"pause";
     self.isPaused = NO;
@@ -85,8 +85,8 @@
 }
 
 - (void)addHero{
-    CGPoint sceneCenter = CGPointMake(self.frame.size.width/2,
-                                       self.frame.size.height/2);
+    CGPoint sceneCenter = CGPointMake(self.frame.size.width / 2,
+                                       self.frame.size.height / 2);
     STSHero *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
     self.hero = newHero;
 
@@ -120,8 +120,7 @@
     // Implement warning
     SKSpriteNode *warning = [newVillain showWarning:originalPosition padding:padding side:whichSide];
     [self addChild:warning];
-//    warning.position = CGPointMake(originalX, originalY);
-
+    
     float realMoveDuration = distanceFormula(self.hero.position, 
                                              newVillain.position) / PROJECTILE_VELOCITY;
     SKAction *wait = [SKAction waitForDuration:1.5];
@@ -133,9 +132,10 @@
     
 }
 
-- (void)addShield{
-    CGPoint randomPositionOutsideFrame = [self createRandomPositionOutsideFrame];
-    STSShield *newShield = [[STSShield alloc] initAtPosition:randomPositionOutsideFrame];
+- (void)addShield {
+    NSArray *results = [self createRandomPositionOutsideFrameArray];
+    CGPoint position = CGPointMake([results[0] floatValue], [results[1] floatValue]);
+    STSShield *newShield = [[STSShield alloc] initAtPosition:position];
     [self addChild:newShield];
 
     float realMoveDuration = distanceFormula(self.hero.position,
@@ -146,16 +146,16 @@
 
 static float PROJECTILE_VELOCITY = 200/1;
 
-static inline float distanceFormula(CGPoint a, CGPoint b){
+static inline float distanceFormula(CGPoint a, CGPoint b) {
     return sqrtf(powf(a.x-b.x, 2)+powf(a.y-b.y, 2));
 }
 
-static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, uint n){
-    return CGPointMake(center.x + (radius * cosf(n * (M_PI/180))),
-                       center.y + (radius * sinf(n * (M_PI/180))));
+static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, uint n) {
+    return CGPointMake(center.x + (radius * cosf(n * (M_PI / 180))),
+                       center.y + (radius * sinf(n * (M_PI / 180))));
 }
 
-- (void)createNInitialShield:(uint)nShields{
+- (void)createNInitialShield:(uint)nShields {
     float incrementor = 360 / nShields;
     float nthPointInCirlce = 0;
     for (uint i = 0; i < nShields; i++) {
@@ -192,25 +192,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 }
 
 #pragma mark - Helper Functions for creating Sprites
-- (CGPoint)createRandomPositionOutsideFrame{
-    int sideBulletComesFrom = arc4random_uniform(4);
-    float xCoordinate, yCoordinate;
-    if (sideBulletComesFrom == 0) {
-        xCoordinate = -self.sizeOfVillainAndShield.width;
-        yCoordinate = arc4random_uniform(self.frame.size.height);
-    } else if (sideBulletComesFrom == 1){
-        xCoordinate = arc4random_uniform(self.frame.size.width);
-        yCoordinate = self.frame.size.height+self.sizeOfVillainAndShield.height;
-    } else if (sideBulletComesFrom == 2){
-        xCoordinate = self.frame.size.width+self.sizeOfVillainAndShield.width;
-        yCoordinate = arc4random_uniform(self.frame.size.height);
-    } else {
-        xCoordinate = arc4random_uniform(self.frame.size.width);
-        yCoordinate = -self.sizeOfVillainAndShield.height;
-    }
-    return CGPointMake(xCoordinate, yCoordinate	);
-}
-
 - (NSArray *)createRandomPositionOutsideFrameArray {
     int padding = 10;
     int sideBulletComesFrom = arc4random_uniform(4);
@@ -283,14 +264,14 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             if (self.hero.physicsBody.angularVelocity >= 0.8) {
                 [self.hero.physicsBody applyTorque:-4.0];
             } else if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
-                [self.hero.physicsBody applyTorque:-0.5];
+                [self.hero.physicsBody applyTorque:-1.0];
             }
         }
         else {
             if (self.hero.physicsBody.angularVelocity <= -0.8) {
                 [self.hero.physicsBody applyTorque:4.0];
             } else if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
-                [self.hero.physicsBody applyTorque:0.5];
+                [self.hero.physicsBody applyTorque:1.0];
             }
         }
     }

@@ -10,6 +10,11 @@
 #import "STSShield.h"
 #import "STSHero.h"
 
+@interface STSVillain()
+
+@property (strong, nonatomic) SKTexture *villainWarningTexture;
+
+@end
 
 @implementation STSVillain
 
@@ -19,6 +24,7 @@
 - (id)initAtPosition:(CGPoint)position {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Villain_Default"];
     SKTexture *texture = [atlas textureNamed:@"Villain.png"];
+    self.villainWarningTexture = [atlas textureNamed:@"Villain_Warning.png"];
     self.hasBeenCollided = NO;
 
     return [super initWithTexture:texture atPosition:position];
@@ -38,8 +44,7 @@
 
 - (SKSpriteNode *)showWarning:(CGPoint)originalPos padding:(float)padding side:(int)side {
     // Set up coordinates
-    CGRect temp = CGRectMake(100, 100, 50, 50);
-    SKSpriteNode *warning = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:temp.size];
+    SKSpriteNode *warning = [SKSpriteNode spriteNodeWithTexture:self.villainWarningTexture];
     float selfX = self.position.x;
     float selfY = self.position.y;
     float heroX = self.frame.size.width / 2;
@@ -50,35 +55,20 @@
     if (side == 0) {
         float paddingX = padding;
         float paddingY = (dY * paddingX) / dX;
-        warning.position = CGPointMake(selfX - paddingX + 25, selfY - paddingY);
+        warning.position = CGPointMake(selfX - paddingX + 40, selfY - paddingY);
     } else if (side == 1) {
         float paddingY = padding;
         float paddingX = (dX * paddingY) / dY;
-        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY - 25);
+        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY - 40);
     } else if (side == 2) {
         float paddingX = padding;
         float paddingY = (dY * paddingX) / dX;
-        warning.position = CGPointMake(selfX - paddingX - 25, selfY - paddingY);
+        warning.position = CGPointMake(selfX - paddingX - 40, selfY - paddingY);
     } else {
         float paddingY = padding;
         float paddingX = (dX * paddingY) / dY;
-        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY + 25);
+        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY + 60);
     }
-
-//    // Coming from the top or bottom
-//    if (selfX - originalPos.x == 0) {
-//        float paddingY = padding;
-//        float paddingX = (dX * paddingY) / dY;
-//        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY);
-//    }
-//
-//    // Coming from the left or right
-//    else {
-//        float paddingX = padding;
-//        float paddingY = (dY * paddingX) / dX;
-//        warning.position = CGPointMake(selfX - paddingX, selfY - paddingY);
-//    }
-
     return warning;
 }
 
