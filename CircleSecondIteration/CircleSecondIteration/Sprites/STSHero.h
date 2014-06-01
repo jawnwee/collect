@@ -16,4 +16,6 @@
 
 - (SKSpriteNode *)createShadow;
 
+- (void)rotate:(CGPoint)location;
+
 @end

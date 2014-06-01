@@ -19,10 +19,11 @@
 @property (strong, nonatomic) SKSpriteNode *shadow;
 
 @property CGSize sizeOfVillainAndShield;
+@property BOOL isPaused;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) NSTimeInterval lastIncreaseToScoreTimeInterval;
 @property (nonatomic) SKLabelNode *scoreLabel;
-@property BOOL isPaused;
+@property (nonatomic) NSTimer *longGestureTimer;
 
 @property (nonatomic) UILongPressGestureRecognizer *longPress;
 
@@ -241,18 +242,42 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
 #pragma mark - Rotation Handler
 - (void)didMoveToView:(SKView *)view {
-    // Initiate the long press gesture
-    // self.longPress = [[UILongPressGestureRecognizer alloc]
-    //                  initWithTarget:self action:@selector(handleLongPress:)];
-    // [view addGestureRecognizer:self.longPress];
+    self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                   action:@selector(handleLongPress:)];
+    self.longPress.minimumPressDuration = 0.3;
+    [view addGestureRecognizer:self.longPress];
 }
 
+- (void)handleLongPress:(UIGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        CGPoint location = [recognizer locationInView:self.view];
+        SEL selector = @selector(rotate:);
+        NSMethodSignature *signature = [STSHero instanceMethodSignatureForSelector:selector];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        [invocation setSelector:selector];
+        [invocation setTarget:self.hero];
+        [invocation setArgument:&location atIndex:2];
+        self.longGestureTimer = [NSTimer scheduledTimerWithTimeInterval:0.2
+                                                             invocation:invocation
+                                                                repeats:YES];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded ||
+             recognizer.state == UIGestureRecognizerStateCancelled)
+    {
+        if (self.longGestureTimer != nil) {
+            NSLog(@"LONG");
+            [self.longGestureTimer invalidate];
+            self.longGestureTimer = nil;
+        }
+    }
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
+    
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
-
+    
     SKNode *node = [self nodeAtPoint:location];
     
     if (!self.paused){
@@ -260,19 +285,8 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                 self.paused = YES;
                 self.isPaused = YES;
         }
-        else if (location.x > self.view.frame.size.width / 2.0) {
-            if (self.hero.physicsBody.angularVelocity >= 0.8) {
-                [self.hero.physicsBody applyTorque:-4.0];
-            } else if (self.hero.physicsBody.angularVelocity >= MIN_TORQUE) {
-                [self.hero.physicsBody applyTorque:-1.0];
-            }
-        }
         else {
-            if (self.hero.physicsBody.angularVelocity <= -0.8) {
-                [self.hero.physicsBody applyTorque:4.0];
-            } else if (self.hero.physicsBody.angularVelocity <= MAX_TORQUE) {
-                [self.hero.physicsBody applyTorque:1.0];
-            }
+            [self.hero rotate:location];
         }
     }
     else {
@@ -280,32 +294,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         self.isPaused = NO;
     }
 }
-
-static float MAX_TORQUE = 2.5;
-static float MIN_TORQUE = -2.5;
-
-// Uncomment to allot longPress
-//- (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer {
-//    // Recognize gesture has ended
-//    if (recognizer.state == UIGestureRecognizerStateEnded) {
-//        [self.hero removeAllActions];
-//        // NSLog(@"Long press ended");
-//
-//        CGPoint location = [self.longPress locationInView:self.view];
-//        SKAction *rotateRight = [SKAction rotateByAngle:-2 * M_PI duration:5];
-//        SKAction *rotateLeft = [SKAction rotateByAngle:2 * M_PI duration:5];
-//
-//        if (location.x > self.view.frame.size.width / 2) {
-//            // NSLog(@"Pressing on right half");
-//            [self.hero runAction:rotateRight];
-//        }
-//        else {
-//            // NSLog(@"Pressing on left half");
-//            [self.hero runAction:rotateLeft];
-//        }
-//        
-//    }
-//}
 
 
 #pragma mark - Contact Logic
@@ -317,7 +305,12 @@ static float MIN_TORQUE = -2.5;
     second = contact.bodyB.node;
 
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
-
+        if (self.longGestureTimer != nil) {
+            NSLog(@"LONG");
+            [self.longGestureTimer invalidate];
+            self.longGestureTimer = nil;
+        }
+        
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
                  completion:^{
@@ -367,51 +360,11 @@ static float MIN_TORQUE = -2.5;
     }
 }
 
+
 #pragma mark - Frame Updates
 - (void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
-
-    // Keep score by time
-    CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
-    self.lastUpdateTimeInterval = currentTime;
-    if (timeSinceLast > 1) {
-        timeSinceLast = 1.0 / 60.0;
-        self.lastUpdateTimeInterval = currentTime;
-    }
-
     self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
-    [self updateWithTimeSinceLastUpdate:timeSinceLast];
-
-//    // Uncomment to allot longPress activation
-//    if (self.longPress.state == UIGestureRecognizerStateBegan) {
-//        // Get long press location
-//        CGPoint location = [self.longPress locationInView:self.view];
-//
-//        // Rotate actions
-//        SKAction *rotateRight = [SKAction rotateByAngle:-M_PI duration:60];
-//        SKAction *rotateRightForever = [SKAction repeatActionForever:rotateRight];
-//        SKAction *rotateLeft = [SKAction rotateByAngle:M_PI duration:60];
-//        SKAction *rotateLeftForever = [SKAction repeatActionForever:rotateLeft];
-//        // NSLog(@"You pressed at - x: %f y: %f", location.x, location.y);
-//        if (location.x > self.view.frame.size.width / 2) {
-//            // NSLog(@"Pressing on right half");
-//            [self.hero runAction:rotateRightForever];
-//        }
-//        else {
-//            // NSLog(@"Pressing on left half");
-//            [self.hero runAction:rotateLeftForever];
-//        }
-//    }
-}
-
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
-
-    self.lastIncreaseToScoreTimeInterval += timeSinceLast;
-    if (self.lastIncreaseToScoreTimeInterval > 1) {
-        self.lastIncreaseToScoreTimeInterval = 0;
-//        self.score++;
-    }
-
 }
 
 @end

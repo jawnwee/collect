@@ -15,6 +15,9 @@
 
 @end
 
+static float MAX_TORQUE = 2.5;
+static float MIN_TORQUE = -2.5;
+
 @implementation STSHero
 
 @synthesize physicsBodyRadius;
@@ -49,12 +52,23 @@
     return self.shadow;
 }
 
-//- (void)collideWith:(SKPhysicsBody *)other {
-//    STSVillain *node = (STSVillain *)other.node;
-//    if (node.hasBeenCollided) {
-//        [node removeFromParent];
-//    }
-//}
+- (void)rotate:(CGPoint)location{
+    SKScene *parentView = (SKScene *)self.parent;
+    if (location.x > parentView.frame.size.width / 2.0) {
+        if (self.physicsBody.angularVelocity >= 0.8) {
+            [self.physicsBody applyTorque:-4.0];
+        } else if (self.physicsBody.angularVelocity >= MIN_TORQUE) {
+            [self.physicsBody applyTorque:-0.5];
+        }
+    }
+    else {
+        if (self.physicsBody.angularVelocity <= -0.8) {
+            [self.physicsBody applyTorque:4.0];
+        } else if (self.physicsBody.angularVelocity <= MAX_TORQUE) {
+            [self.physicsBody applyTorque:0.5];
+        }
+    }
+}
 
 
 @end
