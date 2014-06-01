@@ -109,6 +109,7 @@
     float originalX = [[originalCoordinateArray objectAtIndex:0] floatValue];
     float originalY = [[originalCoordinateArray objectAtIndex:1] floatValue];
     int padding = (int) [[originalCoordinateArray objectAtIndex:2] integerValue];
+    int whichSide = (int) [[originalCoordinateArray objectAtIndex:3] integerValue];
     CGPoint originalPosition = CGPointMake(originalX, originalY);
     CGPoint currentPosition = [self createPaddedRandomPositionOutsideFrame:originalCoordinateArray];
 
@@ -117,9 +118,9 @@
     [self addChild:newVillain];
 
     // Implement warning
-    SKSpriteNode *warning = [newVillain showWarning:originalPosition padding:padding];
+    SKSpriteNode *warning = [newVillain showWarning:originalPosition padding:padding side:whichSide];
     [self addChild:warning];
-    warning.position = CGPointMake(originalX, originalY);
+//    warning.position = CGPointMake(originalX, originalY);
 
     float realMoveDuration = distanceFormula(self.hero.position, 
                                              newVillain.position) / PROJECTILE_VELOCITY;

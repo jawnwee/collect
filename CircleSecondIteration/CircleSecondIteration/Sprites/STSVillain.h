@@ -14,6 +14,6 @@
 
 - (id)initAtPosition:(CGPoint)position;
 
-- (SKSpriteNode *)showWarning:(CGPoint)originalPos padding:(float)padding;
+- (SKSpriteNode *)showWarning:(CGPoint)originalPos padding:(float)padding side:(int)side;
 
 @end
