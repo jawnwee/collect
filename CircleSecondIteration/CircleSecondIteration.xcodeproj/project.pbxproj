@@ -13,6 +13,7 @@
 		C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACA19392D0C007B7D28 /* herobeep.caf */; };
 		C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACB19392D0C007B7D28 /* welcome.caf */; };
 		C4BE5AD119392FA7007B7D28 /* STSOptionsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */; };
+		D1B1B2AD193C358D00F43BE5 /* STSInformationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B1B2AC193C358D00F43BE5 /* STSInformationScene.m */; };
 		D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */; };
 		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
 		EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */; };
@@ -66,6 +67,8 @@
 		C4BE5ACB19392D0C007B7D28 /* welcome.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome.caf; sourceTree = "<group>"; };
 		C4BE5ACF19392FA7007B7D28 /* STSOptionsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSOptionsScene.h; sourceTree = "<group>"; };
 		C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSOptionsScene.m; sourceTree = "<group>"; };
+		D1B1B2AB193C358D00F43BE5 /* STSInformationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSInformationScene.h; sourceTree = "<group>"; };
+		D1B1B2AC193C358D00F43BE5 /* STSInformationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSInformationScene.m; sourceTree = "<group>"; };
 		D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
 		EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameOverSymbols.atlas; sourceTree = "<group>"; };
@@ -262,6 +265,8 @@
 				C4BE5AAD19392693007B7D28 /* STSEndlessGameScene.m */,
 				C4BE5ACF19392FA7007B7D28 /* STSOptionsScene.h */,
 				C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */,
+				D1B1B2AB193C358D00F43BE5 /* STSInformationScene.h */,
+				D1B1B2AC193C358D00F43BE5 /* STSInformationScene.m */,
 				C4A4BD7619366729006E4C2E /* STSGameOverScene.h */,
 				C4A4BD7719366729006E4C2E /* STSGameOverScene.m */,
 			);
@@ -444,6 +449,7 @@
 			files = (
 				EBBCEE351935BAAE00F257D2 /* STSShield.m in Sources */,
 				EBBCEE321935BAA200F257D2 /* STSVillain.m in Sources */,
+				D1B1B2AD193C358D00F43BE5 /* STSInformationScene.m in Sources */,
 				EBBCEE251935BA4400F257D2 /* STSWelcomeScene.m in Sources */,
 				EBBCEDF51935B6A600F257D2 /* main.m in Sources */,
 				EBBCEDF91935B6A600F257D2 /* STSAppDelegate.m in Sources */,

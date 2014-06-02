@@ -10,6 +10,7 @@
 #import "STSEndlessGameScene.h"
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
+#import "STSInformationScene.h"
 @import AVFoundation;
 
 @interface STSWelcomeScene ()
@@ -85,7 +86,6 @@
     SKAction *rotationBack = [SKAction rotateByAngle: -M_PI * 2.0 duration:4.0];
     [self.ozone runAction:[SKAction repeatActionForever:
                       [SKAction sequence:@[rotation, wait, rotationBack, wait]]]];
-    NSLog(@"action called");
     }
 
 - (void)addPlayButton {
@@ -146,6 +146,14 @@
     }
 
     // TODO add company info scene
+    if ([node.name isEqualToString:@"CompanyInfo"]) {
+        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
+                                                      duration:0.5];
+        STSInformationScene *newInformationScene = [[STSInformationScene alloc] initWithSize:self.size];
+        newInformationScene.prevScene = self.scene;
+        [self.welcomeBackgroundMusicPlayer pause];
+        [self.view presentScene:newInformationScene transition:reveal];
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {

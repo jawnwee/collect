@@ -155,7 +155,7 @@
 
     // Clicking the exitLabel
     if ([node.name isEqualToString:@"exitLabel"]) {
-        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
                                                       duration:0.5];
         [self.nicknameTextField removeFromSuperview];
         [self.view presentScene:self.prevScene transition:reveal];
