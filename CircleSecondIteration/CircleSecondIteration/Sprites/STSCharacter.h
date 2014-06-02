@@ -12,7 +12,8 @@
 typedef enum:uint8_t {
     STSColliderTypeHero = 0x1 << 0,
     STSColliderTypeShield = 0x1 << 1,
-    STSColliderTypeVillain = 0x1 << 2
+    STSColliderTypeVillain = 0x1 << 2,
+    STSColliderTypeNotification = 0x1 << 3
 } STSColliderType;
 
 @interface STSCharacter : SKSpriteNode

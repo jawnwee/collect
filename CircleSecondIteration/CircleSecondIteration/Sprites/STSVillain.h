@@ -14,6 +14,8 @@
 
 - (id)initAtPosition:(CGPoint)position;
 
-- (SKSpriteNode *)showWarning:(CGPoint)originalPos padding:(float)padding side:(int)side;
+- (SKSpriteNode *)createNotificationOnCircleWithCenter:(CGPoint)center positionNumber:(float)n;
+
+//- (SKSpriteNode *)showWarning:(CGPoint)originalPos padding:(float)padding side:(int)side;
 
 @end
