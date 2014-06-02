@@ -10,4 +10,6 @@
 
 @interface STSWelcomeScene : SKScene
 
+- (id)initWithSize:(CGSize)size;
+
 @end

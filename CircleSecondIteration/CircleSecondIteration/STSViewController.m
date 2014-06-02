@@ -21,7 +21,7 @@
     // skView.showsPhysics = YES;
     
     // Create and configure the scene.
-    SKScene *scene = [STSWelcomeScene sceneWithSize:skView.bounds.size];
+    STSWelcomeScene *scene = [[STSWelcomeScene alloc] initWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.

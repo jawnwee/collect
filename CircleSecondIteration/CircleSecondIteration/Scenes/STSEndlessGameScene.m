@@ -17,7 +17,6 @@
 @interface STSEndlessGameScene () <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) STSHero *hero;
-@property (strong, nonatomic) SKSpriteNode *shadow;
 
 @property CGSize sizeOfVillainAndShield;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
@@ -142,11 +141,11 @@ static float PROJECTILE_VELOCITY = 200/1;
 
 - (void)createNInitialShield:(uint)nShields {
     float incrementor = 360 / nShields;
-    float nthPointInCirlce = 0;
+    float nthPointInCircle = 0;
     for (uint i = 0; i < nShields; i++) {
         CGPoint coordinates = findCoordinatesAlongACircle(self.hero.position,
                                                           self.hero.physicsBodyRadius + 32.0,
-                                                          nthPointInCirlce);
+                                                          nthPointInCircle);
         STSShield *newShield = [[STSShield alloc] initAtPosition:coordinates];
         newShield.isPartOfBarrier = YES;
         
@@ -158,7 +157,7 @@ static float PROJECTILE_VELOCITY = 200/1;
                                                                    bodyB:self.hero.physicsBody
                                                                   anchor:coordinates];
         [self.physicsWorld addJoint:joint];
-        nthPointInCirlce += incrementor;
+        nthPointInCircle += incrementor;
     }
 }
 

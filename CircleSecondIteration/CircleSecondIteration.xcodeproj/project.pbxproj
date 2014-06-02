@@ -12,11 +12,16 @@
 		C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5AC919392D0C007B7D28 /* Beep.caf */; };
 		C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACA19392D0C007B7D28 /* herobeep.caf */; };
 		C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACB19392D0C007B7D28 /* welcome.caf */; };
-		D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */; };
 		C4BE5AD119392FA7007B7D28 /* STSOptionsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */; };
+		D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */; };
 		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
-		D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */; };
 		EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */; };
+		EBA1C0FA193B9D5900BA1572 /* Ozone_Title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F9193B9D5900BA1572 /* Ozone_Title@2x.png */; };
+		EBA1C0FD193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0FB193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png */; };
+		EBA1C100193BB20D00BA1572 /* Ozone_Title_Hero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0FF193BB20D00BA1572 /* Ozone_Title_Hero@2x.png */; };
+		EBA1C103193C0F0000BA1572 /* Company_Info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C101193C0F0000BA1572 /* Company_Info@2x.png */; };
+		EBA1C104193C0F0000BA1572 /* Options_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C102193C0F0000BA1572 /* Options_Button@2x.png */; };
+		EBA1C106193C114700BA1572 /* Ozone_Layer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C105193C114700BA1572 /* Ozone_Layer@2x.png */; };
 		EBBCEDE71935B6A600F257D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE61935B6A600F257D2 /* Foundation.framework */; };
 		EBBCEDE91935B6A600F257D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */; };
 		EBBCEDEB1935B6A600F257D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBCEDEA1935B6A600F257D2 /* UIKit.framework */; };
@@ -59,12 +64,17 @@
 		C4BE5AC919392D0C007B7D28 /* Beep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Beep.caf; sourceTree = "<group>"; };
 		C4BE5ACA19392D0C007B7D28 /* herobeep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = herobeep.caf; sourceTree = "<group>"; };
 		C4BE5ACB19392D0C007B7D28 /* welcome.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome.caf; sourceTree = "<group>"; };
-		D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause_Button@2x.png"; sourceTree = "<group>"; };
 		C4BE5ACF19392FA7007B7D28 /* STSOptionsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSOptionsScene.h; sourceTree = "<group>"; };
 		C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSOptionsScene.m; sourceTree = "<group>"; };
+		D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
-		D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShieldUp_Title_Image@2x.png"; sourceTree = "<group>"; };
 		EBA1C0F31938F9DD00BA1572 /* GameOverSymbols.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameOverSymbols.atlas; sourceTree = "<group>"; };
+		EBA1C0F9193B9D5900BA1572 /* Ozone_Title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Title@2x.png"; sourceTree = "<group>"; };
+		EBA1C0FB193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Title_Hero_Shadow@2x.png"; sourceTree = "<group>"; };
+		EBA1C0FF193BB20D00BA1572 /* Ozone_Title_Hero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Title_Hero@2x.png"; sourceTree = "<group>"; };
+		EBA1C101193C0F0000BA1572 /* Company_Info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Company_Info@2x.png"; sourceTree = "<group>"; };
+		EBA1C102193C0F0000BA1572 /* Options_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Options_Button@2x.png"; sourceTree = "<group>"; };
+		EBA1C105193C114700BA1572 /* Ozone_Layer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Layer@2x.png"; sourceTree = "<group>"; };
 		EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleSecondIteration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBCEDE61935B6A600F257D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -147,8 +157,13 @@
 		D1FFABF41937265F004A2485 /* WelcomeScreen */ = {
 			isa = PBXGroup;
 			children = (
+				EBA1C105193C114700BA1572 /* Ozone_Layer@2x.png */,
+				EBA1C101193C0F0000BA1572 /* Company_Info@2x.png */,
+				EBA1C102193C0F0000BA1572 /* Options_Button@2x.png */,
+				EBA1C0FB193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png */,
+				EBA1C0FF193BB20D00BA1572 /* Ozone_Title_Hero@2x.png */,
+				EBA1C0F9193B9D5900BA1572 /* Ozone_Title@2x.png */,
 				D1FFABF51937265F004A2485 /* Play_Button@2x.png */,
-				D1FFABF61937265F004A2485 /* ShieldUp_Title_Image@2x.png */,
 			);
 			path = WelcomeScreen;
 			sourceTree = "<group>";
@@ -392,16 +407,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
-				D1FFABF81937265F004A2485 /* ShieldUp_Title_Image@2x.png in Resources */,
+				EBA1C0FD193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png in Resources */,
+				EBA1C103193C0F0000BA1572 /* Company_Info@2x.png in Resources */,
 				C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */,
 				C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
+				EBA1C0FA193B9D5900BA1572 /* Ozone_Title@2x.png in Resources */,
 				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
 				C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */,
 				D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */,
 				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
 				D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */,
+				EBA1C106193C114700BA1572 /* Ozone_Layer@2x.png in Resources */,
 				EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */,
+				EBA1C100193BB20D00BA1572 /* Ozone_Title_Hero@2x.png in Resources */,
+				EBA1C104193C0F0000BA1572 /* Options_Button@2x.png in Resources */,
 				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
 				EBBCEE3E1935C12F00F257D2 /* Hero_Default.atlas in Resources */,
 			);
