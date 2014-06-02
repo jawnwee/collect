@@ -55,6 +55,7 @@
     [self createNInitialShield:20];
     [self addScore];
     [self addPauseButton];
+    [self addRestartButton];
     
     SKAction *makeVillain = [SKAction sequence:@[
                                     [SKAction performSelector:@selector(addVillain)
@@ -85,6 +86,17 @@ static float PROJECTILE_VELOCITY = 200/1;
     [self addChild:pauseNode];
 }
 
+- (void)addRestartButton {
+    SKTexture *restartTexture = [SKTexture textureWithImageNamed:@"Pause_Button.png"];
+    SKSpriteNode *restartNode = [SKSpriteNode spriteNodeWithTexture:restartTexture];
+    CGPoint topLeftCorner = CGPointMake(restartNode.size.width,
+                                        self.frame.size.height - restartNode.size.height / 2 - 30);
+
+    restartNode.position = topLeftCorner;
+    restartNode.name = @"restart";
+    [self addChild:restartNode];
+}
+
 - (void)addHero{
     CGPoint sceneCenter = CGPointMake(self.frame.size.width / 2,
                                        self.frame.size.height / 2);
@@ -102,6 +114,7 @@ static float PROJECTILE_VELOCITY = 200/1;
                                                           anchor:self.hero.position];
     [self.physicsWorld addJoint:joint];
 }
+
 
 - (void)addVillain{
     //create a random starting point and initialize a villain
@@ -233,6 +246,10 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     if (!self.paused){
         if ([node.name isEqualToString:@"pause"]) {
             self.paused = YES;
+        }
+        else if ([node.name isEqualToString:@"restart"]) {
+            STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.frame.size];
+            [self.view presentScene:newEndlessGameScene];
         }
         else {
             [self.hero rotate:location];
