@@ -1,15 +1,17 @@
 //
-//  STSOptionsScene.h
+//  STSPauseScene.h
 //  CircleSecondIteration
 //
-//  Created by Matthew Chiang on 5/30/14.
+//  Created by John Lee on 6/2/14.
 //  Copyright (c) 2014 SummaTime Studio. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
+#import "STSCharacter.h"
 
-@interface STSOptionsScene : SKScene
+@interface STSPauseScene : SKScene
 
 @property (strong, nonatomic) SKScene *previousScene;
+
+- (id)initWithSize:(CGSize)size;
 
 @end

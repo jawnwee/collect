@@ -20,14 +20,17 @@
 
 @implementation STSOptionsScene
 
-@synthesize prevScene;
+@synthesize previousScene;
 
 # pragma mark - Initialize scene contents
 
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
 
-        self.backgroundColor = [SKColor whiteColor];
+        self.backgroundColor = [SKColor colorWithRed:240.0 / 255.0
+                                               green:241.0 / 255.0
+                                                blue:238.0 / 255.0
+                                               alpha:1.0];
         self.scaleMode = SKSceneScaleModeAspectFill;
         self.currentNickname = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
         [self addNicknameLabel];
@@ -156,9 +159,9 @@
     // Clicking the exitLabel
     if ([node.name isEqualToString:@"exitLabel"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
-                                                      duration:0.5];
+                                                      duration:0.3];
         [self.nicknameTextField removeFromSuperview];
-        [self.view presentScene:self.prevScene transition:reveal];
+        [self.view presentScene:self.previousScene transition:reveal];
     }
 
     // Clicking anywhere but the keyboard dismisses it when changing nicknames

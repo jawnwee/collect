@@ -79,7 +79,7 @@
     [self addChild:ozoneShadow];
     [ozoneShadow addChild: self.ozone];
 
-    SKAction *waitDuration = [SKAction waitForDuration:3.0];
+    SKAction *waitDuration = [SKAction waitForDuration:2.0];
     [self.ozone runAction:waitDuration];
     SKAction *rotation = [SKAction rotateByAngle: M_PI * 2.0 duration:4.0];
     SKAction *wait = [SKAction waitForDuration:1.0];
@@ -118,7 +118,8 @@
 - (void)addOzoneLayer {
     SKTexture *ozoneLayerTexture = [SKTexture textureWithImageNamed:@"Ozone_Layer.png"];
     SKSpriteNode *ozoneLayerNode = [SKSpriteNode spriteNodeWithTexture:ozoneLayerTexture];
-    ozoneLayerNode.position = CGPointMake(CGRectGetMidX(self.frame), 120.0);
+    ozoneLayerNode.position = CGPointMake(CGRectGetMidX(self.frame), 0.0);
+    ozoneLayerNode.name = @"OzoneLayer";
     [self addChild:ozoneLayerNode];
 }
 
@@ -129,10 +130,7 @@
     CGPoint touchLocation = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:touchLocation];
     if ([node.name isEqualToString:@"playButton"]) {
-        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                      duration:0.5];
-        SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-        [self.view presentScene:newEndlessGameScene transition:reveal];
+        [self transitionToEndlessGameScene];
     }
 
     // Set up option menu
@@ -140,7 +138,7 @@
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                       duration:0.5];
         STSOptionsScene *newOptionsScene = [[STSOptionsScene alloc] initWithSize:self.size];
-        newOptionsScene.prevScene = self.scene;
+        newOptionsScene.previousScene = self.scene;
         [self.welcomeBackgroundMusicPlayer pause];
         [self.view presentScene:newOptionsScene transition:reveal];
     }
@@ -156,8 +154,58 @@
     }
 }
 
+- (void)transitionToEndlessGameScene {
+
+    SKAction *waitShort = [SKAction waitForDuration:0.1];
+    SKAction *removeFromParent = [SKAction removeFromParent];
+
+    // Bouncing motion for the lower half sprites
+    SKAction *lowerBounceUp = [SKAction moveByX:0.0 y:20.0 duration:0.5];
+    SKAction *lowerBounceDown = [SKAction moveByX:0.0 y:-500.0 duration:0.3];
+    SKAction *lowerBounceSequence =[SKAction sequence:@[lowerBounceUp, waitShort,
+                                                       lowerBounceDown, removeFromParent]];
+
+    // Bounce motion for the upper half sprites
+    SKAction *upperBounceDown = [SKAction moveByX:0.0 y:-20.0 duration:0.5];
+    SKAction *upperBounceUp = [SKAction moveByX:0.0 y:500.0 duration:0.3];
+    SKAction *upperBounceSequence =[SKAction sequence:@[upperBounceDown, waitShort,
+                                                     upperBounceUp, removeFromParent]];
+
+    // Holy fuck this is messy
+    for (NSInteger i = 0; i < self.children.count; i++) {
+        SKNode *node = [self.children objectAtIndex:i];
+        if (i + 1 == self.children.count) {
+            if ([node.name isEqualToString:@"CompanyInfo"] ||
+                [node.name isEqualToString:@"playButton"] ||
+                [node.name isEqualToString:@"OptionMenu"] ||
+                [node.name isEqualToString:@"OzoneLayer"]) {
+                [node runAction:lowerBounceSequence completion:^{
+                    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+                    [self.view presentScene:newEndlessGameScene];
+                }];
+            } else {
+                [node runAction:upperBounceSequence completion:^{
+                    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+                    [self.view presentScene:newEndlessGameScene];
+                }];
+            }
+        } else {
+            if ([node.name isEqualToString:@"CompanyInfo"] ||
+                       [node.name isEqualToString:@"playButton"] || 
+                       [node.name isEqualToString:@"OptionMenu"] ||
+                       [node.name isEqualToString:@"OzoneLayer"]) {
+                [node runAction:lowerBounceSequence];
+            } else {
+                [node runAction:upperBounceSequence];
+            }
+        }
+    }
+}
+
+#pragma mark - Pause Logic
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+    // If the scene is currently paused, change it to unpaused
     if (self.paused) {
         self.paused = !self.paused;
     }

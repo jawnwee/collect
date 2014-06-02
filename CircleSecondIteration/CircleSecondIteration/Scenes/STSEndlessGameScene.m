@@ -7,6 +7,7 @@
 //
 
 #import "STSEndlessGameScene.h"
+#import "STSPauseScene.h"
 #import "STSAppDelegate.h"
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
@@ -34,7 +35,20 @@
 - (id)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
     if (self) {
-        [self createEndlessGameSceneContents];
+        self.scene.scaleMode = SKSceneScaleModeAspectFill;
+        self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0
+                                               green:144.0 / 255.0
+                                                blue:68.0 / 255.0
+                                               alpha:1.0];
+
+        [self addScore];
+        [self addPauseButton];
+
+        // Duration to start song
+        SKAction *waitBeforeGameBegins = [SKAction waitForDuration:0.3];
+        [self runAction:waitBeforeGameBegins completion:^{
+            [self createEndlessGameSceneContents];
+        }];
     }
     return self;
 }
@@ -42,34 +56,28 @@
 
 #pragma mark - Scene Contents
 - (void)createEndlessGameSceneContents {
-    self.scene.scaleMode = SKSceneScaleModeAspectFill;
-    self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0
-                                           green:144.0 / 255.0
-                                            blue:68.0 / 255.0
-                                           alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFill;
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:[self frame]];
     self.physicsWorld.contactDelegate = self;
 
     [self addHero];
     [self createNInitialShield:20];
-    [self addScore];
-    [self addPauseButton];
-    [self addRestartButton];
-    
-    SKAction *makeVillain = [SKAction sequence:@[
-                                    [SKAction performSelector:@selector(addVillain)
-                                                     onTarget:self],
-                                    [SKAction waitForDuration:1.5
-                                                    withRange:0.5]]];
-    SKAction *makeExtraShields = [SKAction sequence:@[
-                                    [SKAction performSelector:@selector(addShield)
-                                                     onTarget:self],
-                                    [SKAction waitForDuration:1.0
-                                                    withRange:0.5]]];
 
-    [self runAction:[SKAction repeatActionForever:makeVillain]];
-    [self runAction:[SKAction repeatActionForever:makeExtraShields]];
+    // Adjust this value to lengthen wait for hero to come in
+    SKAction *waitForFadeToFinish = [SKAction waitForDuration:0.2];
+    [self runAction:waitForFadeToFinish completion:^{
+        SKAction *makeVillain = [SKAction sequence:@[
+                                                     [SKAction performSelector:@selector(addVillain)
+                                                                      onTarget:self],
+                                                     [SKAction waitForDuration:1.5 withRange:0.5]]];
+
+        SKAction *makeExtraShields = [SKAction sequence:@[
+                               [SKAction performSelector:@selector(addShield) onTarget:self],
+                               [SKAction waitForDuration:1.0 withRange:0.5]]];
+        
+        [self runAction:[SKAction repeatActionForever:makeVillain]];
+        [self runAction:[SKAction repeatActionForever:makeExtraShields]];
+    }];
 }
 
 
@@ -79,8 +87,8 @@ static float PROJECTILE_VELOCITY = 200/1;
 - (void)addPauseButton{
     SKTexture *pauseTexture = [SKTexture textureWithImageNamed:@"Pause_Button.png"];
     SKSpriteNode *pauseNode = [SKSpriteNode spriteNodeWithTexture:pauseTexture];
-    CGPoint topRightCorner = CGPointMake(self.frame.size.width - pauseNode.size.width,
-                                         self.frame.size.height - pauseNode.size.height/2-30);
+    CGPoint topRightCorner = CGPointMake(self.frame.size.width - pauseNode.size.width - 20.0 ,
+                                         self.frame.size.height - pauseNode.size.height - 30.0);
     pauseNode.position = topRightCorner;
     pauseNode.name = @"pause";
     [self addChild:pauseNode];
@@ -104,10 +112,17 @@ static float PROJECTILE_VELOCITY = 200/1;
     self.hero = newHero;
 
     SKSpriteNode *shadow = [self.hero createShadow];
-    shadow.position = CGPointMake(CGRectGetMidX(self.frame) + 0.8, CGRectGetMidY(self.frame) - 1.5);
+    shadow.position = CGPointMake(CGRectGetMidX(self.frame) - 0.8, CGRectGetMidY(self.frame) + 1.0);
     [self addChild:shadow];
 
     [self addChild:self.hero];
+
+    self.hero.alpha = 0.0;
+    shadow.alpha = 0.0;
+    SKAction *fadeIn = [SKAction fadeInWithDuration:1.0];
+
+    [self.hero runAction:fadeIn];
+    [shadow runAction:fadeIn];
 
     SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:self.hero.physicsBody
                                                            bodyB:self.physicsBody
@@ -163,7 +178,8 @@ static float PROJECTILE_VELOCITY = 200/1;
         newShield.isPartOfBarrier = YES;
         
         [self addChild:newShield];
-        SKAction *fadeIn = [SKAction fadeInWithDuration:1.5];
+        newShield.alpha = 0.0;
+        SKAction *fadeIn = [SKAction fadeInWithDuration:1.0];
         [newShield runAction:fadeIn];
         
         SKPhysicsJointFixed *joint = [SKPhysicsJointFixed jointWithBodyA:newShield.physicsBody
@@ -183,7 +199,7 @@ static float PROJECTILE_VELOCITY = 200/1;
                                                  blue:41.0 / 255.0 
                                                 alpha:1.0];
     self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                           CGRectGetMidY(self.frame) + 150);
+                                           CGRectGetMidY(self.frame) + 200.0);
 
     [self addChild:self.scoreLabel];
 }
@@ -246,6 +262,11 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     if (!self.paused){
         if ([node.name isEqualToString:@"pause"]) {
             self.paused = YES;
+            STSPauseScene *pauseScene = [[STSPauseScene alloc] initWithSize:self.size];
+            SKTransition *swipeLeft = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                              duration:0.3];
+            pauseScene.previousScene = self;
+            [self.view presentScene:pauseScene transition:swipeLeft];
         }
         else if ([node.name isEqualToString:@"restart"]) {
             STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.frame.size];
@@ -269,6 +290,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     first = contact.bodyA.node;
     second = contact.bodyB.node;
 
+    // The villain sounds should come and should continue to play as villains hit shields
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]

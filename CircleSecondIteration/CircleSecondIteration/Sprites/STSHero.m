@@ -55,17 +55,17 @@ static float MIN_TORQUE = -2.5;
 - (void)rotate:(CGPoint)location{
     SKScene *parentView = (SKScene *)self.parent;
     if (location.x > parentView.frame.size.width / 2.0) {
-        if (self.physicsBody.angularVelocity >= 0.8) {
+        if (self.physicsBody.angularVelocity >= 0.5) {
             [self.physicsBody applyTorque:-4.0];
         } else if (self.physicsBody.angularVelocity >= MIN_TORQUE) {
-            [self.physicsBody applyTorque:-0.5];
+            [self.physicsBody applyTorque:-0.7];
         }
     }
     else {
-        if (self.physicsBody.angularVelocity <= -0.8) {
+        if (self.physicsBody.angularVelocity <= -0.5) {
             [self.physicsBody applyTorque:4.0];
         } else if (self.physicsBody.angularVelocity <= MAX_TORQUE) {
-            [self.physicsBody applyTorque:0.5];
+            [self.physicsBody applyTorque:0.7];
         }
     }
 }

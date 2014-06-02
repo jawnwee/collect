@@ -48,7 +48,6 @@
 
     [self addScoreLabel];
     [self addHighScoreLabel];
-
 }
 
 # pragma mark - Add nodes
