@@ -21,6 +21,8 @@
 @property (nonatomic) NSString *scoreString;
 @property (nonatomic) NSString *highScoreString;
 
+@property (nonatomic) SKSpriteNode *deadOzone;
+
 @end
 
 
@@ -28,20 +30,34 @@
 
 @synthesize previousScene;
 
+#pragma mark - Initialization
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
 
         self.backgroundColor = [SKColor whiteColor];
         self.scaleMode = SKSceneScaleModeAspectFill;
-        [self addChild:[self addGameOverNode]];
-        [self addRetryLabel];
-        [self addMenuLabel];
-        [self addRetrySymbol];
-        [self addMenuSymbol];
-
+        [self createSceneContents];
     }
     return self;
+}
+
+- (void)createSceneContents {
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
+    SKTexture *deadOzoneTexture = [atlas textureNamed:@"Dead_Ozone.png"];
+    self.deadOzone = [SKSpriteNode spriteNodeWithTexture:deadOzoneTexture];
+
+    self.deadOzone.position = CGPointMake(self.scene.size.width / 2.0, -1000.0);
+    [self addChild:self.deadOzone];
+    SKAction *bounceUp = [SKAction moveByX:0.0 y:1030.0 duration:0.8];
+    SKAction *adjustBounce = [SKAction moveByX:0.0 y:-30.0 duration:0.5];
+    SKAction *sequence = [SKAction sequence:@[bounceUp, adjustBounce]];
+    [self.deadOzone runAction: sequence];
+    [self addChild:[self addGameOverNode]];
+    [self addRetryLabel];
+    [self addMenuLabel];
+    [self addRetrySymbol];
+    [self addMenuSymbol];
 }
 
 - (void)didMoveToView:(SKView *)view {

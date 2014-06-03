@@ -167,6 +167,7 @@ static float PROJECTILE_VELOCITY = 200/1;
     int randomPositionNumber = arc4random_uniform(360);
     CGPoint position = [self createPositionOutsideFrameArrayAtPositionNumber:randomPositionNumber];
     STSVillain *newVillain = [[STSVillain alloc] initAtPosition:position];
+    newVillain.name = @"Villain";
     self.sizeOfVillainAndShield = newVillain.size;
     [self addChild:newVillain];
     
@@ -179,6 +180,7 @@ static float PROJECTILE_VELOCITY = 200/1;
     SKSpriteNode *newNotification =
                         [newVillain createNotificationOnCircleWithCenter:self.hero.position
                                                           positionNumber:randomPositionNumber];
+    newNotification.name = @"notification";
     [self addChild:newNotification];
     
     //run the villain's actions
@@ -190,6 +192,7 @@ static float PROJECTILE_VELOCITY = 200/1;
     int randomPositionNumber = arc4random_uniform(360);
     CGPoint position = [self createPositionOutsideFrameArrayAtPositionNumber:randomPositionNumber];
     STSShield *newShield = [[STSShield alloc] initAtPosition:position];
+    newShield.name = @"Shield";
     [self addChild:newShield];
 
     float realMoveDuration = distanceFormula(self.hero.position,
@@ -206,6 +209,7 @@ static float PROJECTILE_VELOCITY = 200/1;
                                                           self.hero.physicsBodyRadius + 32.0,
                                                           nthPointInCircle);
         STSShield *newShield = [[STSShield alloc] initAtPosition:coordinates];
+        newShield.name = @"HeroShield";
         newShield.isPartOfBarrier = YES;
         
         [self addChild:newShield];
@@ -224,6 +228,7 @@ static float PROJECTILE_VELOCITY = 200/1;
 - (void)addScore {
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
+    self.scoreLabel.name = @"score";
     self.scoreLabel.fontSize = 60.0;
     self.scoreLabel.fontColor = [SKColor colorWithRed:211.0 / 255.0 
                                                 green:92.0 / 255.0 
@@ -335,6 +340,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
                  completion:^{
                      [second removeFromParent];
+                     [self removeAllActions];
                      [self gameOver];
                  }];
         } else {
@@ -366,14 +372,18 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
 #pragma mark - Game Over Animation
 
+/* Animation to make all villains and shields from appearing and make heroes current shields fly out
+   Hero then bounces up, then quickly down in order to transition into GameOverScene */
 - (void)gameOver {
-
-
+    [self removeAllActions];
+    self.hero.physicsBody.dynamic = NO;
+    SKAction *waitDuration = [SKAction waitForDuration:0.7];
+    SKAction *waitAfter = [SKAction waitForDuration:0.3];
     SKAction *fadeOut = [SKAction fadeAlphaTo:0.0 duration:0.1];
     SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.1];
     SKAction *bounceUp = [SKAction moveByX:0.0 y:10.0 duration:0.5];
     SKAction *bounceDown = [SKAction moveByX:0.0 y:-500.0 duration:0.2];
-    SKAction *bounceSequence =[SKAction sequence:@[bounceUp, bounceDown]];
+    SKAction *bounceSequence =[SKAction sequence:@[waitDuration, bounceUp, bounceDown, waitAfter]];
 
     NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
     if (highScore == 0 || highScore < self.score) {
@@ -391,15 +401,50 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     SKSpriteNode *deadHero = (SKSpriteNode *)[self childNodeWithName:@"deadHero"];
     deadHero.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     SKSpriteNode *shadow = (SKSpriteNode *)[self childNodeWithName:@"HeroShadow"];
-
     deadHero.zRotation = self.hero.zRotation;
+
+    CGFloat sceneMidXCoordinate = CGRectGetMidX(self.frame);
+    CGFloat sceneMidYCoordinate = CGRectGetMidY(self.frame);
+    for (SKSpriteNode *node in self.children) {
+        if ([node.name isEqualToString:@"HeroShield"]) {
+            if (node.position.x >= sceneMidXCoordinate && node.position.y >= sceneMidYCoordinate) {
+                SKAction *pushUpAndRight = [SKAction moveByX:500.0 y:500.0 duration:1.0];
+                [node runAction:pushUpAndRight];
+            } else if (node.position.x >= sceneMidXCoordinate 
+                       && node.position.y <= sceneMidYCoordinate) {
+                SKAction *pushDownAndRight = [SKAction moveByX:500.0 y:-500.0 duration:1.0];
+                [node runAction:pushDownAndRight];
+            } else if (node.position.x <= sceneMidXCoordinate
+                       && node.position.y <= sceneMidYCoordinate) {
+                SKAction *pushDownAndLeft = [SKAction moveByX:-500.0 y:-500.0 duration:1.0];
+                [node runAction:pushDownAndLeft];
+            } else {
+                SKAction *pushUpAndLeft = [SKAction moveByX:-500.0 y:500.0 duration:1.0];
+                [node runAction:pushUpAndLeft];
+            }
+        } else if ([node.name isEqualToString:@"Shield"]
+                   || [node.name isEqualToString:@"Villain"]
+                   || [node.name isEqualToString:@"notification"]) {
+
+            [node removeFromParent];
+
+        } else if ([node.name isEqualToString:@"pause"] || [node.name isEqualToString:@"restart"] 
+                   || [node.name isEqualToString:@"score"]) {
+            [node runAction:fadeOut];
+        }
+    }
+
+
     [deadHero runAction:fadeIn];
     [deadHero runAction:bounceSequence];
     [shadow runAction:bounceSequence];
+    [shadow runAction:fadeOut];
     [self.physicsWorld removeAllJoints];
     [self.hero runAction:fadeOut];
     [self.hero runAction:bounceSequence completion:^{
-        [self.view presentScene:newGameOverScene];
+        SKTransition *swipeUp = [SKTransition pushWithDirection:SKTransitionDirectionUp
+                                                         duration:0.3];
+        [self.view presentScene:newGameOverScene transition:swipeUp];
     }];
 }
 
