@@ -45,18 +45,18 @@
     [self addTitle];
     [self addDivider:CGPointMake(middle, height - 75.0)];
     [self addNicknameTitle];
-    [self addDivider:CGPointMake(middle, height - 175.0)];
+    [self addDivider:CGPointMake(middle, height - 200.0)];
     [self addMusicTitle];
     [self addMusicToggle];
-    [self addDivider:CGPointMake(middle, height - 275.0)];
+    [self addDivider:CGPointMake(middle, height - 335.0)];
     [self addSaveButton];
-    [self addDivider:CGPointMake(middle, height - 375.0)];
+    // [self addDivider:CGPointMake(middle, height - 410.0)];
     [self addCredits];
 }
 
 - (void)didMoveToView:(SKView *)view {
     self.nicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.size.width / 3,
-                                                                           100, 200, 55)];
+                                                                           115, 200, 55)];
     self.nicknameTextField.borderStyle = UITextBorderStyleNone;
     self.nicknameTextField.textColor = [UIColor colorWithRed:245.0 / 255.0
                                                        green:144.0 / 255.0
@@ -101,7 +101,7 @@
 
 - (void)addMusicTitle {
     SKSpriteNode *title = [SKSpriteNode spriteNodeWithImageNamed:@"Music.png"];
-    title.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 185.0);
+    title.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 215.0);
     [self addChild:title];
 }
 
@@ -119,7 +119,7 @@
     }
     self.musicToggleLabel.fontSize = 48.0;
     self.musicToggleLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                                 self.frame.size.height - 249.0);
+                                                 self.frame.size.height - 289.0);
     self.musicToggleLabel.name = @"musicToggleLabel";
 
     [self addChild:self.musicToggleLabel];
@@ -128,7 +128,7 @@
 - (void)addSaveButton {
     self.saveButton = [SKSpriteNode spriteNodeWithImageNamed:@"Save_Button.png"];
     self.saveButton.position = CGPointMake(CGRectGetMidX(self.frame),
-                                           self.frame.size.height - 325.0);
+                                           self.frame.size.height - 375.0);
     self.saveButton.name = @"SaveButton";
 
     [self addChild:self.saveButton];
@@ -136,7 +136,7 @@
 
 - (void)addCredits {
     SKSpriteNode *credits = [SKSpriteNode spriteNodeWithImageNamed:@"Credits.png"];
-    credits.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 460.0);
+    credits.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 480.0);
     [self addChild:credits];
 }
 

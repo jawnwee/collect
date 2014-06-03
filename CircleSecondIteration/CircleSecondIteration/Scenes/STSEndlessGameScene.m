@@ -124,6 +124,10 @@ static float PROJECTILE_VELOCITY = 200/1;
     [self addChild:restartNode];
 }
 
+
+// The logic behind here is to add a dead hero image on top of the hero with 0.0 alpha
+// This means that when the game is over, the positioning of the white dot on the dead/normal
+// hero is the same and will show a simultaneous fade in/out animation
 - (void)addHero{
     CGPoint sceneCenter = CGPointMake(self.frame.size.width / 2,
                                        self.frame.size.height / 2);
@@ -132,14 +136,22 @@ static float PROJECTILE_VELOCITY = 200/1;
 
     SKSpriteNode *shadow = [self.hero createShadow];
     shadow.position = CGPointMake(CGRectGetMidX(self.frame) - 0.8, CGRectGetMidY(self.frame) + 1.0);
+    shadow.name = @"HeroShadow";
     [self addChild:shadow];
 
+    SKSpriteNode *deadHero = [self.hero createDeadHero];
+    deadHero.name = @"deadHero";
+    deadHero.position = sceneCenter;
+    deadHero.alpha = 0.0;
+    [self addChild:deadHero];
     [self addChild:self.hero];
 
     self.hero.alpha = 0.0;
     shadow.alpha = 0.0;
     SKAction *fadeIn = [SKAction fadeInWithDuration:1.0];
+    SKAction *fadeInForDeadHero = [SKAction fadeAlphaTo:0.5 duration:1.0];
 
+    [deadHero runAction:fadeInForDeadHero];
     [self.hero runAction:fadeIn];
     [shadow runAction:fadeIn];
 
@@ -322,41 +334,13 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
                  completion:^{
-                     // Game over scene transition when villain hits hero
-                     SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                                   duration:0.5];
-                     NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
-                     if (highScore == 0 || highScore < self.score) {
-                         [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
-                     }
-                     STSGameOverScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
-                     // Pointer back to welcome scene
-                     newGameOverScene.previousScene = self.previousScene;
-                     self.previousScene = nil;
-
-                     newGameOverScene.userData = [NSMutableDictionary dictionary];
-                     NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
-                     [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
-                     [self.view presentScene:newGameOverScene transition:reveal];
+                     [second removeFromParent];
+                     [self gameOver];
                  }];
         } else {
-            // Game over scene transition when villain hits hero
-            SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                          duration:0.5];
-            NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
-            if (highScore == 0 || highScore < self.score) {
-                [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
-            }
-            STSGameOverScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
-            // Pointer back to welcome scene
-            newGameOverScene.previousScene = self.previousScene;
-            self.previousScene = nil;
-
-            newGameOverScene.userData = [NSMutableDictionary dictionary];
-            NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
-            [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
-            [self.view presentScene:newGameOverScene transition:reveal];
-        };
+            [second removeFromParent];
+            [self gameOver];
+        }
     } else if ([first isKindOfClass:[STSShield class]] &&
                [second isKindOfClass:[STSShield class]]) {
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
@@ -380,6 +364,44 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     }
 }
 
+#pragma mark - Game Over Animation
+
+- (void)gameOver {
+
+
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0.0 duration:0.1];
+    SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.1];
+    SKAction *bounceUp = [SKAction moveByX:0.0 y:10.0 duration:0.5];
+    SKAction *bounceDown = [SKAction moveByX:0.0 y:-500.0 duration:0.2];
+    SKAction *bounceSequence =[SKAction sequence:@[bounceUp, bounceDown]];
+
+    NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
+    if (highScore == 0 || highScore < self.score) {
+        [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
+    }
+    STSGameOverScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+    // Pointer back to welcome scene
+    newGameOverScene.previousScene = self.previousScene;
+    self.previousScene = nil;
+
+    newGameOverScene.userData = [NSMutableDictionary dictionary];
+    NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
+    [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
+
+    SKSpriteNode *deadHero = (SKSpriteNode *)[self childNodeWithName:@"deadHero"];
+    deadHero.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    SKSpriteNode *shadow = (SKSpriteNode *)[self childNodeWithName:@"HeroShadow"];
+
+    deadHero.zRotation = self.hero.zRotation;
+    [deadHero runAction:fadeIn];
+    [deadHero runAction:bounceSequence];
+    [shadow runAction:bounceSequence];
+    [self.physicsWorld removeAllJoints];
+    [self.hero runAction:fadeOut];
+    [self.hero runAction:bounceSequence completion:^{
+        [self.view presentScene:newGameOverScene];
+    }];
+}
 
 #pragma mark - Frame Updates
 - (void)update:(CFTimeInterval)currentTime {

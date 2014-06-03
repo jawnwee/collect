@@ -43,7 +43,6 @@
 		EBBCEE2F1935BA8700F257D2 /* STSHero.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE2E1935BA8700F257D2 /* STSHero.m */; };
 		EBBCEE321935BAA200F257D2 /* STSVillain.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE311935BAA200F257D2 /* STSVillain.m */; };
 		EBBCEE351935BAAE00F257D2 /* STSShield.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBCEE341935BAAE00F257D2 /* STSShield.m */; };
-		EBBCEE3E1935C12F00F257D2 /* Hero_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE391935C12F00F257D2 /* Hero_Default.atlas */; };
 		EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE3B1935C12F00F257D2 /* Shield_Default.atlas */; };
 		EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBBCEE3D1935C12F00F257D2 /* Villain_Default.atlas */; };
 		EBC643F6193C7980005F57D5 /* STSPauseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC643F5193C7980005F57D5 /* STSPauseScene.m */; };
@@ -57,6 +56,7 @@
 		EBC6440A193D31A5005F57D5 /* Settings_Title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC64404193D31A5005F57D5 /* Settings_Title@2x.png */; };
 		EBC6440C193D3EA1005F57D5 /* Save_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6440B193D3EA1005F57D5 /* Save_Button@2x.png */; };
 		EBC6440E193D4699005F57D5 /* Retry_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6440D193D4699005F57D5 /* Retry_Button@2x.png */; };
+		EBC64410193D7306005F57D5 /* Hero_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBC6440F193D7306005F57D5 /* Hero_Default.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,7 +120,6 @@
 		EBBCEE311935BAA200F257D2 /* STSVillain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSVillain.m; sourceTree = "<group>"; };
 		EBBCEE331935BAAE00F257D2 /* STSShield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSShield.h; sourceTree = "<group>"; };
 		EBBCEE341935BAAE00F257D2 /* STSShield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSShield.m; sourceTree = "<group>"; };
-		EBBCEE391935C12F00F257D2 /* Hero_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Hero_Default.atlas; sourceTree = "<group>"; };
 		EBBCEE3B1935C12F00F257D2 /* Shield_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Shield_Default.atlas; sourceTree = "<group>"; };
 		EBBCEE3D1935C12F00F257D2 /* Villain_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Villain_Default.atlas; sourceTree = "<group>"; };
 		EBC643F4193C7980005F57D5 /* STSPauseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSPauseScene.h; sourceTree = "<group>"; };
@@ -135,6 +134,7 @@
 		EBC64404193D31A5005F57D5 /* Settings_Title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Title@2x.png"; sourceTree = "<group>"; };
 		EBC6440B193D3EA1005F57D5 /* Save_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Save_Button@2x.png"; sourceTree = "<group>"; };
 		EBC6440D193D4699005F57D5 /* Retry_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Retry_Button@2x.png"; sourceTree = "<group>"; };
+		EBC6440F193D7306005F57D5 /* Hero_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Hero_Default.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,7 +343,7 @@
 		EBBCEE381935C12F00F257D2 /* Hero */ = {
 			isa = PBXGroup;
 			children = (
-				EBBCEE391935C12F00F257D2 /* Hero_Default.atlas */,
+				EBC6440F193D7306005F57D5 /* Hero_Default.atlas */,
 			);
 			path = Hero;
 			sourceTree = "<group>";
@@ -467,6 +467,7 @@
 				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
 				EBA1C0FD193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png in Resources */,
 				EBA1C103193C0F0000BA1572 /* Company_Info@2x.png in Resources */,
+				EBC64410193D7306005F57D5 /* Hero_Default.atlas in Resources */,
 				C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */,
 				C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
@@ -491,7 +492,6 @@
 				EBA1C100193BB20D00BA1572 /* Ozone_Title_Hero@2x.png in Resources */,
 				EBA1C104193C0F0000BA1572 /* Options_Button@2x.png in Resources */,
 				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
-				EBBCEE3E1935C12F00F257D2 /* Hero_Default.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

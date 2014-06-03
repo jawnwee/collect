@@ -12,6 +12,7 @@
 @interface STSHero ()
 
 @property (strong, nonatomic) SKSpriteNode *shadow;
+@property (strong, nonatomic) SKSpriteNode *deadHero;
 
 @end
 
@@ -27,6 +28,8 @@ static float MIN_TORQUE = -2.5;
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Hero_Default"];
     SKTexture *texture = [atlas textureNamed:@"Hero.png"];
     SKTexture *shadowTexture = [atlas textureNamed:@"Hero_Shadow.png"];
+    SKTexture *deadHeroTexture = [atlas textureNamed:@"Hero_Dead.png"];
+    self.deadHero = [SKSpriteNode spriteNodeWithTexture:deadHeroTexture];
     self.shadow = [SKSpriteNode spriteNodeWithTexture:shadowTexture];
     return [super initWithTexture:texture atPosition:position];
 }
@@ -46,6 +49,11 @@ static float MIN_TORQUE = -2.5;
     self.physicsBody.categoryBitMask = STSColliderTypeHero;
     self.physicsBody.collisionBitMask = 0;
     self.physicsBody.contactTestBitMask = STSColliderTypeVillain;
+}
+
+#pragma mark - Hero Details
+- (SKSpriteNode *)createDeadHero {
+    return self.deadHero;
 }
 
 - (SKSpriteNode *)createShadow {

@@ -16,6 +16,8 @@
 
 - (SKSpriteNode *)createShadow;
 
+- (SKSpriteNode *)createDeadHero;
+
 - (void)rotate:(CGPoint)location;
 
 @end
