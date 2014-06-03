@@ -7,10 +7,11 @@
 //
 
 #import "STSCharacter.h"
+#import "STSEndlessGameScene.h"
 
 @interface STSPauseScene : SKScene
 
-@property (strong, nonatomic) SKScene *previousScene;
+@property (strong, nonatomic) STSEndlessGameScene *previousScene;
 
 - (id)initWithSize:(CGSize)size;
 

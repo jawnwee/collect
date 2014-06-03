@@ -9,6 +9,7 @@
 #import "STSPauseScene.h"
 #import "STSOptionsScene.h"
 #import "STSWelcomeScene.h"
+#import "STSEndlessGameScene.h"
 
 @interface STSPauseScene ()
 
@@ -19,6 +20,8 @@
 @end
 
 @implementation STSPauseScene
+
+@synthesize previousScene;
 
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -87,6 +90,9 @@
         [self.view presentScene:options transition:optionTransition];
     } else if ([node.name isEqualToString:@"MenuButton"]) {
         STSWelcomeScene *welcome = [[STSWelcomeScene alloc] initWithSize:self.size];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+            self.previousScene.previousScene = nil;
+        }
         [self.view presentScene:welcome transition:reveal];
     }
 }

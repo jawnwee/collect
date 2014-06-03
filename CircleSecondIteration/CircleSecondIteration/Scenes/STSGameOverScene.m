@@ -26,6 +26,8 @@
 
 @implementation STSGameOverScene
 
+@synthesize previousScene;
+
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
@@ -37,6 +39,7 @@
         [self addMenuLabel];
         [self addRetrySymbol];
         [self addMenuSymbol];
+
     }
     return self;
 }
@@ -45,6 +48,7 @@
     NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
     self.highScoreString = [NSString stringWithFormat:@"%ld", (long)highScore];
     self.scoreString = [self.userData valueForKey:@"scoreString"];
+    [self.previousScene.welcomeBackgroundMusicPlayer stop];
 
     [self addScoreLabel];
     [self addHighScoreLabel];
@@ -146,12 +150,15 @@
     // Touching the retry node presents game scene last played
     if ([node.name isEqualToString:@"retryLabel"] || [node.name isEqualToString:@"retrySymbol"]) {
         STSEndlessGameScene *gameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+        gameScene.previousScene = self.previousScene;
+        self.previousScene = nil;
         [self.view presentScene:gameScene transition:reveal];
     }
 
     // Touching the menu node presents the welcome scene
     if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
+        self.previousScene = nil;
         [self.view presentScene:welcomeScene transition:reveal];
     }
 }

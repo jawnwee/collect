@@ -14,10 +14,12 @@
 #import "STSHero.h"
 #import "STSVillain.h"
 #import "STSShield.h"
+@import AVFoundation;
 
 @interface STSEndlessGameScene () <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) STSHero *hero;
+@property (nonatomic) AVAudioPlayer *welcomeBackgroundMusicPlayer;
 
 @property CGSize sizeOfVillainAndShield;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
@@ -31,6 +33,8 @@
 
 @implementation STSEndlessGameScene
 
+@synthesize previousScene;
+
 #pragma mark - Initialization
 - (id)initWithSize:(CGSize)size {
     self = [super initWithSize:size];
@@ -40,6 +44,20 @@
                                                green:144.0 / 255.0
                                                 blue:68.0 / 255.0
                                                alpha:1.0];
+
+        // Play music depending on toggle
+//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+//            NSError *error;
+//            NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
+//                                                                withExtension:@"caf"];
+//            self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
+//                                                 initWithContentsOfURL:backgroundMusicURL
+//                                                 error:&error];
+//            self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
+//            [self.welcomeBackgroundMusicPlayer prepareToPlay];
+//            [self.welcomeBackgroundMusicPlayer play];
+//            
+//        }
 
         [self addScore];
         [self addPauseButton];
@@ -227,6 +245,14 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                                                                    action:@selector(handleLongPress:)];
     self.longPress.minimumPressDuration = 0.3;
     [view addGestureRecognizer:self.longPress];
+
+    // Called when toggling music settings during play
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+        [self.previousScene.welcomeBackgroundMusicPlayer pause];
+    }
+    else {
+        [self.previousScene.welcomeBackgroundMusicPlayer play];
+    }
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)recognizer {
@@ -303,7 +329,11 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                      if (highScore == 0 || highScore < self.score) {
                          [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
                      }
-                     SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+                     STSGameOverScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+                     // Pointer back to welcome scene
+                     newGameOverScene.previousScene = self.previousScene;
+                     self.previousScene = nil;
+
                      newGameOverScene.userData = [NSMutableDictionary dictionary];
                      NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
                      [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];
@@ -317,7 +347,11 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             if (highScore == 0 || highScore < self.score) {
                 [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
             }
-            SKScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+            STSGameOverScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
+            // Pointer back to welcome scene
+            newGameOverScene.previousScene = self.previousScene;
+            self.previousScene = nil;
+
             newGameOverScene.userData = [NSMutableDictionary dictionary];
             NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
             [newGameOverScene.userData setObject:scoreString forKey:@"scoreString"];

@@ -17,7 +17,7 @@
 
 @implementation STSInformationScene
 
-@synthesize prevScene;
+@synthesize previousScene;
 
 # pragma mark - Initialize scene contents
 
@@ -72,7 +72,8 @@
     if ([node.name isEqualToString:@"exitLabel"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                       duration:0.3];
-        [self.view presentScene:self.prevScene transition:reveal];
+        [self.view presentScene:self.previousScene transition:reveal];
+        self.previousScene = nil;
     }
 }
 

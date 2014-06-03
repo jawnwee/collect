@@ -10,6 +10,6 @@
 
 @interface STSInformationScene : SKScene
 
-@property (strong, nonatomic) SKScene *prevScene;
+@property (strong, nonatomic) SKScene *previousScene;
 
 @end

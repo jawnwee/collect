@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "STSEndlessGameScene.h"
 
 @interface STSGameOverScene : SKScene
+
+@property (strong, nonatomic) STSWelcomeScene *previousScene;
 
 @end

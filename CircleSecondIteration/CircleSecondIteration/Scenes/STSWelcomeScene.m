@@ -15,7 +15,6 @@
 
 @interface STSWelcomeScene ()
 
-@property (nonatomic) AVAudioPlayer *welcomeBackgroundMusicPlayer;
 @property SKSpriteNode *ozone;
 
 @end
@@ -29,6 +28,19 @@
 
         self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0 green:144.0 / 255.0 
                                                 blue:68.0 / 255.0 alpha:1.0];
+
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+            NSError *error;
+            NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
+                                                                withExtension:@"caf"];
+            self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
+                                                 initWithContentsOfURL:backgroundMusicURL
+                                                 error:&error];
+            self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
+            [self.welcomeBackgroundMusicPlayer prepareToPlay];
+            [self.welcomeBackgroundMusicPlayer play];
+            
+        }
 
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self addGameTitleNode];
@@ -45,7 +57,10 @@
 
 - (void)didMoveToView:(SKView *)view {
     // Play music depending on toggle
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+    NSLog(@"Welcome scene has come to view. Music toggle is on?: %d.", [[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]);
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+        [self.welcomeBackgroundMusicPlayer stop];
+    } else {
         NSError *error;
         NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
                                                             withExtension:@"caf"];
@@ -55,7 +70,6 @@
         self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
         [self.welcomeBackgroundMusicPlayer prepareToPlay];
         [self.welcomeBackgroundMusicPlayer play];
-
     }
 }
 
@@ -139,7 +153,6 @@
                                                       duration:0.3];
         STSOptionsScene *newOptionsScene = [[STSOptionsScene alloc] initWithSize:self.size];
         newOptionsScene.previousScene = self.scene;
-        [self.welcomeBackgroundMusicPlayer pause];
         [self.view presentScene:newOptionsScene transition:reveal];
     }
 
@@ -148,8 +161,7 @@
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
                                                       duration:0.3];
         STSInformationScene *newInformationScene = [[STSInformationScene alloc] initWithSize:self.size];
-        newInformationScene.prevScene = self.scene;
-        [self.welcomeBackgroundMusicPlayer pause];
+        newInformationScene.previousScene = self.scene;
         [self.view presentScene:newInformationScene transition:reveal];
     }
 }
@@ -180,12 +192,14 @@
                 [node.name isEqualToString:@"OptionMenu"] ||
                 [node.name isEqualToString:@"OzoneLayer"]) {
                 [node runAction:lowerBounceSequence completion:^{
-                    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+                    STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+                    newEndlessGameScene.previousScene = self;
                     [self.view presentScene:newEndlessGameScene];
                 }];
             } else {
                 [node runAction:upperBounceSequence completion:^{
-                    SKScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+                    STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+                    newEndlessGameScene.previousScene = self;
                     [self.view presentScene:newEndlessGameScene];
                 }];
             }

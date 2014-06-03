@@ -8,7 +8,13 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+@import AVFoundation;
+
 @interface STSWelcomeScene : SKScene
+
+@property (nonatomic) BOOL musicStillPlaying;
+
+@property (nonatomic) AVAudioPlayer *welcomeBackgroundMusicPlayer;
 
 - (id)initWithSize:(CGSize)size;
 

@@ -187,6 +187,7 @@
                                                       duration:0.3];
         [self.nicknameTextField removeFromSuperview];
         [self.view presentScene:self.previousScene transition:reveal];
+        self.previousScene = nil;
     }
 
     // Clicking anywhere but the keyboard dismisses it when changing nicknames
