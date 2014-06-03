@@ -71,7 +71,7 @@
     // Clicking the exitLabel
     if ([node.name isEqualToString:@"exitLabel"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                      duration:0.5];
+                                                      duration:0.3];
         [self.view presentScene:self.prevScene transition:reveal];
     }
 }

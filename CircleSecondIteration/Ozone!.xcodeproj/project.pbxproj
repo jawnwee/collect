@@ -50,6 +50,13 @@
 		EBC643FB193D0A56005F57D5 /* Menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC643F8193D0A56005F57D5 /* Menu@2x.png */; };
 		EBC643FC193D0A56005F57D5 /* Resume@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC643F9193D0A56005F57D5 /* Resume@2x.png */; };
 		EBC643FD193D0A56005F57D5 /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC643FA193D0A56005F57D5 /* Settings@2x.png */; };
+		EBC64406193D31A5005F57D5 /* Credits@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC64400193D31A5005F57D5 /* Credits@2x.png */; };
+		EBC64407193D31A5005F57D5 /* Divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC64401193D31A5005F57D5 /* Divider@2x.png */; };
+		EBC64408193D31A5005F57D5 /* Music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC64402193D31A5005F57D5 /* Music@2x.png */; };
+		EBC64409193D31A5005F57D5 /* Nickname@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC64403193D31A5005F57D5 /* Nickname@2x.png */; };
+		EBC6440A193D31A5005F57D5 /* Settings_Title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC64404193D31A5005F57D5 /* Settings_Title@2x.png */; };
+		EBC6440C193D3EA1005F57D5 /* Save_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6440B193D3EA1005F57D5 /* Save_Button@2x.png */; };
+		EBC6440E193D4699005F57D5 /* Retry_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6440D193D4699005F57D5 /* Retry_Button@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,24 +89,24 @@
 		EBA1C101193C0F0000BA1572 /* Company_Info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Company_Info@2x.png"; sourceTree = "<group>"; };
 		EBA1C102193C0F0000BA1572 /* Options_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Options_Button@2x.png"; sourceTree = "<group>"; };
 		EBA1C105193C114700BA1572 /* Ozone_Layer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Layer@2x.png"; sourceTree = "<group>"; };
-		EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircleSecondIteration.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBCEDE31935B6A600F257D2 /* Ozone!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ozone!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBCEDE61935B6A600F257D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EBBCEDEA1935B6A600F257D2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EBBCEDEC1935B6A600F257D2 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
-		EBBCEDF01935B6A600F257D2 /* CircleSecondIteration-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleSecondIteration-Info.plist"; sourceTree = "<group>"; };
+		EBBCEDF01935B6A600F257D2 /* Ozone!-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ozone!-Info.plist"; sourceTree = "<group>"; };
 		EBBCEDF21935B6A600F257D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EBBCEDF41935B6A600F257D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EBBCEDF61935B6A600F257D2 /* CircleSecondIteration-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CircleSecondIteration-Prefix.pch"; sourceTree = "<group>"; };
+		EBBCEDF61935B6A600F257D2 /* Ozone!-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ozone!-Prefix.pch"; sourceTree = "<group>"; };
 		EBBCEDF71935B6A600F257D2 /* STSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSAppDelegate.h; sourceTree = "<group>"; };
 		EBBCEDF81935B6A600F257D2 /* STSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSAppDelegate.m; sourceTree = "<group>"; };
 		EBBCEDFB1935B6A600F257D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EBBCEDFD1935B6A600F257D2 /* STSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSViewController.h; sourceTree = "<group>"; };
 		EBBCEDFE1935B6A600F257D2 /* STSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSViewController.m; sourceTree = "<group>"; };
 		EBBCEE051935B6A600F257D2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EBBCEE0B1935B6A600F257D2 /* CircleSecondIterationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircleSecondIterationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBCEE0B1935B6A600F257D2 /* Ozone!Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Ozone!Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBCEE0C1935B6A600F257D2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		EBBCEE141935B6A600F257D2 /* CircleSecondIterationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircleSecondIterationTests-Info.plist"; sourceTree = "<group>"; };
+		EBBCEE141935B6A600F257D2 /* Ozone!Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ozone!Tests-Info.plist"; sourceTree = "<group>"; };
 		EBBCEE161935B6A600F257D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EBBCEE181935B6A700F257D2 /* CircleSecondIterationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleSecondIterationTests.m; sourceTree = "<group>"; };
 		EBBCEE231935BA4400F257D2 /* STSWelcomeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSWelcomeScene.h; sourceTree = "<group>"; };
@@ -121,6 +128,13 @@
 		EBC643F8193D0A56005F57D5 /* Menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu@2x.png"; sourceTree = "<group>"; };
 		EBC643F9193D0A56005F57D5 /* Resume@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Resume@2x.png"; sourceTree = "<group>"; };
 		EBC643FA193D0A56005F57D5 /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
+		EBC64400193D31A5005F57D5 /* Credits@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Credits@2x.png"; sourceTree = "<group>"; };
+		EBC64401193D31A5005F57D5 /* Divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Divider@2x.png"; sourceTree = "<group>"; };
+		EBC64402193D31A5005F57D5 /* Music@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Music@2x.png"; sourceTree = "<group>"; };
+		EBC64403193D31A5005F57D5 /* Nickname@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Nickname@2x.png"; sourceTree = "<group>"; };
+		EBC64404193D31A5005F57D5 /* Settings_Title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Title@2x.png"; sourceTree = "<group>"; };
+		EBC6440B193D3EA1005F57D5 /* Save_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Save_Button@2x.png"; sourceTree = "<group>"; };
+		EBC6440D193D4699005F57D5 /* Retry_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Retry_Button@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +175,7 @@
 		D1EA2C591939406600175FA6 /* GameScreenButtons */ = {
 			isa = PBXGroup;
 			children = (
+				EBC6440D193D4699005F57D5 /* Retry_Button@2x.png */,
 				D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */,
 			);
 			path = GameScreenButtons;
@@ -191,9 +206,9 @@
 		EBBCEDDA1935B6A600F257D2 = {
 			isa = PBXGroup;
 			children = (
-				EBBCEDEE1935B6A600F257D2 /* CircleSecondIteration */,
+				EBBCEDEE1935B6A600F257D2 /* Ozone */,
 				EBBCEE361935C12F00F257D2 /* Assets */,
-				EBBCEE121935B6A600F257D2 /* CircleSecondIterationTests */,
+				EBBCEE121935B6A600F257D2 /* OzoneTests */,
 				EBBCEDE51935B6A600F257D2 /* Frameworks */,
 				EBBCEDE41935B6A600F257D2 /* Products */,
 			);
@@ -202,8 +217,8 @@
 		EBBCEDE41935B6A600F257D2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */,
-				EBBCEE0B1935B6A600F257D2 /* CircleSecondIterationTests.xctest */,
+				EBBCEDE31935B6A600F257D2 /* Ozone!.app */,
+				EBBCEE0B1935B6A600F257D2 /* Ozone!Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,7 +235,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EBBCEDEE1935B6A600F257D2 /* CircleSecondIteration */ = {
+		EBBCEDEE1935B6A600F257D2 /* Ozone */ = {
 			isa = PBXGroup;
 			children = (
 				EBBCEDF71935B6A600F257D2 /* STSAppDelegate.h */,
@@ -233,33 +248,35 @@
 				EBBCEE051935B6A600F257D2 /* Images.xcassets */,
 				EBBCEDEF1935B6A600F257D2 /* Supporting Files */,
 			);
+			name = Ozone;
 			path = CircleSecondIteration;
 			sourceTree = "<group>";
 		};
 		EBBCEDEF1935B6A600F257D2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EBBCEDF01935B6A600F257D2 /* CircleSecondIteration-Info.plist */,
+				EBBCEDF01935B6A600F257D2 /* Ozone!-Info.plist */,
 				EBBCEDF11935B6A600F257D2 /* InfoPlist.strings */,
 				EBBCEDF41935B6A600F257D2 /* main.m */,
-				EBBCEDF61935B6A600F257D2 /* CircleSecondIteration-Prefix.pch */,
+				EBBCEDF61935B6A600F257D2 /* Ozone!-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EBBCEE121935B6A600F257D2 /* CircleSecondIterationTests */ = {
+		EBBCEE121935B6A600F257D2 /* OzoneTests */ = {
 			isa = PBXGroup;
 			children = (
 				EBBCEE181935B6A700F257D2 /* CircleSecondIterationTests.m */,
 				EBBCEE131935B6A600F257D2 /* Supporting Files */,
 			);
+			name = OzoneTests;
 			path = CircleSecondIterationTests;
 			sourceTree = "<group>";
 		};
 		EBBCEE131935B6A600F257D2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EBBCEE141935B6A600F257D2 /* CircleSecondIterationTests-Info.plist */,
+				EBBCEE141935B6A600F257D2 /* Ozone!Tests-Info.plist */,
 				EBBCEE151935B6A600F257D2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -311,6 +328,7 @@
 		EBBCEE371935C12F00F257D2 /* Texture Atlases */ = {
 			isa = PBXGroup;
 			children = (
+				EBC643FE193D31A5005F57D5 /* OptionsScene */,
 				EBC643F7193D0A56005F57D5 /* PauseScene */,
 				D1EA2C591939406600175FA6 /* GameScreenButtons */,
 				EBA1C0F21938F9DD00BA1572 /* GameOver */,
@@ -356,12 +374,25 @@
 			path = PauseScene;
 			sourceTree = "<group>";
 		};
+		EBC643FE193D31A5005F57D5 /* OptionsScene */ = {
+			isa = PBXGroup;
+			children = (
+				EBC6440B193D3EA1005F57D5 /* Save_Button@2x.png */,
+				EBC64400193D31A5005F57D5 /* Credits@2x.png */,
+				EBC64401193D31A5005F57D5 /* Divider@2x.png */,
+				EBC64402193D31A5005F57D5 /* Music@2x.png */,
+				EBC64403193D31A5005F57D5 /* Nickname@2x.png */,
+				EBC64404193D31A5005F57D5 /* Settings_Title@2x.png */,
+			);
+			path = OptionsScene;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EBBCEDE21935B6A600F257D2 /* CircleSecondIteration */ = {
+		EBBCEDE21935B6A600F257D2 /* Ozone! */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EBBCEE1C1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIteration" */;
+			buildConfigurationList = EBBCEE1C1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "Ozone!" */;
 			buildPhases = (
 				EBBCEDDF1935B6A600F257D2 /* Sources */,
 				EBBCEDE01935B6A600F257D2 /* Frameworks */,
@@ -371,14 +402,14 @@
 			);
 			dependencies = (
 			);
-			name = CircleSecondIteration;
+			name = "Ozone!";
 			productName = CircleSecondIteration;
-			productReference = EBBCEDE31935B6A600F257D2 /* CircleSecondIteration.app */;
+			productReference = EBBCEDE31935B6A600F257D2 /* Ozone!.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EBBCEE0A1935B6A600F257D2 /* CircleSecondIterationTests */ = {
+		EBBCEE0A1935B6A600F257D2 /* Ozone!Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EBBCEE1F1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIterationTests" */;
+			buildConfigurationList = EBBCEE1F1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "Ozone!Tests" */;
 			buildPhases = (
 				EBBCEE071935B6A600F257D2 /* Sources */,
 				EBBCEE081935B6A600F257D2 /* Frameworks */,
@@ -389,9 +420,9 @@
 			dependencies = (
 				EBBCEE111935B6A600F257D2 /* PBXTargetDependency */,
 			);
-			name = CircleSecondIterationTests;
+			name = "Ozone!Tests";
 			productName = CircleSecondIterationTests;
-			productReference = EBBCEE0B1935B6A600F257D2 /* CircleSecondIterationTests.xctest */;
+			productReference = EBBCEE0B1935B6A600F257D2 /* Ozone!Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -409,7 +440,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EBBCEDDE1935B6A600F257D2 /* Build configuration list for PBXProject "CircleSecondIteration" */;
+			buildConfigurationList = EBBCEDDE1935B6A600F257D2 /* Build configuration list for PBXProject "Ozone!" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -422,8 +453,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EBBCEDE21935B6A600F257D2 /* CircleSecondIteration */,
-				EBBCEE0A1935B6A600F257D2 /* CircleSecondIterationTests */,
+				EBBCEDE21935B6A600F257D2 /* Ozone! */,
+				EBBCEE0A1935B6A600F257D2 /* Ozone!Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -439,16 +470,23 @@
 				C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */,
 				C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
+				EBC64406193D31A5005F57D5 /* Credits@2x.png in Resources */,
+				EBC6440C193D3EA1005F57D5 /* Save_Button@2x.png in Resources */,
 				EBA1C0FA193B9D5900BA1572 /* Ozone_Title@2x.png in Resources */,
 				EBC643FC193D0A56005F57D5 /* Resume@2x.png in Resources */,
+				EBC64407193D31A5005F57D5 /* Divider@2x.png in Resources */,
 				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
 				EBC643FB193D0A56005F57D5 /* Menu@2x.png in Resources */,
+				EBC6440E193D4699005F57D5 /* Retry_Button@2x.png in Resources */,
+				EBC64408193D31A5005F57D5 /* Music@2x.png in Resources */,
+				EBC6440A193D31A5005F57D5 /* Settings_Title@2x.png in Resources */,
 				EBC643FD193D0A56005F57D5 /* Settings@2x.png in Resources */,
 				C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */,
 				D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */,
 				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
 				D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */,
 				EBA1C106193C114700BA1572 /* Ozone_Layer@2x.png in Resources */,
+				EBC64409193D31A5005F57D5 /* Nickname@2x.png in Resources */,
 				EBA1C0F41938F9DD00BA1572 /* GameOverSymbols.atlas in Resources */,
 				EBA1C100193BB20D00BA1572 /* Ozone_Title_Hero@2x.png in Resources */,
 				EBA1C104193C0F0000BA1572 /* Options_Button@2x.png in Resources */,
@@ -501,7 +539,7 @@
 /* Begin PBXTargetDependency section */
 		EBBCEE111935B6A600F257D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EBBCEDE21935B6A600F257D2 /* CircleSecondIteration */;
+			target = EBBCEDE21935B6A600F257D2 /* Ozone! */;
 			targetProxy = EBBCEE101935B6A600F257D2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -610,9 +648,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CircleSecondIteration/CircleSecondIteration-Prefix.pch";
-				INFOPLIST_FILE = "CircleSecondIteration/CircleSecondIteration-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
+				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
+				PRODUCT_NAME = "Ozone!";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -624,9 +662,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CircleSecondIteration/CircleSecondIteration-Prefix.pch";
-				INFOPLIST_FILE = "CircleSecondIteration/CircleSecondIteration-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
+				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
+				PRODUCT_NAME = "Ozone!";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -647,8 +685,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CircleSecondIterationTests/CircleSecondIterationTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CircleSecondIterationTests/Ozone!Tests-Info.plist";
+				PRODUCT_NAME = "Ozone!Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -665,8 +703,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleSecondIteration/CircleSecondIteration-Prefix.pch";
-				INFOPLIST_FILE = "CircleSecondIterationTests/CircleSecondIterationTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CircleSecondIterationTests/Ozone!Tests-Info.plist";
+				PRODUCT_NAME = "Ozone!Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -675,7 +713,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EBBCEDDE1935B6A600F257D2 /* Build configuration list for PBXProject "CircleSecondIteration" */ = {
+		EBBCEDDE1935B6A600F257D2 /* Build configuration list for PBXProject "Ozone!" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBBCEE1A1935B6A700F257D2 /* Debug */,
@@ -684,7 +722,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EBBCEE1C1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIteration" */ = {
+		EBBCEE1C1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "Ozone!" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBBCEE1D1935B6A700F257D2 /* Debug */,
@@ -693,7 +731,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EBBCEE1F1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "CircleSecondIterationTests" */ = {
+		EBBCEE1F1935B6A700F257D2 /* Build configuration list for PBXNativeTarget "Ozone!Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBBCEE201935B6A700F257D2 /* Debug */,

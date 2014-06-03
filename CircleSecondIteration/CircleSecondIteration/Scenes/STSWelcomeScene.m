@@ -136,7 +136,7 @@
     // Set up option menu
     if ([node.name isEqualToString:@"OptionMenu"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                      duration:0.5];
+                                                      duration:0.3];
         STSOptionsScene *newOptionsScene = [[STSOptionsScene alloc] initWithSize:self.size];
         newOptionsScene.previousScene = self.scene;
         [self.welcomeBackgroundMusicPlayer pause];
@@ -146,7 +146,7 @@
     // TODO add company info scene
     if ([node.name isEqualToString:@"CompanyInfo"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
-                                                      duration:0.5];
+                                                      duration:0.3];
         STSInformationScene *newInformationScene = [[STSInformationScene alloc] initWithSize:self.size];
         newInformationScene.prevScene = self.scene;
         [self.welcomeBackgroundMusicPlayer pause];

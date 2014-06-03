@@ -43,6 +43,7 @@
 
         [self addScore];
         [self addPauseButton];
+        [self addRestartButton];
 
         // Duration to start song
         SKAction *waitBeforeGameBegins = [SKAction waitForDuration:0.3];
@@ -95,10 +96,10 @@ static float PROJECTILE_VELOCITY = 200/1;
 }
 
 - (void)addRestartButton {
-    SKTexture *restartTexture = [SKTexture textureWithImageNamed:@"Pause_Button.png"];
+    SKTexture *restartTexture = [SKTexture textureWithImageNamed:@"Retry_Button.png"];
     SKSpriteNode *restartNode = [SKSpriteNode spriteNodeWithTexture:restartTexture];
-    CGPoint topLeftCorner = CGPointMake(restartNode.size.width,
-                                        self.frame.size.height - restartNode.size.height / 2 - 30);
+    CGPoint topLeftCorner = CGPointMake(restartNode.size.width + 10.0,
+                                        self.frame.size.height - restartNode.size.height - 26.0);
 
     restartNode.position = topLeftCorner;
     restartNode.name = @"restart";

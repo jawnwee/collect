@@ -14,7 +14,7 @@
 @property (nonatomic) NSString *currentNickname;
 @property (nonatomic) SKLabelNode *changeNicknameLabel;
 @property (nonatomic) SKLabelNode *musicToggleLabel;
-@property (nonatomic) SKLabelNode *exitLabel;
+@property (nonatomic) SKSpriteNode *saveButton;
 
 @end
 
@@ -32,104 +32,125 @@
                                                 blue:238.0 / 255.0
                                                alpha:1.0];
         self.scaleMode = SKSceneScaleModeAspectFill;
-        self.currentNickname = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
-        [self addNicknameLabel];
-        [self addChangeNicknameLabel];
-        [self addMusicToggleLabel];
-        [self addExitLabel];
+        [self createSceneContents];
     }
     return self;
 }
 
+- (void)createSceneContents {
+    CGFloat middle = CGRectGetMidX(self.frame);
+    CGFloat height = self.frame.size.height;
+
+    self.currentNickname = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
+    [self addTitle];
+    [self addDivider:CGPointMake(middle, height - 75.0)];
+    [self addNicknameTitle];
+    [self addDivider:CGPointMake(middle, height - 175.0)];
+    [self addMusicTitle];
+    [self addMusicToggle];
+    [self addDivider:CGPointMake(middle, height - 275.0)];
+    [self addSaveButton];
+    [self addDivider:CGPointMake(middle, height - 375.0)];
+    [self addCredits];
+}
+
 - (void)didMoveToView:(SKView *)view {
-    
-    self.nicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.size.width / 5,
-                                                                           100,
-                                                                           200, 30)];
+    self.nicknameTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.size.width / 3,
+                                                                           100, 200, 55)];
     self.nicknameTextField.borderStyle = UITextBorderStyleNone;
-    self.nicknameTextField.textColor = [UIColor blackColor];
-    self.nicknameTextField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0];
+    self.nicknameTextField.textColor = [UIColor colorWithRed:245.0 / 255.0
+                                                       green:144.0 / 255.0
+                                                        blue:68.0 / 255.0
+                                                       alpha:1.0];
+    self.nicknameTextField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:48.0];
     self.nicknameTextField.keyboardType = UIKeyboardTypeDefault;
     self.nicknameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.nicknameTextField.delegate = self;
+    self.nicknameTextField.highlighted = NO;
+
+    NSString *currentName = self.currentNickname;
+    if (!currentName) {
+        self.nicknameTextField.text = @"Player";
+    } else {
+        self.nicknameTextField.text = currentName;
+    }
 
     [self.view addSubview:self.nicknameTextField];
 }
 
-- (void)addNicknameLabel {
 
-    self.nicknameLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    if (self.currentNickname == nil) {
-        self.nicknameLabel.text = @"Player";
-    } else {
-        self.nicknameLabel.text = self.currentNickname;
-    }
-    self.nicknameLabel.fontColor = [SKColor blackColor];
-    self.nicknameLabel.fontSize = 36.0;
-    self.nicknameLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                              CGRectGetMaxY(self.frame) - 100);
-
-    [self addChild:self.nicknameLabel];
-    
+#pragma mark - Scene Elements
+- (void)addDivider:(CGPoint)position {
+    SKSpriteNode *divider = [SKSpriteNode spriteNodeWithImageNamed:@"Divider.png"];
+    divider.position = position;
+    [self addChild:divider];
 }
 
-- (void)addChangeNicknameLabel {
-    self.changeNicknameLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    self.changeNicknameLabel.text = @"Change nickname...";
-    self.changeNicknameLabel.fontColor = [SKColor grayColor];
-    self.changeNicknameLabel.fontSize = 18.0;
-    self.changeNicknameLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                                    CGRectGetMaxY(self.frame) - 125);
-
-    self.changeNicknameLabel.name = @"changeNicknameLabel";
-    [self addChild:self.changeNicknameLabel];
+- (void)addTitle {
+    SKSpriteNode *title = [SKSpriteNode spriteNodeWithImageNamed:@"Settings_Title.png"];
+    title.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 50.0);
+    [self addChild:title];
 }
 
-- (void)addMusicToggleLabel {
+- (void)addNicknameTitle {
+
+    SKSpriteNode *title = [SKSpriteNode spriteNodeWithImageNamed:@"Nickname.png"];
+    title.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 85.0);
+    [self addChild:title];
+}
+
+- (void)addMusicTitle {
+    SKSpriteNode *title = [SKSpriteNode spriteNodeWithImageNamed:@"Music.png"];
+    title.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 185.0);
+    [self addChild:title];
+}
+
+- (void)addMusicToggle {
 
     self.musicToggleLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-        self.musicToggleLabel.text = @"Music is On";
+        self.musicToggleLabel.text = @"On";
+        self.musicToggleLabel.fontColor = [SKColor colorWithRed:168.0 / 255.0 green:219.0 / 255.0 
+                                                           blue:96.0 / 255.0 alpha:1.0];
     } else {
-        self.musicToggleLabel.text = @"Music is Off";
+        self.musicToggleLabel.text = @"Off";
+        self.musicToggleLabel.fontColor = [SKColor colorWithRed:227.0 / 255.0 green:57.0 / 255.0 
+                                                           blue:57.0 / 255.0 alpha:1.0];
     }
-    self.musicToggleLabel.fontColor = [SKColor blackColor];
-    self.musicToggleLabel.fontSize = 36.0;
+    self.musicToggleLabel.fontSize = 48.0;
     self.musicToggleLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                                 CGRectGetMidY(self.frame));
+                                                 self.frame.size.height - 249.0);
     self.musicToggleLabel.name = @"musicToggleLabel";
 
     [self addChild:self.musicToggleLabel];
 }
 
-- (void)addExitLabel {
-    self.exitLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    self.exitLabel.text = @"Go Back";
-    self.exitLabel.fontColor = [SKColor blackColor];
-    self.exitLabel.fontSize = 36.0;
-    self.exitLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                          CGRectGetMidY(self.frame) - 150);
-    self.exitLabel.name = @"exitLabel";
+- (void)addSaveButton {
+    self.saveButton = [SKSpriteNode spriteNodeWithImageNamed:@"Save_Button.png"];
+    self.saveButton.position = CGPointMake(CGRectGetMidX(self.frame),
+                                           self.frame.size.height - 325.0);
+    self.saveButton.name = @"SaveButton";
 
-    [self addChild:self.exitLabel];
+    [self addChild:self.saveButton];
+}
+
+- (void)addCredits {
+    SKSpriteNode *credits = [SKSpriteNode spriteNodeWithImageNamed:@"Credits.png"];
+    credits.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 460.0);
+    [self addChild:credits];
 }
 
 # pragma mark - Handle nickname changes
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    self.changeNicknameLabel.hidden = YES;
-
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
     [textField resignFirstResponder];
-    self.nicknameLabel.text = textField.text;
-    self.changeNicknameLabel.hidden = NO;
     self.currentNickname = textField.text;
     [[NSUserDefaults standardUserDefaults] setObject:self.currentNickname forKey:@"nickname"];
-    textField.text = nil;
 
     return YES;
 }
@@ -147,17 +168,21 @@
         [node.name isEqualToString:@"musicToggleLabel"]) {
 
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"musicToggle"];
-        self.musicToggleLabel.text = @"Music is Off";
+        self.musicToggleLabel.text = @"Off";
+        self.musicToggleLabel.fontColor = [SKColor colorWithRed:227.0 / 255.0 green:57.0 / 255.0
+                                                           blue:57.0 / 255.0 alpha:1.0];
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] &&
         [node.name isEqualToString:@"musicToggleLabel"]) {
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"musicToggle"];
-        self.musicToggleLabel.text = @"Music is On";
+        self.musicToggleLabel.text = @"On";
+        self.musicToggleLabel.fontColor = [SKColor colorWithRed:168.0 / 255.0 green:219.0 / 255.0
+                                                           blue:96.0 / 255.0 alpha:1.0];
     }
 
     // Clicking the exitLabel
-    if ([node.name isEqualToString:@"exitLabel"]) {
+    if ([node.name isEqualToString:@"SaveButton"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
                                                       duration:0.3];
         [self.nicknameTextField removeFromSuperview];
