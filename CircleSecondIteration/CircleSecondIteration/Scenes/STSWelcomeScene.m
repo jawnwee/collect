@@ -29,17 +29,16 @@
         self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0 green:144.0 / 255.0 
                                                 blue:68.0 / 255.0 alpha:1.0];
 
+        NSError *error;
+        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
+                                                            withExtension:@"caf"];
+        self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
+                                                    initWithContentsOfURL:backgroundMusicURL
+                                                    error:&error];
+        self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
+        [self.welcomeBackgroundMusicPlayer prepareToPlay];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-            NSError *error;
-            NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
-                                                                withExtension:@"caf"];
-            self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
-                                                 initWithContentsOfURL:backgroundMusicURL
-                                                 error:&error];
-            self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
-            [self.welcomeBackgroundMusicPlayer prepareToPlay];
             [self.welcomeBackgroundMusicPlayer play];
-            
         }
 
         self.scaleMode = SKSceneScaleModeAspectFill;
@@ -61,14 +60,6 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
         [self.welcomeBackgroundMusicPlayer stop];
     } else {
-        NSError *error;
-        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
-                                                            withExtension:@"caf"];
-        self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
-                                             initWithContentsOfURL:backgroundMusicURL
-                                             error:&error];
-        self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
-        [self.welcomeBackgroundMusicPlayer prepareToPlay];
         [self.welcomeBackgroundMusicPlayer play];
     }
 }

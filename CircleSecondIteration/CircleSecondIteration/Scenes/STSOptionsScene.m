@@ -7,6 +7,8 @@
 //
 
 #import "STSOptionsScene.h"
+#import "STSWelcomeScene.h"
+#import "STSPauseScene.h"
 
 @interface STSOptionsScene () <UITextFieldDelegate>
 @property (nonatomic) SKLabelNode *nicknameLabel;
@@ -193,6 +195,29 @@
     // Clicking anywhere but the keyboard dismisses it when changing nicknames
     if ([self.nicknameTextField isFirstResponder] && [touch view] != self.nicknameTextField) {
         [self.nicknameTextField resignFirstResponder];
+    }
+}
+
+- (void)update:(NSTimeInterval)currentTime {
+    // Instantly toggle music when touched
+    if ([self.previousScene isMemberOfClass:[STSWelcomeScene class]]) {
+        STSWelcomeScene *previousWelcomeScene = (STSWelcomeScene *)self.previousScene;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+            [previousWelcomeScene.welcomeBackgroundMusicPlayer play];
+        } else {
+            [previousWelcomeScene.welcomeBackgroundMusicPlayer stop];
+        }
+        previousWelcomeScene = nil;
+    }
+    // Previous scene is the pause scene
+    else {
+        STSPauseScene *previousPauseScene = (STSPauseScene *)self.previousScene;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+            [previousPauseScene.previousScene.previousScene.welcomeBackgroundMusicPlayer play];
+        } else {
+            [previousPauseScene.previousScene.previousScene.welcomeBackgroundMusicPlayer stop];
+        }
+        previousPauseScene = nil;
     }
 }
 
