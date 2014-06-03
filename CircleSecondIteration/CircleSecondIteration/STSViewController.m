@@ -8,6 +8,7 @@
 
 #import "STSViewController.h"
 #import "STSWelcomeScene.h"
+#import "STSHeroRotationScene.h"
 
 @implementation STSViewController
 
@@ -19,13 +20,20 @@
     // skView.showsFPS = YES;
     // skView.showsNodeCount = YES;
     // skView.showsPhysics = YES;
-    
+
+//    // Use NSUserDefaults to launch tutorial only once ****YUJUN: UNCOMMENT TO GO STRAIGHT TO TUTORIAL TESTING****
+//    STSHeroRotationScene *heroRotationScene = [[STSHeroRotationScene alloc] initWithSize:skView.bounds.size];
+//    heroRotationScene.scaleMode = SKSceneScaleModeAspectFill;
+//    [skView presentScene:heroRotationScene];
+
+
     // Create and configure the scene.
     STSWelcomeScene *scene = [[STSWelcomeScene alloc] initWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:scene];
+
 }
 
 - (BOOL)shouldAutorotate {
