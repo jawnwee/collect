@@ -70,8 +70,22 @@
     
     //logic to change scenes once button is touched
     if ([node.name isEqualToString:@"playGame"]) {
-        STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-        [self.view presentScene:newEndlessGameScene];
+        SKColor *obtainShieldSceneBackgroundColor = [SKColor colorWithRed:245.0 / 255.0
+                                                                    green:144.0 / 255.0
+                                                                     blue:68.0 / 255.0
+                                                                    alpha:1.0];
+        SKSpriteNode *background = [[SKSpriteNode alloc] initWithColor:obtainShieldSceneBackgroundColor
+                                                                  size:self.size];
+        background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        background.alpha = 0.0;
+        [self addChild:background];
+        SKAction *fadeBackgroundIn = [SKAction fadeAlphaTo:1.0 duration:1.0];
+        [background runAction:fadeBackgroundIn completion:^{
+            SKTransition *fade = [SKTransition fadeWithColor:obtainShieldSceneBackgroundColor
+                                                    duration:0.5];
+            STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+            [self.view presentScene:newEndlessGameScene transition:fade];
+        }];
     }
 }
 @end

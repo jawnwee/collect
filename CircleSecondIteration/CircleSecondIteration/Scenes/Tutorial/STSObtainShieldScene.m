@@ -16,8 +16,8 @@
 @property (strong, nonatomic) STSHero *hero;
 @property int positionCount;
 @property BOOL partialShieldObtained;
-@property BOOL alreadyMadeRandomShields;
 @property BOOL didCompleteShield;
+@property BOOL pulsesAdded;
 
 @end
 
@@ -33,8 +33,8 @@
         self.physicsWorld.contactDelegate = self;
         self.positionCount = 0;
         self.partialShieldObtained = NO;
-        self.alreadyMadeRandomShields = NO;
         self.didCompleteShield = NO;
+        self.pulsesAdded = NO;
         
         //create hero with empty shields
         [self addHero];
@@ -47,11 +47,6 @@
                                             [SKAction waitForDuration:0.3]]];
         
         [self runAction:[SKAction repeatAction:makeShieldsInOrder count:16]];
-        
-        //add pulsing nodes after some duration
-        SKAction *wait = [SKAction waitForDuration:6.0];
-        SKAction *addPulsing = [SKAction runBlock:^(void){[self addPulses];}];
-        [self runAction:[SKAction sequence:@[wait, addPulsing]]];
     }
     
     return self;
@@ -66,10 +61,18 @@ static float PROJECTILE_VELOCITY = 200/1;
     STSHero *newHero = [[STSHero alloc] initAtPosition:position];
     newHero.name = @"hero";
     SKSpriteNode *shadow = [newHero createShadow];
-    shadow.position = CGPointMake(newHero.position.x - 0.8, newHero.position.y + 1);
+    shadow.name = @"HeroShadow";
+    shadow.position = CGPointMake(CGRectGetMidX(self.frame) - 0.8, CGRectGetMidY(self.frame) + 1.0);
     self.hero = newHero;
     [self addChild:shadow];
     [self addChild:newHero];
+    
+    self.hero.alpha = 0.0;
+    shadow.alpha = 0.0;
+    SKAction *fadeIn = [SKAction fadeInWithDuration:1.0];
+    
+    [self.hero runAction:fadeIn];
+    [shadow runAction:fadeIn];
 }
 
 - (void)addRandomShield {
@@ -146,10 +149,8 @@ static float PROJECTILE_VELOCITY = 200/1;
 }
 
 - (void)addPulses {
-    //this method should only be called after partial shield is created
-    self.partialShieldObtained = YES;
-    
-    //initialize first pulse
+    self.pulsesAdded = YES;
+    // initialize first pulse
     CGPoint position1 = CGPointMake(self.size.width / 2 + 75, 75);
     SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
     pulse.name = @"firstPulse";
@@ -157,13 +158,22 @@ static float PROJECTILE_VELOCITY = 200/1;
     [pulse runAction:[self createPulsingAction]];
     [self addChild:pulse];
     
-    //initialize second pulse
+    // initialize second pulse
     CGPoint position2 = CGPointMake(self.size.width / 2 - 75, 75);
     SKSpriteNode *pulse2 = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
     pulse2.name = @"secondPulse";
     pulse2.position = position2;
     [pulse2 runAction:[self createPulsingAction]];
     [self addChild:pulse2];
+    
+    // start making extra shields for player to fill in the gap
+    SKAction *waitToMakeShields = [SKAction waitForDuration:1.0];
+    SKAction *makeRandomShields = [SKAction repeatActionForever:
+                                   [SKAction sequence:@[
+                                                        [SKAction performSelector:@selector(addRandomShield)
+                                                                         onTarget:self],
+                                                        [SKAction waitForDuration:1.0 withRange:0.5]]]];
+    [self runAction:[SKAction sequence:@[waitToMakeShields, makeRandomShields]]];
 }
 
 #pragma mark - Helper Functions for creating Sprites
@@ -195,26 +205,29 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     return pulseForever;
 }
 
+/* This is to determine when to add the pulses */
+- (BOOL)partialShieldCompleted{
+    int count = 0;
+    for (STSShield* node in self.children){
+        if ([node.name isEqualToString:@"HeroShield"] && node.shieldUp) {
+            count++;
+        }
+    }
+    if (count == 16) {
+        self.partialShieldObtained = YES;
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
 #pragma mark - touch logic
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
-    SKNode *node = [self nodeAtPoint:location];
     
-    //logic to start creating random shields once one of the pulsing nodes is touched
-    if (([node.name isEqualToString:@"firstPulse"] || [node.name isEqualToString:@"secondPulse"]) &&
-            !self.alreadyMadeRandomShields) {
-        self.alreadyMadeRandomShields = YES;
-        SKAction *makeRandomShields = [SKAction repeatActionForever:
-                                       [SKAction sequence:@[
-                                                            [SKAction performSelector:@selector(addRandomShield)
-                                                                             onTarget:self],
-                                                            [SKAction waitForDuration:1.0 withRange:0.5]]]];
-        [self runAction:[SKAction sequence:@[makeRandomShields]]];
-    }
-    
-    //logic to start rotating hero only once the partial shield has been created
-    if (self.partialShieldObtained && !self.didCompleteShield) {
+    //logic to start rotating hero only once the pulses are added
+    if (self.pulsesAdded && !self.didCompleteShield) {
         [self.hero rotate:location];
     }
 }
@@ -231,6 +244,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
     }
 }
+
 
 #pragma mark - transition
 //Used to determine if the player completed the shield
@@ -249,6 +263,11 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 }
 
 - (void)update:(NSTimeInterval)currentTime{
+    if ([self partialShieldCompleted] && !self.pulsesAdded) {
+        [self runAction:[SKAction waitForDuration:1.0]];
+        [self addPulses];
+    }
+    
     //logic to transition scenes if  the shield is completed
     if ([self completedShields] && ![self actionForKey:@"shieldRegenerateSound"]) {
         [self removeAllActions];
@@ -259,16 +278,35 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             if ([node.name isEqualToString:@"HeroShield"] ||
                 [node.name isEqualToString:@"shield12"] || [node.name isEqualToString:@"shield14"] ||
                 [node.name isEqualToString:@"shield16"] || [node.name isEqualToString:@"shield18"]) {
-                [node runAction:[SKAction fadeOutWithDuration:2.25]];
+                [node runAction:[SKAction fadeOutWithDuration:0.5]];
+            } else if ([node.name isEqualToString:@"Shield"]) {
+                [node removeFromParent];
             }
         }
-        [self.hero runAction:[SKAction fadeOutWithDuration:2.25] completion:^(void){
-            SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                          duration:0.3];
-            STSTransitionToEndlessGameScene *newTransitionToEndlessGameScene = [[STSTransitionToEndlessGameScene alloc]
-                                                                                initWithSize:self.size];
-            [self.view presentScene:newTransitionToEndlessGameScene
-                         transition:reveal];
+        SKSpriteNode *shadow = (SKSpriteNode *)[self childNodeWithName:@"HeroShadow"];
+
+        [shadow runAction:[SKAction fadeOutWithDuration:0.5]];
+        [self.hero runAction:[SKAction fadeOutWithDuration:0.5] completion:^(void){
+            CGPoint middle = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+            SKColor *transitionToGameSceneBackgroundColor = [SKColor colorWithRed:240.0 / 255.0
+                                                                            green:241.0 / 255.0
+                                                                             blue:238.0 / 255.0
+                                                                            alpha:1.0];
+            SKSpriteNode *background = [[SKSpriteNode alloc] initWithColor:transitionToGameSceneBackgroundColor
+                                                                      size:self.size];
+            background.position = middle;
+            background.alpha = 0.0;
+            [self addChild:background];
+            SKAction *fadeBackgroundIn = [SKAction fadeAlphaTo:1.0 duration:0.5];
+            SKAction *backgroundWait = [SKAction waitForDuration:0.25];
+            SKAction *backgroundSequence = [SKAction sequence:@[backgroundWait, fadeBackgroundIn]];
+            [background runAction:backgroundSequence completion:^{
+                SKTransition *fade = [SKTransition fadeWithColor:transitionToGameSceneBackgroundColor duration:0.3];
+                
+                STSTransitionToEndlessGameScene *newTransitionToEndlessGameScene = [[STSTransitionToEndlessGameScene alloc]
+                                                                                    initWithSize:self.size];
+                [self.view presentScene:newTransitionToEndlessGameScene transition:fade];
+            }];
         }];
     }
 }

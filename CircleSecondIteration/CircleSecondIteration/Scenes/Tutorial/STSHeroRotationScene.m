@@ -15,6 +15,13 @@
 @interface STSHeroRotationScene () <SKPhysicsContactDelegate>
 
 @property (nonatomic, strong) STSHero *hero;
+@property (nonatomic, strong) SKLabelNode *heroIntroduction;
+@property BOOL firstPulseRevealed;
+
+//two properites below are used for typing effect
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, strong) NSMutableString *messageSoFar;
+@property NSUInteger characterIndex;
 
 @end
 
@@ -22,14 +29,16 @@
 
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"tutorialFinished"];
         self.scene.scaleMode = SKSceneScaleModeAspectFill;
         self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0
                                                green:144.0 / 255.0
                                                 blue:68.0 / 255.0
                                                alpha:1.0];
         self.physicsWorld.contactDelegate = self;
+        self.firstPulseRevealed = NO;
         [self addIntroductionText];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"tutorialFinished"];
+        [self addHero];
     }
 
     return self;
@@ -39,26 +48,30 @@
 static float PROJECTILE_VELOCITY = 200/1;
 
 - (void)addHero {
-    //initialize hero
+    // initialize hero
     CGPoint position = CGPointMake(self.size.width / 2, self.size.height / 2);
     STSHero *newHero = [[STSHero alloc] initAtPosition:position];
+    self.hero = newHero;
     newHero.name = @"hero";
     SKSpriteNode *shadow = [newHero createShadow];
     shadow.name = @"HeroShadow";
-    shadow.position = CGPointMake(newHero.position.x - 0.8, newHero.position.y + 1);
-    self.hero = newHero;
+    shadow.position = CGPointMake(CGRectGetMidX(self.frame) - 0.8, CGRectGetMidY(self.frame) + 1.0);
     [self addChild:shadow];
-    [self addChild:newHero];
-    
-    //add first pulse after some duration
-    SKAction *wait = [SKAction waitForDuration:2];
-    SKAction *addFirstPulse = [SKAction runBlock:^(void){[self addFirstPulse];}];
-    [self.hero runAction:[SKAction sequence:@[wait, addFirstPulse]]];
-
+    [self addDeadHero];
+    [self addChild:self.hero];
+}
+- (void)addDeadHero{
+    // initialize deadHero
+    SKSpriteNode *deadHero = [self.hero createDeadHero];
+    deadHero.name = @"deadHero";
+    deadHero.position = self.hero.position;
+    deadHero.alpha = 0.5;
+    [self addChild:deadHero];
 }
 
 - (void)addFirstPulse {
-    //initialize first pulse
+    // initialize first pulse
+    self.firstPulseRevealed = YES;
     CGPoint position1 = CGPointMake(self.size.width / 2 + 75, 75);
     SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
     pulse.name = @"firstPulse";
@@ -68,7 +81,7 @@ static float PROJECTILE_VELOCITY = 200/1;
 }
 
 - (void)addSecondPulse {
-    //initialize second pulse
+    // initialize second pulse
     CGPoint position2 = CGPointMake(self.size.width / 2 - 75, 75);
     SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
     pulse.name = @"secondPulse";
@@ -78,79 +91,37 @@ static float PROJECTILE_VELOCITY = 200/1;
 }
 
 - (void)addIntroductionText {
-    //initialize introduction text
-    SKLabelNode *heroIntroduction = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    heroIntroduction.fontColor = [SKColor blackColor];
-    heroIntroduction.fontSize = 36.0;
-    heroIntroduction.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 100);
-    heroIntroduction.text = @"This is Ozone";
-    [self addChild:heroIntroduction];
-    
-    //remove introduction text and add hero after some duration
-    SKAction *wait = [SKAction waitForDuration:1.5];
-    SKAction *addHero = [SKAction runBlock:^(void){[self addHero];}];
-    SKAction *blockAddHeroAndWait = [SKAction group:@[wait, addHero]];
-    SKAction *removeIntroduction = [SKAction removeFromParent];
-    [heroIntroduction runAction:[SKAction sequence:@[blockAddHeroAndWait,
-                                                     removeIntroduction]]];
+    // initialize introduction text
+    self.heroIntroduction = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    self.heroIntroduction.fontColor = [SKColor blackColor];
+    self.heroIntroduction.fontSize = 36.0;
+    self.heroIntroduction.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 100);
+    [self addChild:self.heroIntroduction];
+    [self typingEffectForString:@"This is Ozone"];
 }
 
 - (void)addVillain{
-    //initialize villain
+    // initialize villain
     CGPoint position = CGPointMake(self.size.width / 2, self.size.height + 20);
     STSVillain *newVillain = [[STSVillain alloc] initAtPosition:position];
+    newVillain.name = @"Villain";
     [self addChild:newVillain];
     float realMoveDuration = distanceFormula(self.hero.position,
                                              newVillain.position) / PROJECTILE_VELOCITY;
     
-    //create notificaiton for villain
+    // create notificaiton for villain
     SKSpriteNode *newNotification =
             [newVillain createNotificationOnCircleWithCenter:self.hero.position positionNumber:90];
     [self addChild:newNotification];
     
-    //move villain to the center
+    // move villain to the center
     [newVillain runAction:[SKAction sequence:@[[SKAction waitForDuration: 0.75],
                                 [SKAction moveTo:self.hero.position duration:realMoveDuration]]]];
 }
 
-- (void)addDeadHero{
-    //initialize deadHero
-    SKSpriteNode *deadHero = [self.hero createDeadHero];
-    deadHero.position = self.hero.position;
-    deadHero.alpha = 0.0;
-    deadHero.zRotation = self.hero.zRotation;
-    [self addChild:deadHero];
-    
-    //Actions used to create the effect of dying hero
-    self.hero.physicsBody.dynamic = NO;
-    SKAction *waitDuration = [SKAction waitForDuration:0.7];
-    SKAction *waitAfter = [SKAction waitForDuration:0.3];
-    SKAction *fadeOut = [SKAction fadeAlphaTo:0.0 duration:0.1];
-    SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.1];
-    SKAction *bounceUp = [SKAction moveByX:0.0 y:10.0 duration:0.5];
-    SKAction *bounceDown = [SKAction moveByX:0.0 y:-500.0 duration:0.2];
-    SKAction *bounceSequence =[SKAction sequence:@[waitDuration, bounceUp, bounceDown, waitAfter]];
-
-    //run actions and change scenes
-    SKSpriteNode *shadow = (SKSpriteNode *)[self childNodeWithName:@"HeroShadow"];
-    [deadHero runAction:fadeIn];
-    [deadHero runAction:bounceSequence];
-    [shadow runAction:bounceSequence];
-    [shadow runAction:fadeOut];
-    [self.physicsWorld removeAllJoints];
-    [self.hero runAction:fadeOut];
-    [self.hero runAction:bounceSequence completion:^{
-        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                      duration:0.3];
-        STSTransitionToShieldScene *newTransitionToShieldScene = [[STSTransitionToShieldScene alloc]
-                                                                  initWithSize:self.size];
-        [self.view presentScene:newTransitionToShieldScene transition:reveal];
-    }];
-}
-
 #pragma mark - Helper methods for creating sprites
 - (SKAction *)createPulsingAction {
-    //create sequence of actions used for pulsing effect
+    // create sequence of actions used for pulsing effect
     SKAction *fadeIn = [SKAction fadeInWithDuration:0];
     SKAction *fadeOut = [SKAction fadeOutWithDuration:1];
     SKAction *scaleUp = [SKAction scaleBy:4 duration:1];
@@ -163,17 +134,48 @@ static float PROJECTILE_VELOCITY = 200/1;
     return pulseForever;
 }
 
+- (void)typingEffectForString:(NSString *)message{
+    // create actions to update label node with the message character by character
+    self.message = message;
+    self.messageSoFar = [[NSMutableString alloc] initWithCapacity:message.length];
+    self.characterIndex = 0;
+    SKAction *waitToType = [SKAction waitForDuration:1.0];
+    SKAction *addChar = [SKAction runBlock:^(void){
+        [self.messageSoFar appendFormat:@"%c", [self.message characterAtIndex:self.characterIndex]];
+        self.characterIndex+=1;
+    }];
+    SKAction *waitToAddNextCharacter = [SKAction waitForDuration:0.2];
+    SKAction *updateHeroInroductionText = [SKAction runBlock:^(void){
+        NSString *temporaryString = [[NSString alloc] initWithString:self.messageSoFar];
+        self.heroIntroduction.text = temporaryString;}];
+    SKAction *sequenceOfAddingCharacters = [SKAction sequence:@[addChar,
+                                                                waitToAddNextCharacter,
+                                                                updateHeroInroductionText]];
+    SKAction *repeatMessageLength = [SKAction repeatAction:sequenceOfAddingCharacters
+                                                     count:message.length];
+    
+    // run the sequence of actions, remove the message, and then add the right pulse
+    [self runAction:[SKAction sequence:@[waitToType, repeatMessageLength]] completion:^(void){
+        // add first pulse after some duration
+        SKAction *waitToRemove = [SKAction waitForDuration:1.0];
+        SKAction *removeMessage = [SKAction runBlock:^(void){[self.heroIntroduction removeFromParent];}];
+        SKAction *addFirstPulse = [SKAction runBlock:^(void){[self addFirstPulse];}];
+        SKAction *waitToAddPulse = [SKAction waitForDuration:0.5];
+        [self runAction:[SKAction sequence:@[waitToRemove, removeMessage, waitToAddPulse, addFirstPulse]]];
+    }];
+}
+
 static inline float distanceFormula(CGPoint a, CGPoint b) {
     return sqrtf(powf(a.x-b.x, 2)+powf(a.y-b.y, 2));
 }
 
-#pragma mark - transitions and contact logic
+#pragma mark - contact logic
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
 
-    //logic for adding one pulse at a time
+    // logic for adding one pulse at a time
     if ([node.name isEqualToString:@"firstPulse"] || [node.name isEqualToString:@"secondPulse"]) {
         STSShield *pulseNode = (STSShield *)node;
         if ([node.name isEqualToString:@"firstPulse"]){
@@ -185,34 +187,79 @@ static inline float distanceFormula(CGPoint a, CGPoint b) {
             [self addVillain];
         }
     }
-    [self.hero rotate:location];
+    
+    if (self.firstPulseRevealed){
+        [self.hero rotate:location];
+    }
 }
 
+#pragma mark - transition logic
 - (void)didBeginContact:(SKPhysicsContact *)contact{
     SKNode *first, *second;
     first = contact.bodyA.node;
     second = contact.bodyB.node;
     
-    //logic to make the notification disappear
+    // logic to make the notification disappear
     if (first.physicsBody.categoryBitMask == STSColliderTypeNotification) {
         [first removeFromParent];
     } else if (second.physicsBody.categoryBitMask == STSColliderTypeNotification) {
         [second removeFromParent];
     } else {
-        //logic to kill hero on contact with villain. second should always be the villain
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
-            [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
+        // logic to kill hero on contact with villain. second should always be the villain
+        // sounds should always be on for the tutorial
+        [second removeFromParent];
+        [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
                  completion:^{
-                     [second removeFromParent];
                      [self removeAllActions];
-                     [self addDeadHero];
+                     [self gameOver];
                  }];
-        } else {
-            [second removeFromParent];
-            [self removeAllActions];
-            [self addDeadHero];
-        }
     }
+}
+
+/* Animation to make all villains and shields from appearing and make heroes current shields fly out
+ Hero then bounces up, then quickly down in order to transition into GameOverScene */
+- (void)gameOver {
+    CGPoint middle = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    SKAction *waitDuration = [SKAction waitForDuration:0.2];
+    SKAction *waitAfter = [SKAction waitForDuration:0.3];
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0.0 duration:0.1];
+    SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.1];
+    SKAction *bounceUp = [SKAction moveByX:0.0 y:10.0 duration:0.5];
+    SKAction *bounceDown = [SKAction moveByX:0.0 y:-500.0 duration:0.2];
+    SKAction *bounceSequence =[SKAction sequence:@[waitDuration, bounceUp, bounceDown, waitAfter]];
+    
+    SKSpriteNode *deadHero = (SKSpriteNode *)[self childNodeWithName:@"deadHero"];
+    deadHero.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    SKSpriteNode *shadow = (SKSpriteNode *)[self childNodeWithName:@"HeroShadow"];
+    deadHero.zRotation = self.hero.zRotation;
+    
+    // Create gray background for smoother transition
+    SKColor *transitionToShieldSceneBackgroundColor = [SKColor colorWithRed:240.0 / 255.0
+                                                                      green:241.0 / 255.0
+                                                                       blue:238.0 / 255.0
+                                                                      alpha:1.0];
+    SKSpriteNode *background = [[SKSpriteNode alloc] initWithColor:transitionToShieldSceneBackgroundColor
+                                                              size:self.size];
+    background.position = middle;
+    background.alpha = 0.0;
+    [self addChild:background];
+    SKAction *fadeBackgroundIn = [SKAction fadeAlphaTo:1.0 duration:1.0];
+    SKAction *backgroundWait = [SKAction waitForDuration:1.4];
+    SKAction *backgroundSequence = [SKAction sequence:@[backgroundWait, fadeBackgroundIn]];
+
+    [deadHero runAction:fadeIn];
+    [deadHero runAction:bounceSequence];
+    [shadow runAction:bounceSequence];
+    [shadow runAction:fadeOut];
+    [self.hero runAction:fadeOut];
+    [self.hero runAction:bounceSequence];
+    [background runAction:backgroundSequence completion:^{
+        SKTransition *fade = [SKTransition fadeWithColor:transitionToShieldSceneBackgroundColor
+                                                duration:0.5];
+        STSTransitionToShieldScene *newTransitionToShieldScene = [[STSTransitionToShieldScene alloc]
+                                                                        initWithSize:self.size];
+        [self.view presentScene:newTransitionToShieldScene transition:fade];
+    }];
 }
 
 #pragma mark - Pause Logic
