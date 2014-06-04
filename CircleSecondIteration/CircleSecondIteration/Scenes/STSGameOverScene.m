@@ -14,10 +14,6 @@
 
 @property (nonatomic) SKLabelNode *scoreLabel;
 @property (nonatomic) SKLabelNode *highScoreLabel;
-@property (nonatomic) SKLabelNode *retryLabel;
-@property (nonatomic) SKLabelNode *menuLabel;
-@property (nonatomic) SKSpriteNode *retrySymbol;
-@property (nonatomic) SKSpriteNode *menuSymbol;
 @property (nonatomic) NSString *scoreString;
 @property (nonatomic) NSString *highScoreString;
 
@@ -35,7 +31,10 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
 
-        self.backgroundColor = [SKColor whiteColor];
+        self.backgroundColor = [SKColor colorWithRed:240.0 / 255.0
+                                               green:241.0 / 255.0
+                                                blue:238.0 / 255.0
+                                               alpha:1.0];
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self createSceneContents];
     }
@@ -49,13 +48,12 @@
 
     self.deadOzone.position = CGPointMake(self.scene.size.width / 2.0, -1000.0);
     [self addChild:self.deadOzone];
-    SKAction *bounceUp = [SKAction moveByX:0.0 y:1030.0 duration:0.8];
-    SKAction *adjustBounce = [SKAction moveByX:0.0 y:-30.0 duration:0.5];
+    SKAction *bounceUp = [SKAction moveByX:0.0 y:1000.0 duration:0.8];
+    SKAction *adjustBounce = [SKAction moveByX:0.0 y:-40.0 duration:0.5];
     SKAction *sequence = [SKAction sequence:@[bounceUp, adjustBounce]];
     [self.deadOzone runAction: sequence];
-    [self addChild:[self addGameOverNode]];
-    [self addRetryLabel];
-    [self addMenuLabel];
+    [self addDividers];
+    [self addGameOverNode];
     [self addRetrySymbol];
     [self addMenuSymbol];
 }
@@ -72,82 +70,90 @@
 
 # pragma mark - Add nodes
 
-- (SKLabelNode *)addGameOverNode {
-    SKLabelNode *gameOver = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    gameOver.text = @"Game Over";
-    gameOver.fontSize = 36.0;
-    gameOver.fontColor = [SKColor blackColor];
-    gameOver.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 150);
-
-    return gameOver;
+- (void)addGameOverNode {
+    SKSpriteNode *gameOverTitle = [SKSpriteNode spriteNodeWithImageNamed:@"GameOverTitle.png"];
+    gameOverTitle.position = CGPointMake(CGRectGetMidX(self.frame), 
+                                         CGRectGetMidY(self.frame) + 230.0);
+    [self addChild:gameOverTitle];
 }
 
 - (void)addScoreLabel {
+    SKSpriteNode *lastButton = [SKSpriteNode spriteNodeWithImageNamed:@"Last_Score.png"];
+
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.scoreLabel.text = self.scoreString;
-    self.scoreLabel.fontSize = 72.0;
-    self.scoreLabel.fontColor = [SKColor blackColor];
-    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
-                                           CGRectGetMidY(self.frame) + 35);
+    self.scoreLabel.fontSize = 66.0;
+    self.scoreLabel.fontColor = [SKColor colorWithRed:98.0 / 255.0 
+                                                green:97.0 / 255.0 blue:97.0 / 255.0 alpha:1.0];
+    CGPoint position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                    CGRectGetMidY(self.frame) + 180.0);
+    lastButton.position = position;
+    self.scoreLabel.position = CGPointMake(position.x, position.y - 80.0);
 
+    [self addChild:lastButton];
     [self addChild:self.scoreLabel];
 }
 
 - (void)addHighScoreLabel {
+    SKSpriteNode *bestButton = [SKSpriteNode spriteNodeWithImageNamed:@"Best_Score.png"];
+
     self.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.highScoreLabel.text = self.highScoreString;
-    self.highScoreLabel.fontSize = 72.0;
-    self.highScoreLabel.fontColor = [SKColor blackColor];
-    self.highScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
-                                               CGRectGetMidY(self.frame) + 35);
+    self.highScoreLabel.fontSize = 66.0;
+    self.highScoreLabel.fontColor = [SKColor colorWithRed:98.0 / 255.0 
+                                                    green:97.0 / 255.0 blue:97.0 / 255.0 alpha:1.0];
+    CGPoint position = CGPointMake(CGRectGetMidX(self.frame) + 80.0, 
+                                   CGRectGetMidY(self.frame) + 180.0);
+    bestButton.position = position;
+    self.highScoreLabel.position = CGPointMake(position.x, position.y - 80.0);
 
+    [self addChild:bestButton];
     [self addChild:self.highScoreLabel];
 }
 
-- (void)addRetryLabel {
-    self.retryLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    self.retryLabel.text = @"Retry";
-    self.retryLabel.name = @"retryLabel";
-    self.retryLabel.fontSize = 30.0;
-    self.retryLabel.fontColor = [SKColor blackColor];
-    self.retryLabel.position = CGPointMake(CGRectGetMidX(self.frame) / 2,
-                                      CGRectGetMidY(self.frame) / 1.5);
-    [self addChild:self.retryLabel];
-}
-
-- (void)addMenuLabel {
-    self.menuLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    self.menuLabel.text = @"Menu";
-    self.menuLabel.name = @"menuLabel";
-    self.menuLabel.fontSize = 30.0;
-    self.menuLabel.fontColor = [SKColor blackColor];
-    self.menuLabel.position = CGPointMake(CGRectGetMidX(self.frame) * 1.5,
-                                     CGRectGetMidY(self.frame) / 1.5);
-    [self addChild:self.menuLabel];
-}
-
 - (void)addRetrySymbol {
-    SKTexture *retryTexture = [SKTexture textureWithImageNamed:@"RetrySymbol@2x.png"];
-    self.retrySymbol = [[SKSpriteNode alloc] initWithTexture:retryTexture];
-    self.retrySymbol.name = @"retrySymbol";
-
-    // Add the retry symbol below the retry label
-    int y = self.retryLabel.frame.size.height;
-    self.retrySymbol.position = CGPointMake(self.retryLabel.position.x, 
-                                            self.retryLabel.position.y - 2 * y + 10);
-    [self addChild:self.retrySymbol];
+    SKTexture *retryTexture = [SKTexture textureWithImageNamed:@"RetrySymbol.png"];
+    SKSpriteNode *retrySymbol = [[SKSpriteNode alloc] initWithTexture:retryTexture];
+    retrySymbol.name = @"retrySymbol";
+    retrySymbol.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                       CGRectGetMidY(self.frame) - 10.0);
+    [self addChild:retrySymbol];
 }
 
 - (void)addMenuSymbol {
     SKTexture *menuTexture = [SKTexture textureWithImageNamed:@"MenuSymbol@2x.png"];
-    self.menuSymbol = [[SKSpriteNode alloc] initWithTexture:menuTexture];
-    self.menuSymbol.name = @"menuSymbol";
+    SKSpriteNode *menuSymbol = [[SKSpriteNode alloc] initWithTexture:menuTexture];
+    menuSymbol.name = @"menuSymbol";
+    menuSymbol.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                      CGRectGetMidY(self.frame) - 10.0);
 
-    // Add the menu symbol below the retry symbol
-    int y = self.menuLabel.frame.size.height;
-    self.menuSymbol.position = CGPointMake(self.menuLabel.position.x,
-                                            self.menuLabel.position.y - 2 * y);
-    [self addChild:self.menuSymbol];
+    [self addChild:menuSymbol];
+}
+
+- (void)addDividers {
+    CGFloat screenMiddleX = CGRectGetMidX(self.frame);
+    CGFloat screenMiddleY = CGRectGetMidY(self.frame);
+
+
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
+    SKTexture *longDividerTexture = [atlas textureNamed:@"Long_Bar.png"];
+    SKTexture *middleLongerDivider = [atlas textureNamed:@"Middle_Longer_Bar.png"];
+    SKTexture *middleShorterDivider = [atlas textureNamed:@"Middle_Shorter_bar.png"];
+
+    SKSpriteNode *top = [SKSpriteNode spriteNodeWithTexture:longDividerTexture];
+    SKSpriteNode *firstMiddle = [SKSpriteNode spriteNodeWithTexture:middleLongerDivider];
+    SKSpriteNode *secondMiddle = [SKSpriteNode spriteNodeWithTexture:middleShorterDivider];
+    SKSpriteNode *bottom = [SKSpriteNode spriteNodeWithTexture:longDividerTexture];
+
+    top.position = CGPointMake(screenMiddleX, screenMiddleY + 195.0);
+    firstMiddle.position = CGPointMake(screenMiddleX, screenMiddleY + 125.0);
+    bottom.position = CGPointMake(screenMiddleX, screenMiddleY + 53.0);
+    secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 5.0);
+    [self addChild:top];
+    [self addChild:firstMiddle];
+    [self addChild:bottom];
+    [self addChild:secondMiddle];
+
 }
 
 # pragma mark - Handle touches
@@ -157,10 +163,11 @@
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
+    SKColor *orangeBackground = [SKColor colorWithRed:245.0 / 255.0 green:144.0 / 255.0
+                                                 blue:68.0 / 255.0 alpha:1.0];
 
     // Scene transitions
-    SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
-                                                  duration:0.5];
+    SKTransition *reveal = [SKTransition fadeWithColor:orangeBackground duration:1.0];
 
 
     // Touching the retry node presents game scene last played

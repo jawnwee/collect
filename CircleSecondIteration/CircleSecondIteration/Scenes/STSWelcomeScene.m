@@ -97,7 +97,7 @@
     SKTexture *playButtonTexture = [SKTexture textureWithImageNamed:@"Play_Button.png"];
     SKSpriteNode *playButtonNode = [SKSpriteNode spriteNodeWithTexture:playButtonTexture];
     playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
-                                          CGRectGetMidY(self.frame) + 60.0);
+                                          CGRectGetMidY(self.frame) + 50.0);
     playButtonNode.name = @"playButton";
     [self addChild:playButtonNode];
 }
@@ -106,7 +106,7 @@
     SKTexture *optionButtonTexture = [SKTexture textureWithImageNamed:@"Options_Button.png"];
     SKSpriteNode *optionButtonNode = [SKSpriteNode spriteNodeWithTexture:optionButtonTexture];
     optionButtonNode.position = CGPointMake(CGRectGetMidX(self.frame) + 100.0,
-                                          CGRectGetMidY(self.frame) + 30.0);
+                                          CGRectGetMidY(self.frame) + 15.0);
     optionButtonNode.name = @"OptionMenu";
     [self addChild:optionButtonNode];
 }
@@ -115,7 +115,7 @@
     SKTexture *companyInfoTexture = [SKTexture textureWithImageNamed:@"Company_Info.png"];
     SKSpriteNode *companyInfoNode = [SKSpriteNode spriteNodeWithTexture:companyInfoTexture];
     companyInfoNode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
-                                            CGRectGetMidY(self.frame) + 30.0);
+                                            CGRectGetMidY(self.frame) + 15.0);
     companyInfoNode.name = @"CompanyInfo";
     [self addChild:companyInfoNode];
 }
@@ -123,7 +123,7 @@
 - (void)addOzoneLayer {
     SKTexture *ozoneLayerTexture = [SKTexture textureWithImageNamed:@"Ozone_Layer.png"];
     SKSpriteNode *ozoneLayerNode = [SKSpriteNode spriteNodeWithTexture:ozoneLayerTexture];
-    ozoneLayerNode.position = CGPointMake(CGRectGetMidX(self.frame), 0.0);
+    ozoneLayerNode.position = CGPointMake(CGRectGetMidX(self.frame), -40.0);
     ozoneLayerNode.name = @"OzoneLayer";
     [self addChild:ozoneLayerNode];
 }

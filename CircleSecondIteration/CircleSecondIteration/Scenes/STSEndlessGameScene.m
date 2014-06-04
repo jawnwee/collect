@@ -45,20 +45,6 @@
                                                 blue:68.0 / 255.0
                                                alpha:1.0];
 
-        // Play music depending on toggle
-//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-//            NSError *error;
-//            NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
-//                                                                withExtension:@"caf"];
-//            self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
-//                                                 initWithContentsOfURL:backgroundMusicURL
-//                                                 error:&error];
-//            self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
-//            [self.welcomeBackgroundMusicPlayer prepareToPlay];
-//            [self.welcomeBackgroundMusicPlayer play];
-//            
-//        }
-
         [self addScore];
         [self addPauseButton];
         [self addRestartButton];
@@ -376,6 +362,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
    Hero then bounces up, then quickly down in order to transition into GameOverScene */
 - (void)gameOver {
     [self removeAllActions];
+    CGPoint middle = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     self.hero.physicsBody.dynamic = NO;
     SKAction *waitDuration = [SKAction waitForDuration:0.7];
     SKAction *waitAfter = [SKAction waitForDuration:0.3];
@@ -384,6 +371,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     SKAction *bounceUp = [SKAction moveByX:0.0 y:10.0 duration:0.5];
     SKAction *bounceDown = [SKAction moveByX:0.0 y:-500.0 duration:0.2];
     SKAction *bounceSequence =[SKAction sequence:@[waitDuration, bounceUp, bounceDown, waitAfter]];
+    SKAction *slightWait = [SKAction waitForDuration:0.2];
 
     NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
     if (highScore == 0 || highScore < self.score) {
@@ -403,24 +391,39 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     SKSpriteNode *shadow = (SKSpriteNode *)[self childNodeWithName:@"HeroShadow"];
     deadHero.zRotation = self.hero.zRotation;
 
-    CGFloat sceneMidXCoordinate = CGRectGetMidX(self.frame);
-    CGFloat sceneMidYCoordinate = CGRectGetMidY(self.frame);
+    // Create gray background for smoother transition
+    SKColor *endGameSceneBackgroundColor = [SKColor colorWithRed:240.0 / 255.0
+                                                           green:241.0 / 255.0
+                                                            blue:238.0 / 255.0
+                                                           alpha:1.0];
+    SKSpriteNode *background = [[SKSpriteNode alloc] initWithColor:endGameSceneBackgroundColor 
+                                                              size:self.size];
+    background.position = middle;
+    background.alpha = 0.0;
+    [self addChild:background];
+    SKAction *fadeBackgroundIn = [SKAction fadeAlphaTo:1.0 duration:1.0];
+    SKAction *backgroundWait = [SKAction waitForDuration:1.4];
+    SKAction *backgroundSequence = [SKAction sequence:@[backgroundWait, fadeBackgroundIn]];
+
+    // Checking for all villains and shields to throw them out of the scene
+    CGFloat sceneMidXCoordinate = middle.x;
+    CGFloat sceneMidYCoordinate = middle.y;
     for (SKSpriteNode *node in self.children) {
         if ([node.name isEqualToString:@"HeroShield"]) {
             if (node.position.x >= sceneMidXCoordinate && node.position.y >= sceneMidYCoordinate) {
                 SKAction *pushUpAndRight = [SKAction moveByX:500.0 y:500.0 duration:1.0];
-                [node runAction:pushUpAndRight];
+                [node runAction:[SKAction sequence:@[slightWait, pushUpAndRight]]];
             } else if (node.position.x >= sceneMidXCoordinate 
                        && node.position.y <= sceneMidYCoordinate) {
                 SKAction *pushDownAndRight = [SKAction moveByX:500.0 y:-500.0 duration:1.0];
-                [node runAction:pushDownAndRight];
+                [node runAction:[SKAction sequence:@[slightWait, pushDownAndRight]]];
             } else if (node.position.x <= sceneMidXCoordinate
                        && node.position.y <= sceneMidYCoordinate) {
                 SKAction *pushDownAndLeft = [SKAction moveByX:-500.0 y:-500.0 duration:1.0];
-                [node runAction:pushDownAndLeft];
+                [node runAction:[SKAction sequence:@[slightWait, pushDownAndLeft]]];
             } else {
                 SKAction *pushUpAndLeft = [SKAction moveByX:-500.0 y:500.0 duration:1.0];
-                [node runAction:pushUpAndLeft];
+                [node runAction:[SKAction sequence:@[slightWait, pushUpAndLeft]]];
             }
         } else if ([node.name isEqualToString:@"Shield"]
                    || [node.name isEqualToString:@"Villain"]
@@ -441,10 +444,10 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     [shadow runAction:fadeOut];
     [self.physicsWorld removeAllJoints];
     [self.hero runAction:fadeOut];
-    [self.hero runAction:bounceSequence completion:^{
-        SKTransition *swipeUp = [SKTransition pushWithDirection:SKTransitionDirectionUp
-                                                         duration:0.3];
-        [self.view presentScene:newGameOverScene transition:swipeUp];
+    [self.hero runAction:bounceSequence];
+    [background runAction:backgroundSequence completion:^{
+        SKTransition *fade = [SKTransition fadeWithColor:endGameSceneBackgroundColor duration:0.5];
+        [self.view presentScene:newGameOverScene transition:fade];
     }];
 }
 
