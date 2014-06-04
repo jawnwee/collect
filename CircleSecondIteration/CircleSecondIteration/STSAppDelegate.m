@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 SummaTime Studio. All rights reserved.
 //
 
+#import <Crashlytics/Crashlytics.h>
 #import "STSAppDelegate.h"
 #import "STSEndlessGameScene.h"
 
@@ -14,8 +15,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Crashlytics startWithAPIKey:@"15cff1e39186231362a287dbc7407a93ea1631de"];
     return YES;
 }
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

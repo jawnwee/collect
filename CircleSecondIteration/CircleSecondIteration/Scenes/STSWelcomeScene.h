@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <Crashlytics/Crashlytics.h>
 
 @import AVFoundation;
 

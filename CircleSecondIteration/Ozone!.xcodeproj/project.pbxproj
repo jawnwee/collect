@@ -61,6 +61,7 @@
 		EBC6440E193D4699005F57D5 /* Retry_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6440D193D4699005F57D5 /* Retry_Button@2x.png */; };
 		EBC64410193D7306005F57D5 /* Hero_Default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBC6440F193D7306005F57D5 /* Hero_Default.atlas */; };
 		EBC64416193EA295005F57D5 /* GameOverSymbols.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBC64415193EA295005F57D5 /* GameOverSymbols.atlas */; };
+		EBC64419193EA66B005F57D5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC64418193EA66B005F57D5 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		EBC6440D193D4699005F57D5 /* Retry_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Retry_Button@2x.png"; sourceTree = "<group>"; };
 		EBC6440F193D7306005F57D5 /* Hero_Default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Hero_Default.atlas; sourceTree = "<group>"; };
 		EBC64415193EA295005F57D5 /* GameOverSymbols.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameOverSymbols.atlas; sourceTree = "<group>"; };
+		EBC64418193EA66B005F57D5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBBCEDE91935B6A600F257D2 /* CoreGraphics.framework in Frameworks */,
+				EBC64419193EA66B005F57D5 /* Crashlytics.framework in Frameworks */,
 				EBBCEDEB1935B6A600F257D2 /* UIKit.framework in Frameworks */,
 				EBBCEDED1935B6A600F257D2 /* SpriteKit.framework in Frameworks */,
 				EBBCEDE71935B6A600F257D2 /* Foundation.framework in Frameworks */,
@@ -253,6 +256,7 @@
 		EBBCEDE51935B6A600F257D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EBC64418193EA66B005F57D5 /* Crashlytics.framework */,
 				EBBCEDE61935B6A600F257D2 /* Foundation.framework */,
 				EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */,
 				EBBCEDEA1935B6A600F257D2 /* UIKit.framework */,
@@ -425,6 +429,7 @@
 				EBBCEDDF1935B6A600F257D2 /* Sources */,
 				EBBCEDE01935B6A600F257D2 /* Frameworks */,
 				EBBCEDE11935B6A600F257D2 /* Resources */,
+				EBC64417193EA5CF005F57D5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -532,6 +537,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EBC64417193EA5CF005F57D5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 15cff1e39186231362a287dbc7407a93ea1631de 05f3cf69c0bc5048bf8b595df8aee42c57623537e8385fdf53b527c88584ac8a";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EBBCEDDF1935B6A600F257D2 /* Sources */ = {
@@ -679,6 +700,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
 				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
@@ -693,6 +718,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
 				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
