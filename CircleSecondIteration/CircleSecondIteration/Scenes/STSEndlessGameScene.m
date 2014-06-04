@@ -29,7 +29,6 @@
 @property (nonatomic) NSInteger level;
 
 @property (nonatomic) UILongPressGestureRecognizer *longPress;
-
 @end
 
 @implementation STSEndlessGameScene
@@ -66,7 +65,7 @@
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:[self frame]];
     self.physicsWorld.contactDelegate = self;
 
-    self.level = 0;
+    self.level = 1;
 
     [self addHero];
     [self createNInitialShield:20];
@@ -122,6 +121,7 @@ static float PROJECTILE_VELOCITY = 200/1;
                                        self.frame.size.height / 2);
     STSHero *newHero = [[STSHero alloc] initAtPosition:sceneCenter];
     self.hero = newHero;
+    [self createHeroLevelsColors];
 
     SKSpriteNode *shadow = [self.hero createShadow];
     shadow.position = CGPointMake(CGRectGetMidX(self.frame) - 0.8, CGRectGetMidY(self.frame) + 1.0);
@@ -148,6 +148,19 @@ static float PROJECTILE_VELOCITY = 200/1;
                                                            bodyB:self.physicsBody
                                                           anchor:self.hero.position];
     [self.physicsWorld addJoint:joint];
+}
+
+// Change this as more hero level colors get added
+- (void)createHeroLevelsColors {
+    for (int i = 2; i <= 3; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"Hero_%d.png", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        SKSpriteNode *nextLevelHero = [SKSpriteNode spriteNodeWithTexture:texture];
+        nextLevelHero.position = CGPointMake(0.0, 0.0);
+        nextLevelHero.alpha = 0.0;
+        nextLevelHero.name = [NSString stringWithFormat:@"%d", i];
+        [self.hero addChild:nextLevelHero];
+    }
 }
 
 
@@ -372,13 +385,24 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
     CGFloat newVillainSpeed, newShieldSpeed;
     // Set here for smooth adjustments
-    if (withSpeed == 0) {
-        newVillainSpeed = 1.6;
+    if (withSpeed == 1) {
+        newVillainSpeed = 1.3;
         newShieldSpeed = 1.0;
     } else {
-        newVillainSpeed = 1.6 - withSpeed * 0.1;
-        newShieldSpeed = 1.0 + withSpeed * 0.1;
+        newVillainSpeed = 1.3 - withSpeed * 0.1;
+        newShieldSpeed = 1.0 - withSpeed * 0.1;
     }
+    self.level++;
+
+    SKSpriteNode *newHero = (SKSpriteNode *)[self.hero childNodeWithName:
+                                             [NSString stringWithFormat:@"%d", self.level]];
+
+    newHero.zRotation = newHero.zRotation;
+    SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.5];
+    [newHero runAction:fadeIn];
+
+    //SKSpriteNode
+
     SKAction *makeVillains = [SKAction sequence:@[
                                                   [SKAction performSelector:@selector(addVillain)
                                                                    onTarget:self],
@@ -389,8 +413,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                                                       [SKAction waitForDuration:newShieldSpeed withRange:0.2]]];
     [self runAction:[SKAction repeatActionForever:makeVillains] withKey:@"makeVillains"];
     [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
-    
-    self.level++;
 }
 
 #pragma mark - Game Over Animation
@@ -473,7 +495,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             [node runAction:fadeOut];
         }
     }
-
 
     [deadHero runAction:fadeIn];
     [deadHero runAction:bounceSequence];

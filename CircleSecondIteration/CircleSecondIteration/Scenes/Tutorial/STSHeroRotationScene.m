@@ -60,19 +60,21 @@ static float PROJECTILE_VELOCITY = 200/1;
 - (void)addFirstPulse {
     //initialize first pulse
     CGPoint position1 = CGPointMake(self.size.width / 2 + 75, 75);
-    STSShield *newShield1 = [[STSShield alloc] initAtPosition:position1];
-    newShield1.name = @"firstPulse";
-    [self addChild:newShield1];
-    [newShield1 runAction:[self createPulsingAction]];
+    SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
+    pulse.name = @"firstPulse";
+    pulse.position = position1;
+    [self addChild:pulse];
+    [pulse runAction:[self createPulsingAction]];
 }
 
 - (void)addSecondPulse {
     //initialize second pulse
     CGPoint position2 = CGPointMake(self.size.width / 2 - 75, 75);
-    STSShield *newShield2 = [[STSShield alloc] initAtPosition:position2];
-    newShield2.name = @"secondPulse";
-    [newShield2 runAction:[self createPulsingAction]];
-    [self addChild:newShield2];
+    SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
+    pulse.name = @"secondPulse";
+    pulse.position = position2;
+    [self addChild:pulse];
+    [pulse runAction:[self createPulsingAction]];
 }
 
 - (void)addIntroductionText {

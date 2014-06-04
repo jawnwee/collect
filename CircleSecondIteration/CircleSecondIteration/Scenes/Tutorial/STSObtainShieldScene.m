@@ -151,17 +151,19 @@ static float PROJECTILE_VELOCITY = 200/1;
     
     //initialize first pulse
     CGPoint position1 = CGPointMake(self.size.width / 2 + 75, 75);
-    STSShield *newShield1 = [[STSShield alloc] initAtPosition:position1];
-    newShield1.name = @"firstPulse";
-    [newShield1 runAction:[self createPulsingAction]];
-    [self addChild:newShield1];
+    SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
+    pulse.name = @"firstPulse";
+    pulse.position = position1;
+    [pulse runAction:[self createPulsingAction]];
+    [self addChild:pulse];
     
     //initialize second pulse
     CGPoint position2 = CGPointMake(self.size.width / 2 - 75, 75);
-    STSShield *newShield2 = [[STSShield alloc] initAtPosition:position2];
-    newShield2.name = @"secondPulse";
-    [newShield2 runAction:[self createPulsingAction]];
-    [self addChild:newShield2];
+    SKSpriteNode *pulse2 = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
+    pulse2.name = @"secondPulse";
+    pulse2.position = position2;
+    [pulse2 runAction:[self createPulsingAction]];
+    [self addChild:pulse2];
 }
 
 #pragma mark - Helper Functions for creating Sprites
