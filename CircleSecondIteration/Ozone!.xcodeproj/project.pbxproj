@@ -18,6 +18,9 @@
 		D1B88B4F193D8B6E00361365 /* STSTransitionToShieldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B88B4E193D8B6E00361365 /* STSTransitionToShieldScene.m */; };
 		D1B88B52193D8B8500361365 /* STSObtainShieldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B88B51193D8B8500361365 /* STSObtainShieldScene.m */; };
 		D1B88B55193D8BD300361365 /* STSTransitionToEndlessGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B88B54193D8BD300361365 /* STSTransitionToEndlessGameScene.m */; };
+		D1D5B49E193EEC2400120A76 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1D5B49B193EEC2400120A76 /* background.mp3 */; };
+		D1D5B49F193EEC2400120A76 /* villain_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1D5B49C193EEC2400120A76 /* villain_sound.mp3 */; };
+		D1D5B4A0193EEC2400120A76 /* shield_regenerate.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1D5B49D193EEC2400120A76 /* shield_regenerate.mp3 */; };
 		D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */; };
 		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
 		EBA1C0FA193B9D5900BA1572 /* Ozone_Title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F9193B9D5900BA1572 /* Ozone_Title@2x.png */; };
@@ -93,6 +96,9 @@
 		D1B88B51193D8B8500361365 /* STSObtainShieldScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSObtainShieldScene.m; path = Tutorial/STSObtainShieldScene.m; sourceTree = "<group>"; };
 		D1B88B53193D8BD300361365 /* STSTransitionToEndlessGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSTransitionToEndlessGameScene.h; path = Tutorial/STSTransitionToEndlessGameScene.h; sourceTree = "<group>"; };
 		D1B88B54193D8BD300361365 /* STSTransitionToEndlessGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSTransitionToEndlessGameScene.m; path = Tutorial/STSTransitionToEndlessGameScene.m; sourceTree = "<group>"; };
+		D1D5B49B193EEC2400120A76 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
+		D1D5B49C193EEC2400120A76 /* villain_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = villain_sound.mp3; sourceTree = "<group>"; };
+		D1D5B49D193EEC2400120A76 /* shield_regenerate.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shield_regenerate.mp3; sourceTree = "<group>"; };
 		D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
 		EBA1C0F9193B9D5900BA1572 /* Ozone_Title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Title@2x.png"; sourceTree = "<group>"; };
@@ -180,6 +186,9 @@
 		C4BE5AC819392D0C007B7D28 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D1D5B49B193EEC2400120A76 /* background.mp3 */,
+				D1D5B49C193EEC2400120A76 /* villain_sound.mp3 */,
+				D1D5B49D193EEC2400120A76 /* shield_regenerate.mp3 */,
 				C4BE5AC919392D0C007B7D28 /* Beep.caf */,
 				C4BE5ACA19392D0C007B7D28 /* herobeep.caf */,
 				C4BE5ACB19392D0C007B7D28 /* welcome.caf */,
@@ -510,6 +519,7 @@
 				EBC643FC193D0A56005F57D5 /* Resume@2x.png in Resources */,
 				EBC64407193D31A5005F57D5 /* Divider@2x.png in Resources */,
 				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
+				D1D5B49E193EEC2400120A76 /* background.mp3 in Resources */,
 				EBC643FB193D0A56005F57D5 /* Menu@2x.png in Resources */,
 				EBC6440E193D4699005F57D5 /* Retry_Button@2x.png in Resources */,
 				EBC64408193D31A5005F57D5 /* Music@2x.png in Resources */,
@@ -518,7 +528,9 @@
 				C4BE5ACC19392D0C007B7D28 /* Beep.caf in Resources */,
 				D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */,
 				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
+				D1D5B4A0193EEC2400120A76 /* shield_regenerate.mp3 in Resources */,
 				D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */,
+				D1D5B49F193EEC2400120A76 /* villain_sound.mp3 in Resources */,
 				EBA1C106193C114700BA1572 /* Ozone_Layer@2x.png in Resources */,
 				EBC64416193EA295005F57D5 /* GameOverSymbols.atlas in Resources */,
 				EBC64409193D31A5005F57D5 /* Nickname@2x.png in Resources */,

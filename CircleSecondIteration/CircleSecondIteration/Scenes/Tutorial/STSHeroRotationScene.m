@@ -29,6 +29,7 @@
                                                alpha:1.0];
         self.physicsWorld.contactDelegate = self;
         [self addIntroductionText];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"tutorialFinished"];
     }
 
     return self;
@@ -137,9 +138,11 @@ static float PROJECTILE_VELOCITY = 200/1;
     [self.physicsWorld removeAllJoints];
     [self.hero runAction:fadeOut];
     [self.hero runAction:bounceSequence completion:^{
+        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                      duration:0.3];
         STSTransitionToShieldScene *newTransitionToShieldScene = [[STSTransitionToShieldScene alloc]
                                                                   initWithSize:self.size];
-        [self.view presentScene:newTransitionToShieldScene];
+        [self.view presentScene:newTransitionToShieldScene transition:reveal];
     }];
 }
 
@@ -195,7 +198,7 @@ static inline float distanceFormula(CGPoint a, CGPoint b) {
         [second removeFromParent];
     } else {
         //logic to kill hero on contact with villain. second should always be the villain
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
             [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
                  completion:^{
                      [second removeFromParent];

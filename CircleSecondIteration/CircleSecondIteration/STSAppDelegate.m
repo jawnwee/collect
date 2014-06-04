@@ -16,6 +16,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [Crashlytics startWithAPIKey:@"15cff1e39186231362a287dbc7407a93ea1631de"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"soundToggle"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"musicToggle"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tutorialFinished"];
     return YES;
 }
 

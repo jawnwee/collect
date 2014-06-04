@@ -30,8 +30,8 @@
                                                 blue:68.0 / 255.0 alpha:1.0];
 
         NSError *error;
-        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"welcome"
-                                                            withExtension:@"caf"];
+        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background"
+                                                            withExtension:@"mp3"];
         self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
                                                     initWithContentsOfURL:backgroundMusicURL
                                                     error:&error];
@@ -56,7 +56,6 @@
 
 - (void)didMoveToView:(SKView *)view {
     // Play music depending on toggle
-    NSLog(@"Welcome scene has come to view. Music toggle is on?: %d.", [[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]);
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
         [self.welcomeBackgroundMusicPlayer stop];
     } else {

@@ -64,6 +64,12 @@ static inline CGFloat marginError(CGFloat radius) {
     } else if ([other.node isKindOfClass:[STSShield class]]) {
         STSShield *node = (STSShield *)other.node;
         if (!self.shieldUp && !node.isPartOfBarrier && !node.hasCollided) {
+            // Play sound effect
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
+                [self.parent runAction:
+                        [SKAction playSoundFileNamed:@"shield_regenerate.mp3" waitForCompletion:YES]
+                               withKey:@"shieldRegenerateSound"];
+            }
             self.shieldUp = YES;
             node.hasCollided = YES;
             [node removeFromParent];

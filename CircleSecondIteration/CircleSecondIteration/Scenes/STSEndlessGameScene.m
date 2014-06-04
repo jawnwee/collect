@@ -322,7 +322,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
     // The villain sounds should come and should continue to play as villains hit shields
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
             [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
                  completion:^{
                      [second removeFromParent];
@@ -342,8 +342,8 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
         // Play sound effect
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-            [self runAction:[SKAction playSoundFileNamed:@"Beep.caf" waitForCompletion:YES]];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
+            [self runAction:[SKAction playSoundFileNamed:@"villain_sound.mp3" waitForCompletion:YES]];
         }
 
         // Increment score for each villain blocked

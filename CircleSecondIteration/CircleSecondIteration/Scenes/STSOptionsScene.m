@@ -16,6 +16,7 @@
 @property (nonatomic) NSString *currentNickname;
 @property (nonatomic) SKLabelNode *changeNicknameLabel;
 @property (nonatomic) SKLabelNode *musicToggleLabel;
+@property (nonatomic) SKLabelNode *soundToggleLabel;
 @property (nonatomic) SKSpriteNode *saveButton;
 
 @end
@@ -50,6 +51,7 @@
     [self addDivider:CGPointMake(middle, height - 200.0)];
     [self addMusicTitle];
     [self addMusicToggle];
+    [self addSoundToggle];
     [self addDivider:CGPointMake(middle, height - 335.0)];
     [self addSaveButton];
     // [self addDivider:CGPointMake(middle, height - 410.0)];
@@ -120,11 +122,30 @@
                                                            blue:57.0 / 255.0 alpha:1.0];
     }
     self.musicToggleLabel.fontSize = 48.0;
-    self.musicToggleLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
+    self.musicToggleLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80,
                                                  self.frame.size.height - 289.0);
     self.musicToggleLabel.name = @"musicToggleLabel";
 
     [self addChild:self.musicToggleLabel];
+}
+
+- (void)addSoundToggle {
+    self.soundToggleLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
+        self.soundToggleLabel.text = @"On";
+        self.soundToggleLabel.fontColor = [SKColor colorWithRed:168.0 / 255.0 green:219.0 / 255.0
+                                                           blue:96.0 / 255.0 alpha:1.0];
+    } else {
+        self.soundToggleLabel.text = @"Off";
+        self.soundToggleLabel.fontColor = [SKColor colorWithRed:227.0 / 255.0 green:57.0 / 255.0
+                                                           blue:57.0 / 255.0 alpha:1.0];
+    }
+    self.soundToggleLabel.fontSize = 48.0;
+    self.soundToggleLabel.position = CGPointMake(CGRectGetMidX(self.frame) + 80,
+                                                 self.frame.size.height - 289.0);
+    self.soundToggleLabel.name = @"soundToggleLabel";
+    
+    [self addChild:self.soundToggleLabel];
 }
 
 - (void)addSaveButton {
@@ -164,8 +185,26 @@
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
+    
+    // Clicking the sound label toggles sound on/off
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"] &&
+        [node.name isEqualToString:@"soundToggleLabel"]) {
+        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"soundToggle"];
+        self.soundToggleLabel.text = @"Off";
+        self.soundToggleLabel.fontColor = [SKColor colorWithRed:227.0 / 255.0 green:57.0 / 255.0
+                                                           blue:57.0 / 255.0 alpha:1.0];
+    }
+    else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"] &&
+             [node.name isEqualToString:@"soundToggleLabel"]) {
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"soundToggle"];
+        self.soundToggleLabel.text = @"On";
+        self.soundToggleLabel.fontColor = [SKColor colorWithRed:168.0 / 255.0 green:219.0 / 255.0
+                                                           blue:96.0 / 255.0 alpha:1.0];
+    }
 
-    // Clicking the music label toggles sound on/off
+    // Clicking the music label toggles music on/off
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] &&
         [node.name isEqualToString:@"musicToggleLabel"]) {
 

@@ -12,6 +12,16 @@
 
 @implementation STSViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -21,17 +31,17 @@
     // skView.showsNodeCount = YES;
     // skView.showsPhysics = YES;
 
-//    // Use NSUserDefaults to launch tutorial only once ****YUJUN: UNCOMMENT TO GO STRAIGHT TO TUTORIAL TESTING****
-    STSHeroRotationScene *heroRotationScene = [[STSHeroRotationScene alloc] initWithSize:skView.bounds.size];
-    heroRotationScene.scaleMode = SKSceneScaleModeAspectFill;
-    [skView presentScene:heroRotationScene];
+// Use NSUserDefaults to launch tutorial only once
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialFinished"]) {
+        STSHeroRotationScene *heroRotationScene = [[STSHeroRotationScene alloc] initWithSize:skView.bounds.size];
+        heroRotationScene.scaleMode = SKSceneScaleModeAspectFill;
+        [skView presentScene:heroRotationScene];
+    } else {
+        STSWelcomeScene *scene = [[STSWelcomeScene alloc] initWithSize:skView.bounds.size];
+        [skView presentScene:scene];
+    }
 
 
-    // Create and configure the scene.
-//    STSWelcomeScene *scene = [[STSWelcomeScene alloc] initWithSize:skView.bounds.size];
-//    
-//    // Present the scene.
-//    [skView presentScene:scene];
 
 }
 

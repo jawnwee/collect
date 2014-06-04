@@ -248,7 +248,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
 - (void)update:(NSTimeInterval)currentTime{
     //logic to transition scenes if  the shield is completed
-    if ([self completedShields]) {
+    if ([self completedShields] && ![self actionForKey:@"shieldRegenerateSound"]) {
         [self removeAllActions];
         [[self childNodeWithName:@"firstPulse"] removeFromParent];
         [[self childNodeWithName:@"secondPulse"] removeFromParent];
@@ -261,9 +261,12 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             }
         }
         [self.hero runAction:[SKAction fadeOutWithDuration:2.25] completion:^(void){
+            SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
+                                                          duration:0.3];
             STSTransitionToEndlessGameScene *newTransitionToEndlessGameScene = [[STSTransitionToEndlessGameScene alloc]
                                                                                 initWithSize:self.size];
-            [self.view presentScene:newTransitionToEndlessGameScene transition:SKTransitionDirectionUp];
+            [self.view presentScene:newTransitionToEndlessGameScene
+                         transition:reveal];
         }];
     }
 }
