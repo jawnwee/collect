@@ -50,6 +50,12 @@
     warning.position = findCoordinatesAlongACircle(center,
                                                   self.parent.frame.size.width / 2 - warning.size.width,
                                                   n);
+
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0.0 duration:0.2];
+    SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.2];
+    SKAction *sequence = [SKAction sequence:@[fadeOut, fadeIn]];
+
+    [warning runAction:[SKAction repeatActionForever:sequence]];
     
     return warning;
 }

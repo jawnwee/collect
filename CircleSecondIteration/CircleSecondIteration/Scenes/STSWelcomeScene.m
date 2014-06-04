@@ -206,7 +206,7 @@
     }
 }
 
-#pragma mark - Pause Logic
+#pragma mark - th
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     // If the scene is currently paused, change it to unpaused

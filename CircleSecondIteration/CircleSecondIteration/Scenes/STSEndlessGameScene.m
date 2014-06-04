@@ -26,6 +26,7 @@
 @property (nonatomic) NSTimeInterval lastIncreaseToScoreTimeInterval;
 @property (nonatomic) SKLabelNode *scoreLabel;
 @property (nonatomic) NSTimer *longGestureTimer;
+@property (nonatomic) NSInteger level;
 
 @property (nonatomic) UILongPressGestureRecognizer *longPress;
 
@@ -65,6 +66,8 @@
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:[self frame]];
     self.physicsWorld.contactDelegate = self;
 
+    self.level = 0;
+
     [self addHero];
     [self createNInitialShield:20];
 
@@ -74,14 +77,14 @@
         SKAction *makeVillain = [SKAction sequence:@[
                                                      [SKAction performSelector:@selector(addVillain)
                                                                       onTarget:self],
-                                                     [SKAction waitForDuration:1.5 withRange:0.5]]];
+                                                     [SKAction waitForDuration:2.0 withRange:0.5]]];
 
         SKAction *makeExtraShields = [SKAction sequence:@[
                                [SKAction performSelector:@selector(addShield) onTarget:self],
-                               [SKAction waitForDuration:1.0 withRange:0.5]]];
+                               [SKAction waitForDuration:1.5 withRange:0.5]]];
         
-        [self runAction:[SKAction repeatActionForever:makeVillain]];
-        [self runAction:[SKAction repeatActionForever:makeExtraShields]];
+        [self runAction:[SKAction repeatActionForever:makeVillain] withKey:@"makeVillains"];
+        [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
     }];
 }
 
@@ -348,12 +351,49 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
         // Increment score for each villain blocked
         self.score++;
+        if (self.score % 10 == 0) {
+            [self increaseSpeed:self.level];
+        }
+
 
     } else if (first.physicsBody.categoryBitMask == STSColliderTypeNotification) {
         [first removeFromParent];
     } else if (second.physicsBody.categoryBitMask == STSColliderTypeNotification) {
         [second removeFromParent];
     }
+}
+
+#pragma mark - Game Difficulty Logic
+
+/* Adjust speed based off levels, increments of 10 */
+- (void)increaseSpeed:(NSInteger)withSpeed{
+    [self removeActionForKey:@"makeVillains"];
+    [self removeActionForKey:@"makeShields"];
+
+    NSInteger newVillainSpeed, newShieldSpeed;
+
+    // Set here for smooth adjustments
+    if (withSpeed == 0) {
+        newVillainSpeed = 1.6;
+        newShieldSpeed = 1.5;
+    } else {
+        newVillainSpeed = 1.6 - withSpeed * 0.1;
+        newShieldSpeed = 1.5 + withSpeed * 0.1;
+    }
+
+    SKAction *makeVillains = [SKAction sequence:@[
+                                                  [SKAction performSelector:@selector(addVillain)
+                                                                   onTarget:self],
+                                                  [SKAction waitForDuration:newVillainSpeed withRange:0.5]]];
+
+    SKAction *makeExtraShields = [SKAction sequence:@[
+                                                      [SKAction performSelector:@selector(addShield) onTarget:self],
+                                                      [SKAction waitForDuration:newShieldSpeed withRange:0.5]]];
+    [self runAction:[SKAction repeatActionForever:makeVillains] withKey:@"makeVillains"];
+    [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
+    NSLog(@"%d", newVillainSpeed);
+    
+    self.level++;
 }
 
 #pragma mark - Game Over Animation
