@@ -13,7 +13,6 @@
 @interface STSShield ()
 
 @property (strong, nonatomic) SKTexture *savedTexture;
-@property BOOL shieldUp;
 @property BOOL hasCollided;
 
 @end
@@ -21,6 +20,7 @@
 @implementation STSShield
 
 @synthesize isPartOfBarrier;
+@synthesize shieldUp;
 
 #pragma mark - Initialization
 - (id)initAtPosition:(CGPoint)position {

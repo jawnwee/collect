@@ -14,5 +14,6 @@
 - (id)initAtPosition:(CGPoint)position;
 
 @property BOOL isPartOfBarrier;
+@property BOOL shieldUp;
 
 @end
