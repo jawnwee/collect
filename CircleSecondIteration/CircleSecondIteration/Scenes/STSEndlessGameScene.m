@@ -81,7 +81,7 @@
 
         SKAction *makeExtraShields = [SKAction sequence:@[
                                [SKAction performSelector:@selector(addShield) onTarget:self],
-                               [SKAction waitForDuration:1.5 withRange:0.5]]];
+                               [SKAction waitForDuration:1.0 withRange:0.5]]];
         
         [self runAction:[SKAction repeatActionForever:makeVillain] withKey:@"makeVillains"];
         [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
@@ -370,28 +370,25 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     [self removeActionForKey:@"makeVillains"];
     [self removeActionForKey:@"makeShields"];
 
-    NSInteger newVillainSpeed, newShieldSpeed;
-
+    CGFloat newVillainSpeed, newShieldSpeed;
     // Set here for smooth adjustments
     if (withSpeed == 0) {
         newVillainSpeed = 1.6;
-        newShieldSpeed = 1.5;
+        newShieldSpeed = 1.0;
     } else {
         newVillainSpeed = 1.6 - withSpeed * 0.1;
-        newShieldSpeed = 1.5 + withSpeed * 0.1;
+        newShieldSpeed = 1.0 + withSpeed * 0.1;
     }
-
     SKAction *makeVillains = [SKAction sequence:@[
                                                   [SKAction performSelector:@selector(addVillain)
                                                                    onTarget:self],
-                                                  [SKAction waitForDuration:newVillainSpeed withRange:0.5]]];
+                                                  [SKAction waitForDuration:newVillainSpeed withRange:0.2]]];
 
     SKAction *makeExtraShields = [SKAction sequence:@[
                                                       [SKAction performSelector:@selector(addShield) onTarget:self],
-                                                      [SKAction waitForDuration:newShieldSpeed withRange:0.5]]];
+                                                      [SKAction waitForDuration:newShieldSpeed withRange:0.2]]];
     [self runAction:[SKAction repeatActionForever:makeVillains] withKey:@"makeVillains"];
     [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
-    NSLog(@"%d", newVillainSpeed);
     
     self.level++;
 }
