@@ -274,7 +274,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                                                                    action:@selector(handleLongPress:)];
     self.longPress.minimumPressDuration = 0.3;
     [view addGestureRecognizer:self.longPress];
-
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)recognizer {
@@ -521,6 +520,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     [self.hero runAction:fadeOut];
     [self.hero runAction:bounceSequence];
     [background runAction:backgroundSequence completion:^{
+        [self.view removeGestureRecognizer:self.longPress];
         SKTransition *fade = [SKTransition fadeWithColor:endGameSceneBackgroundColor duration:0.5];
         [self.view presentScene:newGameOverScene transition:fade];
     }];
