@@ -33,7 +33,11 @@
     // skView.showsPhysics = YES;
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+        [OALSimpleAudio sharedInstance].allowIpod = NO;
         [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
+    } else {
+        [OALSimpleAudio sharedInstance].allowIpod = YES;
+        [OALSimpleAudio sharedInstance].useHardwareIfAvailable = NO;
     }
     // Use NSUserDefaults to launch tutorial only once
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialFinished"]) {

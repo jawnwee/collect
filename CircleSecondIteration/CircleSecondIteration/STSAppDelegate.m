@@ -9,6 +9,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "STSAppDelegate.h"
 #import "STSEndlessGameScene.h"
+#import "ObjectAL/ObjectAL.h"
 
 @implementation STSAppDelegate
 
@@ -40,6 +41,12 @@
     SKView *view = (SKView *)self.window.rootViewController.view;
     view.paused = NO;
     view.scene.paused = YES;
+    if ([OALSimpleAudio sharedInstance].interrupted) {
+        [OALSimpleAudio sharedInstance].manuallySuspended = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"musicToggle"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"soundToggle"];
+    }
+        NSLog(@"%d", [OALSimpleAudio sharedInstance].interrupted);
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

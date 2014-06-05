@@ -223,6 +223,8 @@
     // Clicking the music label toggles music on/off
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] &&
         [node.name isEqualToString:@"musicToggleLabel"]) {
+        [OALSimpleAudio sharedInstance].allowIpod = YES;
+        [OALSimpleAudio sharedInstance].useHardwareIfAvailable = NO;
         [[OALSimpleAudio sharedInstance] stopBg];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"musicToggle"];
         self.musicToggleLabel.text = @"Off";
@@ -231,6 +233,7 @@
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] &&
         [node.name isEqualToString:@"musicToggleLabel"]) {
+        [OALSimpleAudio sharedInstance].allowIpod = NO;
         [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"musicToggle"];
         self.musicToggleLabel.text = @"On";

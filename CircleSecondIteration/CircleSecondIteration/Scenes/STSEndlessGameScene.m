@@ -340,11 +340,13 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
     // The villain sounds should come and should continue to play as villains hit shields
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+            [[OALSimpleAudio sharedInstance] stopBg];
+        }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
             [[OALSimpleAudio sharedInstance] playEffect:HERO_BEEP];
             [second removeFromParent];
             [self gameOver];
-            [[OALSimpleAudio sharedInstance] stopBg];
         } else {
             [second removeFromParent];
             [self gameOver];
@@ -363,7 +365,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             [self increaseSpeed:self.level];
             [self increaseSoundPitch:self.level];
         }
-
 
     } else if (first.physicsBody.categoryBitMask == STSColliderTypeNotification) {
         [first removeFromParent];
@@ -424,14 +425,16 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     [self runAction:[SKAction repeatAction:makeExtraShields count:30]];
 }
 - (void)increaseSoundPitch:(NSInteger)level {
-    if (level == 2) {
-        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_2 loop:YES];
-    } else if (level == 3) {
-        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_3 loop:YES];
-    } else if (level == 4) {
-        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_4 loop:YES];
-    } else {
-        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_5 loop:YES];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] && [OALSimpleAudio sharedInstance].allowIpod) {
+        if (level == 2) {
+            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_2 loop:YES];
+        } else if (level == 3) {
+            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_3 loop:YES];
+        } else if (level == 4) {
+            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_4 loop:YES];
+        } else {
+            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_5 loop:YES];
+        }
     }
 }
 
