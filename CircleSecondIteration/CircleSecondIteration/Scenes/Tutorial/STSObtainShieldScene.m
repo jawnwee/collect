@@ -165,15 +165,6 @@ static float PROJECTILE_VELOCITY = 200/1;
     pulse2.position = position2;
     [pulse2 runAction:[self createPulsingAction]];
     [self addChild:pulse2];
-    
-    // start making extra shields for player to fill in the gap
-    SKAction *waitToMakeShields = [SKAction waitForDuration:1.0];
-    SKAction *makeRandomShields = [SKAction repeatActionForever:
-                                   [SKAction sequence:@[
-                                                        [SKAction performSelector:@selector(addRandomShield)
-                                                                         onTarget:self],
-                                                        [SKAction waitForDuration:1.0 withRange:0.5]]]];
-    [self runAction:[SKAction sequence:@[waitToMakeShields, makeRandomShields]]];
 }
 
 #pragma mark - Helper Functions for creating Sprites
@@ -264,7 +255,13 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
 - (void)update:(NSTimeInterval)currentTime{
     if ([self partialShieldCompleted] && !self.pulsesAdded) {
-        [self runAction:[SKAction waitForDuration:1.0]];
+        // start making extra shields for player to fill in the gap
+        SKAction *makeRandomShields = [SKAction repeatActionForever:
+                                       [SKAction sequence:@[
+                                                            [SKAction performSelector:@selector(addRandomShield)
+                                                                             onTarget:self],
+                                                            [SKAction waitForDuration:1.0 withRange:0.5]]]];
+        [self runAction:[SKAction sequence:@[makeRandomShields]]];
         [self addPulses];
     }
     

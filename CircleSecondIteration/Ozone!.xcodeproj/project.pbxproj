@@ -43,6 +43,7 @@
 		D1683E4B193FFF31000EC0C1 /* background_E.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1683E47193FFF31000EC0C1 /* background_E.mp3 */; };
 		D1683E4C193FFF31000EC0C1 /* background_G.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1683E48193FFF31000EC0C1 /* background_G.mp3 */; };
 		D1683E4D193FFF31000EC0C1 /* background_D.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1683E49193FFF31000EC0C1 /* background_D.mp3 */; };
+		D1853E721940704B002E922A /* dying_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1853E711940704B002E922A /* dying_sound.mp3 */; };
 		D1B1B2AD193C358D00F43BE5 /* STSInformationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B1B2AC193C358D00F43BE5 /* STSInformationScene.m */; };
 		D1B88B4C193D8B2900361365 /* STSHeroRotationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B88B4B193D8B2900361365 /* STSHeroRotationScene.m */; };
 		D1B88B4F193D8B6E00361365 /* STSTransitionToShieldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B88B4E193D8B6E00361365 /* STSTransitionToShieldScene.m */; };
@@ -186,6 +187,7 @@
 		D1683E47193FFF31000EC0C1 /* background_E.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_E.mp3; sourceTree = "<group>"; };
 		D1683E48193FFF31000EC0C1 /* background_G.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_G.mp3; sourceTree = "<group>"; };
 		D1683E49193FFF31000EC0C1 /* background_D.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_D.mp3; sourceTree = "<group>"; };
+		D1853E711940704B002E922A /* dying_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dying_sound.mp3; sourceTree = "<group>"; };
 		D1B1B2AB193C358D00F43BE5 /* STSInformationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSInformationScene.h; sourceTree = "<group>"; };
 		D1B1B2AC193C358D00F43BE5 /* STSInformationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSInformationScene.m; sourceTree = "<group>"; };
 		D1B88B4A193D8B2900361365 /* STSHeroRotationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSHeroRotationScene.h; path = Tutorial/STSHeroRotationScene.h; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 		C4BE5AC819392D0C007B7D28 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D1853E711940704B002E922A /* dying_sound.mp3 */,
 				D1683E46193FFF31000EC0C1 /* background_F.mp3 */,
 				D1683E47193FFF31000EC0C1 /* background_E.mp3 */,
 				D1683E48193FFF31000EC0C1 /* background_G.mp3 */,
@@ -779,6 +782,7 @@
 				EBC6446F1940621B005F57D5 /* Credits_iPhone4@2x.png in Resources */,
 				D1D5B49F193EEC2400120A76 /* villain_sound.mp3 in Resources */,
 				EBA1C106193C114700BA1572 /* Ozone_Layer@2x.png in Resources */,
+				D1853E721940704B002E922A /* dying_sound.mp3 in Resources */,
 				EBC64416193EA295005F57D5 /* GameOverSymbols.atlas in Resources */,
 				EBC64409193D31A5005F57D5 /* Nickname@2x.png in Resources */,
 				EBA1C100193BB20D00BA1572 /* Ozone_Title_Hero@2x.png in Resources */,

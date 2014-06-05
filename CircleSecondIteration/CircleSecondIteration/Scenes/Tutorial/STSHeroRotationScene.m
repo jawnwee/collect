@@ -14,7 +14,7 @@
 #import "ObjectAL.h"
 
 #define BACKGROUND_MUSIC_FILE @"background.mp3"
-#define HERO_BEEP @"herobeep.caf"
+#define HERO_BEEP @"dying_sound.mp3"
 
 @interface STSHeroRotationScene () <SKPhysicsContactDelegate>
 

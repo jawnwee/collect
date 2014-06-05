@@ -15,7 +15,7 @@
 #import "STSShield.h"
 #import "ObjectAL.h"
 
-#define HERO_BEEP @"herobeep.caf"
+#define HERO_BEEP @"dying_sound.mp3"
 #define BACKGROUND_MUSIC_LEVEL_2 @"background_D.mp3"
 #define BACKGROUND_MUSIC_LEVEL_3 @"background_E.mp3"
 #define BACKGROUND_MUSIC_LEVEL_4 @"background_F.mp3"
