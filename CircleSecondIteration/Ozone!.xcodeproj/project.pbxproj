@@ -13,6 +13,10 @@
 		C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACA19392D0C007B7D28 /* herobeep.caf */; };
 		C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */ = {isa = PBXBuildFile; fileRef = C4BE5ACB19392D0C007B7D28 /* welcome.caf */; };
 		C4BE5AD119392FA7007B7D28 /* STSOptionsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */; };
+		D1683E4A193FFF31000EC0C1 /* background_F.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1683E46193FFF31000EC0C1 /* background_F.mp3 */; };
+		D1683E4B193FFF31000EC0C1 /* background_E.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1683E47193FFF31000EC0C1 /* background_E.mp3 */; };
+		D1683E4C193FFF31000EC0C1 /* background_G.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1683E48193FFF31000EC0C1 /* background_G.mp3 */; };
+		D1683E4D193FFF31000EC0C1 /* background_D.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1683E49193FFF31000EC0C1 /* background_D.mp3 */; };
 		D1B1B2AD193C358D00F43BE5 /* STSInformationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B1B2AC193C358D00F43BE5 /* STSInformationScene.m */; };
 		D1B88B4C193D8B2900361365 /* STSHeroRotationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B88B4B193D8B2900361365 /* STSHeroRotationScene.m */; };
 		D1B88B4F193D8B6E00361365 /* STSTransitionToShieldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B88B4E193D8B6E00361365 /* STSTransitionToShieldScene.m */; };
@@ -87,6 +91,10 @@
 		C4BE5ACB19392D0C007B7D28 /* welcome.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome.caf; sourceTree = "<group>"; };
 		C4BE5ACF19392FA7007B7D28 /* STSOptionsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSOptionsScene.h; sourceTree = "<group>"; };
 		C4BE5AD019392FA7007B7D28 /* STSOptionsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSOptionsScene.m; sourceTree = "<group>"; };
+		D1683E46193FFF31000EC0C1 /* background_F.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_F.mp3; sourceTree = "<group>"; };
+		D1683E47193FFF31000EC0C1 /* background_E.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_E.mp3; sourceTree = "<group>"; };
+		D1683E48193FFF31000EC0C1 /* background_G.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_G.mp3; sourceTree = "<group>"; };
+		D1683E49193FFF31000EC0C1 /* background_D.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_D.mp3; sourceTree = "<group>"; };
 		D1B1B2AB193C358D00F43BE5 /* STSInformationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSInformationScene.h; sourceTree = "<group>"; };
 		D1B1B2AC193C358D00F43BE5 /* STSInformationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSInformationScene.m; sourceTree = "<group>"; };
 		D1B88B4A193D8B2900361365 /* STSHeroRotationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSHeroRotationScene.h; path = Tutorial/STSHeroRotationScene.h; sourceTree = "<group>"; };
@@ -188,6 +196,10 @@
 		C4BE5AC819392D0C007B7D28 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D1683E46193FFF31000EC0C1 /* background_F.mp3 */,
+				D1683E47193FFF31000EC0C1 /* background_E.mp3 */,
+				D1683E48193FFF31000EC0C1 /* background_G.mp3 */,
+				D1683E49193FFF31000EC0C1 /* background_D.mp3 */,
 				D1D5B49B193EEC2400120A76 /* background.mp3 */,
 				D1D5B49C193EEC2400120A76 /* villain_sound.mp3 */,
 				D1D5B49D193EEC2400120A76 /* shield_regenerate.mp3 */,
@@ -519,14 +531,18 @@
 			files = (
 				EBBCEDF31935B6A600F257D2 /* InfoPlist.strings in Resources */,
 				EBA1C0FD193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png in Resources */,
+				D1683E4B193FFF31000EC0C1 /* background_E.mp3 in Resources */,
 				EBA1C103193C0F0000BA1572 /* Company_Info@2x.png in Resources */,
 				EBC64410193D7306005F57D5 /* Hero_Default.atlas in Resources */,
+				D1683E4A193FFF31000EC0C1 /* background_F.mp3 in Resources */,
 				C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */,
 				C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */,
+				D1683E4C193FFF31000EC0C1 /* background_G.mp3 in Resources */,
 				EBBCEE061935B6A600F257D2 /* Images.xcassets in Resources */,
 				EBC64406193D31A5005F57D5 /* Credits@2x.png in Resources */,
 				EBC6440C193D3EA1005F57D5 /* Save_Button@2x.png in Resources */,
 				EBA1C0FA193B9D5900BA1572 /* Ozone_Title@2x.png in Resources */,
+				D1683E4D193FFF31000EC0C1 /* background_D.mp3 in Resources */,
 				EBC643FC193D0A56005F57D5 /* Resume@2x.png in Resources */,
 				EBC64407193D31A5005F57D5 /* Divider@2x.png in Resources */,
 				EBBCEE3F1935C12F00F257D2 /* Shield_Default.atlas in Resources */,
