@@ -105,7 +105,7 @@
         lastButton.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
                                           CGRectGetMidY(self.frame) + 180.0);
         self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
-                                               CGRectGetMidY(self.frame) + 180.0);
+                                               CGRectGetMidY(self.frame) + 100.0);
     } else {
         lastButton.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
                                           CGRectGetMidY(self.frame) + 140.0);
@@ -130,7 +130,7 @@
         bestButton.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
                                           CGRectGetMidY(self.frame) + 180.0);
         self.highScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
-                                               CGRectGetMidY(self.frame) + 180.0);
+                                               CGRectGetMidY(self.frame) + 100.0);
     } else {
         bestButton.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
                                           CGRectGetMidY(self.frame) + 140.0);
