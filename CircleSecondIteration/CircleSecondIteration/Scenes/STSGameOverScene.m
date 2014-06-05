@@ -42,8 +42,6 @@
         [self createSceneContents];
 
         [[OALSimpleAudio sharedInstance] preloadBg:BACKGROUND_MUSIC_FILE];
-        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
-        [OALSimpleAudio sharedInstance].paused = YES;
     }
     return self;
 }
@@ -221,11 +219,11 @@
     // Touching the retry node presents game scene last played
     if ([node.name isEqualToString:@"retryLabel"] || [node.name isEqualToString:@"retrySymbol"]) {
         STSEndlessGameScene *gameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-        [OALSimpleAudio sharedInstance].paused = NO;
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
         [self.view presentScene:gameScene transition:reveal];
     } else if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
-        [OALSimpleAudio sharedInstance].paused = NO;
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
         [self.view presentScene:welcomeScene transition:reveal];
     }
 

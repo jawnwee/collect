@@ -344,6 +344,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             [[OALSimpleAudio sharedInstance] playEffect:HERO_BEEP];
             [second removeFromParent];
             [self gameOver];
+            [[OALSimpleAudio sharedInstance] stopBg];
         } else {
             [second removeFromParent];
             [self gameOver];
