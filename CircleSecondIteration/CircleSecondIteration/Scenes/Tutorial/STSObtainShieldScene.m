@@ -302,7 +302,9 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             SKAction *backgroundSequence = [SKAction sequence:@[backgroundWait, fadeBackgroundIn]];
             [background runAction:backgroundSequence completion:^{
                 SKTransition *fade = [SKTransition fadeWithColor:transitionToGameSceneBackgroundColor duration:0.3];
-                
+                [self removeAllActions];
+                [self removeAllChildren];
+                self.hero = nil;
                 STSTransitionToEndlessGameScene *newTransitionToEndlessGameScene = [[STSTransitionToEndlessGameScene alloc]
                                                                                     initWithSize:self.size];
                 [self.view presentScene:newTransitionToEndlessGameScene transition:fade];

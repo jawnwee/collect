@@ -11,7 +11,7 @@
 
 @interface STSInformationScene ()
 
-@property (nonatomic) SKLabelNode *logo;
+@property (nonatomic) SKSpriteNode *logo;
 @property (nonatomic) SKLabelNode *exitLabel;
 
 @end
@@ -38,12 +38,9 @@
 
 - (void)addLogo {
     
-    self.logo = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    self.logo.fontColor = [SKColor blackColor];
-    self.logo.fontSize = 36.0;
+    self.logo = [SKSpriteNode spriteNodeWithImageNamed:@"OzoneOddLookLogo.png"];
     self.logo.position = CGPointMake(CGRectGetMidX(self.frame),
                                                  CGRectGetMidY(self.frame));
-    self.logo.text = @"OddLOOK";
     self.logo.name = @"logo";
     
     [self addChild:self.logo];

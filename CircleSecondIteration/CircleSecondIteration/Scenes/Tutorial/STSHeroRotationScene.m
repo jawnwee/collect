@@ -100,7 +100,10 @@ static float PROJECTILE_VELOCITY = 200/1;
 - (void)addIntroductionText {
     // initialize introduction text
     self.heroIntroduction = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    self.heroIntroduction.fontColor = [SKColor blackColor];
+    self.heroIntroduction.fontColor = [SKColor colorWithRed:211.0 / 255.0
+                                                      green:92.0 / 255.0
+                                                       blue:41.0 / 255.0
+                                                      alpha:1.0];
     self.heroIntroduction.fontSize = 36.0;
     self.heroIntroduction.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 100);
     [self addChild:self.heroIntroduction];

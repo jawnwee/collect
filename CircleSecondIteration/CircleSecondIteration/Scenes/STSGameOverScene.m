@@ -89,7 +89,7 @@
                                              CGRectGetMidY(self.frame) + 230.0);
     } else {
         gameOverTitle.position = CGPointMake(CGRectGetMidX(self.frame),
-                                            CGRectGetMidY(self.frame) + 200.0);
+                                            CGRectGetMidY(self.frame) + 190.0);
     }
     [self addChild:gameOverTitle];
 }
@@ -102,10 +102,18 @@
     self.scoreLabel.fontSize = 66.0;
     self.scoreLabel.fontColor = [SKColor colorWithRed:98.0 / 255.0 
                                                 green:97.0 / 255.0 blue:97.0 / 255.0 alpha:1.0];
-    CGPoint position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
-                                    CGRectGetMidY(self.frame) + 180.0);
-    lastButton.position = position;
-    self.scoreLabel.position = CGPointMake(position.x, position.y - 80.0);
+
+    if (IS_WIDESCREEN) {
+        lastButton.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                          CGRectGetMidY(self.frame) + 180.0);
+        self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                               CGRectGetMidY(self.frame) + 180.0);
+    } else {
+        lastButton.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                          CGRectGetMidY(self.frame) + 140.0);
+        self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                               CGRectGetMidY(self.frame) + 70.0);
+    }
 
     [self addChild:lastButton];
     [self addChild:self.scoreLabel];
@@ -119,10 +127,18 @@
     self.highScoreLabel.fontSize = 66.0;
     self.highScoreLabel.fontColor = [SKColor colorWithRed:98.0 / 255.0 
                                                     green:97.0 / 255.0 blue:97.0 / 255.0 alpha:1.0];
-    CGPoint position = CGPointMake(CGRectGetMidX(self.frame) + 80.0, 
-                                   CGRectGetMidY(self.frame) + 180.0);
-    bestButton.position = position;
-    self.highScoreLabel.position = CGPointMake(position.x, position.y - 80.0);
+
+    if (IS_WIDESCREEN) {
+        bestButton.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                          CGRectGetMidY(self.frame) + 180.0);
+        self.highScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                               CGRectGetMidY(self.frame) + 180.0);
+    } else {
+        bestButton.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                          CGRectGetMidY(self.frame) + 140.0);
+        self.highScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                               CGRectGetMidY(self.frame) + 70.0);
+    }
 
     [self addChild:bestButton];
     [self addChild:self.highScoreLabel];
@@ -132,8 +148,13 @@
     SKTexture *retryTexture = [SKTexture textureWithImageNamed:@"RetrySymbol.png"];
     SKSpriteNode *retrySymbol = [[SKSpriteNode alloc] initWithTexture:retryTexture];
     retrySymbol.name = @"retrySymbol";
-    retrySymbol.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
-                                       CGRectGetMidY(self.frame) - 10.0);
+    if (IS_WIDESCREEN) {
+        retrySymbol.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                           CGRectGetMidY(self.frame) - 10.0);
+    } else {
+        retrySymbol.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0,
+                                           CGRectGetMidY(self.frame) - 30.0);
+    }
     [self addChild:retrySymbol];
 }
 
@@ -141,8 +162,13 @@
     SKTexture *menuTexture = [SKTexture textureWithImageNamed:@"MenuSymbol@2x.png"];
     SKSpriteNode *menuSymbol = [[SKSpriteNode alloc] initWithTexture:menuTexture];
     menuSymbol.name = @"menuSymbol";
-    menuSymbol.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
-                                      CGRectGetMidY(self.frame) - 10.0);
+    if (IS_WIDESCREEN) {
+        menuSymbol.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                          CGRectGetMidY(self.frame) - 10.0);
+    } else {
+        menuSymbol.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0,
+                                          CGRectGetMidY(self.frame) - 30.0);
+    }
 
     [self addChild:menuSymbol];
 }
@@ -170,7 +196,7 @@
         top.position = CGPointMake(screenMiddleX, screenMiddleY + 155.0);
         firstMiddle.position = CGPointMake(screenMiddleX, screenMiddleY + 85.0);
         bottom.position = CGPointMake(screenMiddleX, screenMiddleY + 23.0);
-        secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 45.0);
+        secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 40.0);
     }
     [self addChild:top];
     [self addChild:firstMiddle];
@@ -192,7 +218,6 @@
     // Scene transitions
     SKTransition *reveal = [SKTransition fadeWithColor:orangeBackground duration:0.5];
 
-
     // Touching the retry node presents game scene last played
     if ([node.name isEqualToString:@"retryLabel"] || [node.name isEqualToString:@"retrySymbol"]) {
         STSEndlessGameScene *gameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
@@ -204,12 +229,6 @@
         [self.view presentScene:welcomeScene transition:reveal];
     }
 
-    // Touching the menu node presents the welcome scene
-//    if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
-//        STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
-//        self.previousScene = nil;
-//        [self.view presentScene:welcomeScene transition:reveal];
-//    }
 }
 
 @end

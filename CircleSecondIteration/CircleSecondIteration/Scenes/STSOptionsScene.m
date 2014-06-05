@@ -10,7 +10,7 @@
 #import "STSWelcomeScene.h"
 #import "STSPauseScene.h"
 #import "ObjectAL.h"
-
+#define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 #define BACKGROUND_MUSIC_FILE @"background.mp3"
 
 @interface STSOptionsScene () <UITextFieldDelegate>
@@ -53,6 +53,7 @@
     [self addNicknameTitle];
     [self addDivider:CGPointMake(middle, height - 200.0)];
     [self addMusicTitle];
+    [self addSoundTitle];
     [self addMusicToggle];
     [self addSoundToggle];
     [self addDivider:CGPointMake(middle, height - 335.0)];
@@ -89,6 +90,7 @@
 #pragma mark - Scene Elements
 - (void)addDivider:(CGPoint)position {
     SKSpriteNode *divider = [SKSpriteNode spriteNodeWithImageNamed:@"Divider.png"];
+    
     divider.position = position;
     [self addChild:divider];
 }
@@ -108,7 +110,13 @@
 
 - (void)addMusicTitle {
     SKSpriteNode *title = [SKSpriteNode spriteNodeWithImageNamed:@"Music.png"];
-    title.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 215.0);
+    title.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0 , self.frame.size.height - 215.0);
+    [self addChild:title];
+}
+
+- (void)addSoundTitle {
+    SKSpriteNode *title = [SKSpriteNode spriteNodeWithImageNamed:@"Effects.png"];
+    title.position = CGPointMake(CGRectGetMidX(self.frame) + 80.0, self.frame.size.height - 215.0);
     [self addChild:title];
 }
 
@@ -161,8 +169,15 @@
 }
 
 - (void)addCredits {
-    SKSpriteNode *credits = [SKSpriteNode spriteNodeWithImageNamed:@"Credits.png"];
-    credits.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 480.0);
+
+    SKSpriteNode *credits;
+    if (IS_WIDESCREEN) {
+        credits = [SKSpriteNode spriteNodeWithImageNamed:@"Credits.png"];
+        credits.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 480.0);
+    } else {
+        credits = [SKSpriteNode spriteNodeWithImageNamed:@"Credits_iPhone4.png"];
+        credits.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 428.0);
+    }
     [self addChild:credits];
 }
 

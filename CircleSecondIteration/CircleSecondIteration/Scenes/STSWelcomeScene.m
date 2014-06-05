@@ -76,8 +76,13 @@
 - (void)addPlayButton {
     SKTexture *playButtonTexture = [SKTexture textureWithImageNamed:@"Play_Button.png"];
     SKSpriteNode *playButtonNode = [SKSpriteNode spriteNodeWithTexture:playButtonTexture];
-    playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
-                                          CGRectGetMidY(self.frame) + 50.0);
+    if (IS_WIDESCREEN) {
+        playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
+                                              CGRectGetMidY(self.frame) + 50.0);
+    } else {
+        playButtonNode.position = CGPointMake(CGRectGetMidX(self.frame),
+                                              CGRectGetMidY(self.frame) + 30.0);
+    }
     playButtonNode.name = @"playButton";
     [self addChild:playButtonNode];
 }
@@ -85,8 +90,13 @@
 - (void)addOptionMenu {
     SKTexture *optionButtonTexture = [SKTexture textureWithImageNamed:@"Options_Button.png"];
     SKSpriteNode *optionButtonNode = [SKSpriteNode spriteNodeWithTexture:optionButtonTexture];
-    optionButtonNode.position = CGPointMake(CGRectGetMidX(self.frame) + 100.0,
-                                          CGRectGetMidY(self.frame) + 15.0);
+    if (IS_WIDESCREEN) {
+        optionButtonNode.position = CGPointMake(CGRectGetMidX(self.frame) + 100.0,
+                                              CGRectGetMidY(self.frame) + 15.0);
+    } else {
+        optionButtonNode.position = CGPointMake(CGRectGetMidX(self.frame) + 100.0,
+                                                CGRectGetMidY(self.frame) - 5.0);
+    }
     optionButtonNode.name = @"OptionMenu";
     [self addChild:optionButtonNode];
 }
@@ -94,8 +104,14 @@
 - (void)addCompanyInfo {
     SKTexture *companyInfoTexture = [SKTexture textureWithImageNamed:@"Company_Info.png"];
     SKSpriteNode *companyInfoNode = [SKSpriteNode spriteNodeWithTexture:companyInfoTexture];
-    companyInfoNode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
-                                            CGRectGetMidY(self.frame) + 15.0);
+    if (IS_WIDESCREEN) {
+        companyInfoNode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
+                                                CGRectGetMidY(self.frame) + 15.0);
+    } else {
+        companyInfoNode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
+                                               CGRectGetMidY(self.frame) - 5.0);
+
+    }
     companyInfoNode.name = @"CompanyInfo";
     [self addChild:companyInfoNode];
 }

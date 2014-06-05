@@ -96,6 +96,10 @@
 		EBC64416193EA295005F57D5 /* GameOverSymbols.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EBC64415193EA295005F57D5 /* GameOverSymbols.atlas */; };
 		EBC64419193EA66B005F57D5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC64418193EA66B005F57D5 /* Crashlytics.framework */; };
 		EBC6441C193F9C9C005F57D5 /* pulse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6441B193F9C9C005F57D5 /* pulse@2x.png */; };
+		EBC6446819405E67005F57D5 /* icon-home.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6446619405E67005F57D5 /* icon-home.png */; };
+		EBC6446B19405E81005F57D5 /* OzoneOddLookLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6446A19405E81005F57D5 /* OzoneOddLookLogo@2x.png */; };
+		EBC6446D19406017005F57D5 /* Effects@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6446C19406017005F57D5 /* Effects@2x.png */; };
+		EBC6446F1940621B005F57D5 /* Credits_iPhone4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC6446E1940621B005F57D5 /* Credits_iPhone4@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +256,10 @@
 		EBC64415193EA295005F57D5 /* GameOverSymbols.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameOverSymbols.atlas; sourceTree = "<group>"; };
 		EBC64418193EA66B005F57D5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		EBC6441B193F9C9C005F57D5 /* pulse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pulse@2x.png"; sourceTree = "<group>"; };
+		EBC6446619405E67005F57D5 /* icon-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-home.png"; sourceTree = "<group>"; };
+		EBC6446A19405E81005F57D5 /* OzoneOddLookLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OzoneOddLookLogo@2x.png"; sourceTree = "<group>"; };
+		EBC6446C19406017005F57D5 /* Effects@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Effects@2x.png"; sourceTree = "<group>"; };
+		EBC6446E1940621B005F57D5 /* Credits_iPhone4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Credits_iPhone4@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -570,6 +578,7 @@
 		EBBCEE361935C12F00F257D2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				EBC6446519405E67005F57D5 /* Important */,
 				C4BE5AC819392D0C007B7D28 /* Sounds */,
 				EBBCEE371935C12F00F257D2 /* Texture Atlases */,
 			);
@@ -629,7 +638,9 @@
 		EBC643FE193D31A5005F57D5 /* OptionsScene */ = {
 			isa = PBXGroup;
 			children = (
+				EBC6446C19406017005F57D5 /* Effects@2x.png */,
 				EBC6440B193D3EA1005F57D5 /* Save_Button@2x.png */,
+				EBC6446E1940621B005F57D5 /* Credits_iPhone4@2x.png */,
 				EBC64400193D31A5005F57D5 /* Credits@2x.png */,
 				EBC64401193D31A5005F57D5 /* Divider@2x.png */,
 				EBC64402193D31A5005F57D5 /* Music@2x.png */,
@@ -645,6 +656,15 @@
 				EBC6441B193F9C9C005F57D5 /* pulse@2x.png */,
 			);
 			path = TutorialScene;
+			sourceTree = "<group>";
+		};
+		EBC6446519405E67005F57D5 /* Important */ = {
+			isa = PBXGroup;
+			children = (
+				EBC6446A19405E81005F57D5 /* OzoneOddLookLogo@2x.png */,
+				EBC6446619405E67005F57D5 /* icon-home.png */,
+			);
+			path = Important;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -731,6 +751,8 @@
 				EBA1C103193C0F0000BA1572 /* Company_Info@2x.png in Resources */,
 				EBC64410193D7306005F57D5 /* Hero_Default.atlas in Resources */,
 				D1683E4A193FFF31000EC0C1 /* background_F.mp3 in Resources */,
+				EBC6446B19405E81005F57D5 /* OzoneOddLookLogo@2x.png in Resources */,
+				EBC6446819405E67005F57D5 /* icon-home.png in Resources */,
 				C4BE5ACD19392D0C007B7D28 /* herobeep.caf in Resources */,
 				C4BE5ACE19392D0C007B7D28 /* welcome.caf in Resources */,
 				D1683E4C193FFF31000EC0C1 /* background_G.mp3 in Resources */,
@@ -754,11 +776,13 @@
 				EBBCEE401935C12F00F257D2 /* Villain_Default.atlas in Resources */,
 				D1D5B4A0193EEC2400120A76 /* shield_regenerate.mp3 in Resources */,
 				D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */,
+				EBC6446F1940621B005F57D5 /* Credits_iPhone4@2x.png in Resources */,
 				D1D5B49F193EEC2400120A76 /* villain_sound.mp3 in Resources */,
 				EBA1C106193C114700BA1572 /* Ozone_Layer@2x.png in Resources */,
 				EBC64416193EA295005F57D5 /* GameOverSymbols.atlas in Resources */,
 				EBC64409193D31A5005F57D5 /* Nickname@2x.png in Resources */,
 				EBA1C100193BB20D00BA1572 /* Ozone_Title_Hero@2x.png in Resources */,
+				EBC6446D19406017005F57D5 /* Effects@2x.png in Resources */,
 				EBA1C104193C0F0000BA1572 /* Options_Button@2x.png in Resources */,
 				EBBCEDFC1935B6A600F257D2 /* Main.storyboard in Resources */,
 			);

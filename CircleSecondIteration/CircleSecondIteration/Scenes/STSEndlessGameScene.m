@@ -381,10 +381,10 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     CGFloat newVillainSpeed, newShieldSpeed;
     // Set here for smooth adjustments
     if (withSpeed == 1) {
-        newVillainSpeed = 1.3;
+        newVillainSpeed = 1.4;
         newShieldSpeed = 1.0;
     } else {
-        newVillainSpeed = 1.3 - withSpeed * 0.1;
+        newVillainSpeed = 1.4 - withSpeed * 0.1;
         newShieldSpeed = 1.0 - withSpeed * 0.1;
     }
     if (self.level % 2 == 0) {
@@ -396,7 +396,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     self.level++;
 
     SKSpriteNode *newHero = (SKSpriteNode *)[self.hero childNodeWithName:
-                                             [NSString stringWithFormat:@"%ld", self.level]];
+                                             [NSString stringWithFormat:@"%ld", (long)self.level]];
 
     newHero.zRotation = newHero.zRotation;
     SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.5];
