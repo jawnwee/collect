@@ -7,11 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "STSWelcomeScene.h"
 
 @interface STSEndlessGameScene : SKScene
 
-@property (strong, nonatomic) STSWelcomeScene *previousScene;
 @property (nonatomic, readwrite) int score;
 
 

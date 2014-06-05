@@ -11,7 +11,6 @@
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
 #import "STSInformationScene.h"
-@import AVFoundation;
 
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -31,18 +30,6 @@
         self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0 green:144.0 / 255.0 
                                                 blue:68.0 / 255.0 alpha:1.0];
 
-        NSError *error;
-        NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background"
-                                                            withExtension:@"mp3"];
-        self.welcomeBackgroundMusicPlayer = [[AVAudioPlayer alloc]
-                                                    initWithContentsOfURL:backgroundMusicURL
-                                                    error:&error];
-        self.welcomeBackgroundMusicPlayer.numberOfLoops = -1;
-        [self.welcomeBackgroundMusicPlayer prepareToPlay];
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-            [self.welcomeBackgroundMusicPlayer play];
-        }
-
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self addGameTitleNode];
         [self addHero];
@@ -50,19 +37,8 @@
         [self addPlayButton];
         [self addOptionMenu];
         [self addOzoneLayer];
-
     }
     return self;
-}
-
-
-- (void)didMoveToView:(SKView *)view {
-    // Play music depending on toggle
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-        [self.welcomeBackgroundMusicPlayer stop];
-    } else {
-        [self.welcomeBackgroundMusicPlayer play];
-    }
 }
 
 #pragma - Adding Sprite Nodes
@@ -151,7 +127,7 @@
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                       duration:0.3];
         STSOptionsScene *newOptionsScene = [[STSOptionsScene alloc] initWithSize:self.size];
-        newOptionsScene.previousScene = self.scene;
+        newOptionsScene.previousScene = self;
         [self.view presentScene:newOptionsScene transition:reveal];
     }
 
@@ -160,7 +136,6 @@
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
                                                       duration:0.3];
         STSInformationScene *newInformationScene = [[STSInformationScene alloc] initWithSize:self.size];
-        newInformationScene.previousScene = self.scene;
         [self.view presentScene:newInformationScene transition:reveal];
     }
 }
@@ -192,13 +167,11 @@
                 [node.name isEqualToString:@"OzoneLayer"]) {
                 [node runAction:lowerBounceSequence completion:^{
                     STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-                    newEndlessGameScene.previousScene = self;
                     [self.view presentScene:newEndlessGameScene];
                 }];
             } else {
                 [node runAction:upperBounceSequence completion:^{
                     STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-                    newEndlessGameScene.previousScene = self;
                     [self.view presentScene:newEndlessGameScene];
                 }];
             }

@@ -269,7 +269,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     }
     
     //logic to transition scenes if  the shield is completed
-    if ([self completedShields] && ![self actionForKey:@"shieldRegenerateSound"]) {
+    if ([self completedShields]) {
         [self removeAllActions];
         [[self childNodeWithName:@"firstPulse"] removeFromParent];
         [[self childNodeWithName:@"secondPulse"] removeFromParent];

@@ -70,6 +70,7 @@
     
     //logic to change scenes once button is touched
     if ([node.name isEqualToString:@"playGame"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"tutorialFinished"];
         SKColor *obtainShieldSceneBackgroundColor = [SKColor colorWithRed:245.0 / 255.0
                                                                     green:144.0 / 255.0
                                                                      blue:68.0 / 255.0

@@ -91,7 +91,6 @@
     } else if ([node.name isEqualToString:@"MenuButton"]) {
         STSWelcomeScene *welcome = [[STSWelcomeScene alloc] initWithSize:self.size];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-            self.previousScene.previousScene = nil;
         }
         [self.view presentScene:welcome transition:reveal];
     }

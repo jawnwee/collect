@@ -11,6 +11,4 @@
 
 @interface STSGameOverScene : SKScene
 
-@property (strong, nonatomic) STSWelcomeScene *previousScene;
-
 @end

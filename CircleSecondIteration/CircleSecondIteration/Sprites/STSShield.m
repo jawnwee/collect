@@ -9,6 +9,10 @@
 #import "STSShield.h"
 #import "STSHero.h"
 #import "STSVillain.h"
+#import "ObjectAL.h"
+
+#define SHIELD_REGENERATE @"shield_regenerate.mp3"
+#define VILLAIN_SOUND @"villain_sound.mp3"
 
 @interface STSShield ()
 
@@ -29,6 +33,9 @@
     self.shieldUp = YES;
     self.hasCollided = NO;
     self.isPartOfBarrier = NO;
+
+    [[OALSimpleAudio sharedInstance] preloadEffect:SHIELD_REGENERATE];
+    [[OALSimpleAudio sharedInstance] preloadEffect:VILLAIN_SOUND];
 
     return [super initWithTexture:self.savedTexture atPosition:position];
 }
@@ -59,6 +66,9 @@ static inline CGFloat marginError(CGFloat radius) {
             self.texture = nil;
             self.shieldUp = NO;
             self.physicsBody.contactTestBitMask = STSColliderTypeShield;
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
+                [[OALSimpleAudio sharedInstance] playEffect:VILLAIN_SOUND];
+            }
             [other.node removeFromParent];
         }
     } else if ([other.node isKindOfClass:[STSShield class]]) {
@@ -66,9 +76,7 @@ static inline CGFloat marginError(CGFloat radius) {
         if (!self.shieldUp && !node.isPartOfBarrier && !node.hasCollided) {
             // Play sound effect
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
-                [self.parent runAction:
-                        [SKAction playSoundFileNamed:@"shield_regenerate.mp3" waitForCompletion:YES]
-                               withKey:@"shieldRegenerateSound"];
+                [[OALSimpleAudio sharedInstance] playEffect:SHIELD_REGENERATE];
             }
             self.shieldUp = YES;
             node.hasCollided = YES;

@@ -11,6 +11,10 @@
 #import "STSShield.h"
 #import "STSHero.h"
 #import "STSVillain.h"
+#import "ObjectAL.h"
+
+#define BACKGROUND_MUSIC_FILE @"background.mp3"
+#define HERO_BEEP @"herobeep.caf"
 
 @interface STSHeroRotationScene () <SKPhysicsContactDelegate>
 
@@ -29,7 +33,6 @@
 
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"tutorialFinished"];
         self.scene.scaleMode = SKSceneScaleModeAspectFill;
         self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0
                                                green:144.0 / 255.0
@@ -40,6 +43,10 @@
         [self addIntroductionText];
         [self addHero];
     }
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"soundToggle"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"musicToggle"];
+    [[OALSimpleAudio sharedInstance] preloadBg:BACKGROUND_MUSIC_FILE];
+    [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
 
     return self;
 }
@@ -205,14 +212,15 @@ static inline float distanceFormula(CGPoint a, CGPoint b) {
     } else if (second.physicsBody.categoryBitMask == STSColliderTypeNotification) {
         [second removeFromParent];
     } else {
-        // logic to kill hero on contact with villain. second should always be the villain
-        // sounds should always be on for the tutorial
+        //logic to kill hero on contact with villain. second should always be the villain
         [second removeFromParent];
-        [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
-                 completion:^{
-                     [self removeAllActions];
-                     [self gameOver];
-                 }];
+        [self removeAllActions];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
+            [[OALSimpleAudio sharedInstance] playEffect:HERO_BEEP];
+            [self gameOver];
+        } else {
+            [self gameOver];
+        }
     }
 }
 

@@ -10,7 +10,6 @@
 #import "STSAppDelegate.h"
 #import "STSEndlessGameScene.h"
 
-
 @implementation STSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

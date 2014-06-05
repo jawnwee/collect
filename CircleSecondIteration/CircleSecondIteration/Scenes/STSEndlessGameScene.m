@@ -8,20 +8,24 @@
 
 #import "STSEndlessGameScene.h"
 #import "STSPauseScene.h"
-#import "STSAppDelegate.h"
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
 #import "STSHero.h"
 #import "STSVillain.h"
 #import "STSShield.h"
-@import AVFoundation;
+#import "ObjectAL.h"
+
+#define HERO_BEEP @"herobeep.caf"
+#define BACKGROUND_MUSIC_LEVEL_2 @"background_D.mp3"
+#define BACKGROUND_MUSIC_LEVEL_3 @"background_E.mp3"
+#define BACKGROUND_MUSIC_LEVEL_4 @"background_F.mp3"
+#define BACKGROUND_MUSIC_LEVEL_5 @"background_G.mp3"
 
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface STSEndlessGameScene () <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) STSHero *hero;
-@property (nonatomic) AVAudioPlayer *welcomeBackgroundMusicPlayer;
 
 @property CGSize sizeOfVillainAndShield;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
@@ -34,8 +38,6 @@
 @end
 
 @implementation STSEndlessGameScene
-
-@synthesize previousScene;
 
 #pragma mark - Initialization
 - (id)initWithSize:(CGSize)size {
@@ -50,6 +52,7 @@
         [self addScore];
         [self addPauseButton];
         [self addRestartButton];
+        [[OALSimpleAudio sharedInstance] preloadEffect:HERO_BEEP];
 
         // Duration to start song
         SKAction *waitBeforeGameBegins = [SKAction waitForDuration:0.3];
@@ -272,13 +275,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     self.longPress.minimumPressDuration = 0.3;
     [view addGestureRecognizer:self.longPress];
 
-    // Called when toggling music settings during play
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-        [self.previousScene.welcomeBackgroundMusicPlayer pause];
-    }
-    else {
-        [self.previousScene.welcomeBackgroundMusicPlayer play];
-    }
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)recognizer {
@@ -346,12 +342,9 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     // The villain sounds should come and should continue to play as villains hit shields
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
-            [self runAction:[SKAction playSoundFileNamed:@"herobeep.caf" waitForCompletion:NO]
-                 completion:^{
-                     [second removeFromParent];
-                     [self removeAllActions];
-                     [self gameOver];
-                 }];
+            [[OALSimpleAudio sharedInstance] playEffect:HERO_BEEP];
+            [second removeFromParent];
+            [self gameOver];
         } else {
             [second removeFromParent];
             [self gameOver];
@@ -364,15 +357,11 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                && [second isKindOfClass:[STSVillain class]]) {
         [(STSCharacter *)first collideWith:contact.bodyB contactAt:contact];
 
-        // Play sound effect
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
-            [self runAction:[SKAction playSoundFileNamed:@"villain_sound.mp3" waitForCompletion:YES]];
-        }
-
         // Increment score for each villain blocked
         self.score++;
         if (self.score % 10 == 0) {
             [self increaseSpeed:self.level];
+            [self increaseSoundPitch:self.level];
         }
 
 
@@ -434,6 +423,17 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                                                      [SKAction waitForDuration:0.0 withRange:0.0]]];
     [self runAction:[SKAction repeatAction:makeExtraShields count:30]];
 }
+- (void)increaseSoundPitch:(NSInteger)level {
+    if (level == 2) {
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_2 loop:YES];
+    } else if (level == 3) {
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_3 loop:YES];
+    } else if (level == 4) {
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_4 loop:YES];
+    } else {
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_5 loop:YES];
+    }
+}
 
 #pragma mark - Game Over Animation
 
@@ -457,9 +457,6 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         [[NSUserDefaults standardUserDefaults] setInteger:self.score forKey:@"highScore"];
     }
     STSGameOverScene *newGameOverScene = [[STSGameOverScene alloc] initWithSize:self.size];
-    // Pointer back to welcome scene
-    newGameOverScene.previousScene = self.previousScene;
-    self.previousScene = nil;
 
     newGameOverScene.userData = [NSMutableDictionary dictionary];
     NSString *scoreString = [NSString stringWithFormat:@"%d", self.score];
