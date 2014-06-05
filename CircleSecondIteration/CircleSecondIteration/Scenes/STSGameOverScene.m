@@ -10,6 +10,8 @@
 #import "STSEndlessGameScene.h"
 #import "STSWelcomeScene.h"
 
+#define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @interface STSGameOverScene ()
 
 @property (nonatomic) SKLabelNode *scoreLabel;
@@ -45,11 +47,17 @@
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
     SKTexture *deadOzoneTexture = [atlas textureNamed:@"Dead_Ozone.png"];
     self.deadOzone = [SKSpriteNode spriteNodeWithTexture:deadOzoneTexture];
-
     self.deadOzone.position = CGPointMake(self.scene.size.width / 2.0, -1000.0);
+
+    SKAction *bounceUp, *adjustBounce;
+    if (IS_WIDESCREEN) {
+        bounceUp = [SKAction moveByX:0.0 y:1000.0 duration:0.8];
+        adjustBounce = [SKAction moveByX:0.0 y:-40.0 duration:0.5];
+    } else {
+        bounceUp = [SKAction moveByX:0.0 y:950.0 duration:0.8];
+        adjustBounce = [SKAction moveByX:0.0 y:-40.0 duration:0.5];
+    }
     [self addChild:self.deadOzone];
-    SKAction *bounceUp = [SKAction moveByX:0.0 y:1000.0 duration:0.8];
-    SKAction *adjustBounce = [SKAction moveByX:0.0 y:-40.0 duration:0.5];
     SKAction *sequence = [SKAction sequence:@[bounceUp, adjustBounce]];
     [self.deadOzone runAction: sequence];
     [self addDividers];
@@ -72,8 +80,13 @@
 
 - (void)addGameOverNode {
     SKSpriteNode *gameOverTitle = [SKSpriteNode spriteNodeWithImageNamed:@"GameOverTitle.png"];
-    gameOverTitle.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                         CGRectGetMidY(self.frame) + 230.0);
+    if (IS_WIDESCREEN) {
+        gameOverTitle.position = CGPointMake(CGRectGetMidX(self.frame),
+                                             CGRectGetMidY(self.frame) + 230.0);
+    } else {
+        gameOverTitle.position = CGPointMake(CGRectGetMidX(self.frame),
+                                            CGRectGetMidY(self.frame) + 200.0);
+    }
     [self addChild:gameOverTitle];
 }
 
@@ -144,11 +157,17 @@
     SKSpriteNode *firstMiddle = [SKSpriteNode spriteNodeWithTexture:middleLongerDivider];
     SKSpriteNode *secondMiddle = [SKSpriteNode spriteNodeWithTexture:middleShorterDivider];
     SKSpriteNode *bottom = [SKSpriteNode spriteNodeWithTexture:longDividerTexture];
-
-    top.position = CGPointMake(screenMiddleX, screenMiddleY + 195.0);
-    firstMiddle.position = CGPointMake(screenMiddleX, screenMiddleY + 125.0);
-    bottom.position = CGPointMake(screenMiddleX, screenMiddleY + 53.0);
-    secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 5.0);
+    if (IS_WIDESCREEN) {
+        top.position = CGPointMake(screenMiddleX, screenMiddleY + 195.0);
+        firstMiddle.position = CGPointMake(screenMiddleX, screenMiddleY + 125.0);
+        bottom.position = CGPointMake(screenMiddleX, screenMiddleY + 53.0);
+        secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 5.0);
+    } else {
+        top.position = CGPointMake(screenMiddleX, screenMiddleY + 155.0);
+        firstMiddle.position = CGPointMake(screenMiddleX, screenMiddleY + 85.0);
+        bottom.position = CGPointMake(screenMiddleX, screenMiddleY + 23.0);
+        secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 45.0);
+    }
     [self addChild:top];
     [self addChild:firstMiddle];
     [self addChild:bottom];
@@ -158,7 +177,7 @@
 
 # pragma mark - Handle touches
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     // Initialize touch and location
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
@@ -167,7 +186,7 @@
                                                  blue:68.0 / 255.0 alpha:1.0];
 
     // Scene transitions
-    SKTransition *reveal = [SKTransition fadeWithColor:orangeBackground duration:1.0];
+    SKTransition *reveal = [SKTransition fadeWithColor:orangeBackground duration:0.5];
 
 
     // Touching the retry node presents game scene last played
@@ -176,14 +195,18 @@
         gameScene.previousScene = self.previousScene;
         self.previousScene = nil;
         [self.view presentScene:gameScene transition:reveal];
-    }
-
-    // Touching the menu node presents the welcome scene
-    if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
+    } else if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
         self.previousScene = nil;
         [self.view presentScene:welcomeScene transition:reveal];
     }
+
+    // Touching the menu node presents the welcome scene
+//    if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
+//        STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
+//        self.previousScene = nil;
+//        [self.view presentScene:welcomeScene transition:reveal];
+//    }
 }
 
 @end

@@ -16,6 +16,8 @@
 #import "STSShield.h"
 @import AVFoundation;
 
+#define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @interface STSEndlessGameScene () <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) STSHero *hero;
@@ -152,7 +154,7 @@ static float PROJECTILE_VELOCITY = 200/1;
 
 // Change this as more hero level colors get added
 - (void)createHeroLevelsColors {
-    for (int i = 2; i <= 3; i++) {
+    for (int i = 2; i <= 6; i++) {
         NSString *textureName = [NSString stringWithFormat:@"Hero_%d.png", i];
         SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
         SKSpriteNode *nextLevelHero = [SKSpriteNode spriteNodeWithTexture:texture];
@@ -236,8 +238,13 @@ static float PROJECTILE_VELOCITY = 200/1;
                                                 green:92.0 / 255.0 
                                                  blue:41.0 / 255.0 
                                                 alpha:1.0];
-    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
-                                           CGRectGetMidY(self.frame) + 200.0);
+    if (IS_WIDESCREEN) {
+        self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame),
+                                               CGRectGetMidY(self.frame) + 200.0);
+    } else {
+        self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 
+                                               CGRectGetMidY(self.frame) + 160.0);
+    }
 
     [self addChild:self.scoreLabel];
 }
@@ -254,7 +261,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
 - (CGPoint)createPositionOutsideFrameArrayAtPositionNumber:(int) n {
     CGPoint frameCenter = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    return findCoordinatesAlongACircle(frameCenter, 400, n);
+    return findCoordinatesAlongACircle(frameCenter, 450, n);
 }
 
 
@@ -392,10 +399,16 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         newVillainSpeed = 1.3 - withSpeed * 0.1;
         newShieldSpeed = 1.0 - withSpeed * 0.1;
     }
+    if (self.level % 2 == 0) {
+        [self bonus];
+    }
+
+    // This incremented here because of the image being named as hero_2 instead of hero_1 so we need
+    // to know this information beforehand. Level starts at 1.
     self.level++;
 
     SKSpriteNode *newHero = (SKSpriteNode *)[self.hero childNodeWithName:
-                                             [NSString stringWithFormat:@"%d", self.level]];
+                                             [NSString stringWithFormat:@"%ld", self.level]];
 
     newHero.zRotation = newHero.zRotation;
     SKAction *fadeIn = [SKAction fadeAlphaTo:1.0 duration:0.5];
@@ -413,6 +426,13 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                                                       [SKAction waitForDuration:newShieldSpeed withRange:0.2]]];
     [self runAction:[SKAction repeatActionForever:makeVillains] withKey:@"makeVillains"];
     [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
+}
+
+- (void)bonus {
+    SKAction *makeExtraShields = [SKAction sequence:@[
+                                                     [SKAction performSelector:@selector(addShield) onTarget:self],
+                                                     [SKAction waitForDuration:0.0 withRange:0.0]]];
+    [self runAction:[SKAction repeatAction:makeExtraShields count:30]];
 }
 
 #pragma mark - Game Over Animation

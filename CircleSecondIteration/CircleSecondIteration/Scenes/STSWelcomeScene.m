@@ -13,6 +13,8 @@
 #import "STSInformationScene.h"
 @import AVFoundation;
 
+#define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @interface STSWelcomeScene ()
 
 @property SKSpriteNode *ozone;
@@ -78,6 +80,9 @@
     self.ozone.position = CGPointMake(-1.0, 0.4);
     SKTexture *ozoneShadowTexture =[SKTexture textureWithImageNamed:@"Ozone_Title_Hero_Shadow.png"];
     SKSpriteNode *ozoneShadow = [SKSpriteNode spriteNodeWithTexture:ozoneShadowTexture];
+    if (IS_WIDESCREEN) {
+
+    }
     ozoneShadow.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0 ,
                                       self.frame.size.height - 100.0);
     [self addChild:ozoneShadow];
@@ -122,7 +127,11 @@
 - (void)addOzoneLayer {
     SKTexture *ozoneLayerTexture = [SKTexture textureWithImageNamed:@"Ozone_Layer.png"];
     SKSpriteNode *ozoneLayerNode = [SKSpriteNode spriteNodeWithTexture:ozoneLayerTexture];
-    ozoneLayerNode.position = CGPointMake(CGRectGetMidX(self.frame), -40.0);
+    if (IS_WIDESCREEN) {
+        ozoneLayerNode.position = CGPointMake(CGRectGetMidX(self.frame), -40.0);
+    } else {
+        ozoneLayerNode.position = CGPointMake(CGRectGetMidX(self.frame), -80.0);
+    }
     ozoneLayerNode.name = @"OzoneLayer";
     [self addChild:ozoneLayerNode];
 }
