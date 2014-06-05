@@ -9,6 +9,9 @@
 #import "STSOptionsScene.h"
 #import "STSWelcomeScene.h"
 #import "STSPauseScene.h"
+#import "ObjectAL.h"
+
+#define BACKGROUND_MUSIC_FILE @"background.mp3"
 
 @interface STSOptionsScene () <UITextFieldDelegate>
 @property (nonatomic) SKLabelNode *nicknameLabel;
@@ -189,7 +192,6 @@
     // Clicking the sound label toggles sound on/off
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"] &&
         [node.name isEqualToString:@"soundToggleLabel"]) {
-        
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"soundToggle"];
         self.soundToggleLabel.text = @"Off";
         self.soundToggleLabel.fontColor = [SKColor colorWithRed:227.0 / 255.0 green:57.0 / 255.0
@@ -197,7 +199,6 @@
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"] &&
              [node.name isEqualToString:@"soundToggleLabel"]) {
-        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"soundToggle"];
         self.soundToggleLabel.text = @"On";
         self.soundToggleLabel.fontColor = [SKColor colorWithRed:168.0 / 255.0 green:219.0 / 255.0
@@ -207,7 +208,7 @@
     // Clicking the music label toggles music on/off
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] &&
         [node.name isEqualToString:@"musicToggleLabel"]) {
-
+        [[OALSimpleAudio sharedInstance] stopBg];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"musicToggle"];
         self.musicToggleLabel.text = @"Off";
         self.musicToggleLabel.fontColor = [SKColor colorWithRed:227.0 / 255.0 green:57.0 / 255.0
@@ -215,7 +216,7 @@
     }
     else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] &&
         [node.name isEqualToString:@"musicToggleLabel"]) {
-
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"musicToggle"];
         self.musicToggleLabel.text = @"On";
         self.musicToggleLabel.fontColor = [SKColor colorWithRed:168.0 / 255.0 green:219.0 / 255.0
@@ -236,28 +237,28 @@
         [self.nicknameTextField resignFirstResponder];
     }
 }
-
-- (void)update:(NSTimeInterval)currentTime {
-    // Instantly toggle music when touched
-    if ([self.previousScene isMemberOfClass:[STSWelcomeScene class]]) {
-        STSWelcomeScene *previousWelcomeScene = (STSWelcomeScene *)self.previousScene;
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-            [previousWelcomeScene.welcomeBackgroundMusicPlayer play];
-        } else {
-            [previousWelcomeScene.welcomeBackgroundMusicPlayer stop];
-        }
-        previousWelcomeScene = nil;
-    }
-    // Previous scene is the pause scene
-    else {
-        STSPauseScene *previousPauseScene = (STSPauseScene *)self.previousScene;
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-            [previousPauseScene.previousScene.previousScene.welcomeBackgroundMusicPlayer play];
-        } else {
-            [previousPauseScene.previousScene.previousScene.welcomeBackgroundMusicPlayer stop];
-        }
-        previousPauseScene = nil;
-    }
-}
+//
+//- (void)update:(NSTimeInterval)currentTime {
+//    // Instantly toggle music when touched
+//    if ([self.previousScene isMemberOfClass:[STSWelcomeScene class]]) {
+//        STSWelcomeScene *previousWelcomeScene = (STSWelcomeScene *)self.previousScene;
+//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+//            [previousWelcomeScene.welcomeBackgroundMusicPlayer play];
+//        } else {
+//            [previousWelcomeScene.welcomeBackgroundMusicPlayer stop];
+//        }
+//        previousWelcomeScene = nil;
+//    }
+//    // Previous scene is the pause scene
+//    else {
+//        STSPauseScene *previousPauseScene = (STSPauseScene *)self.previousScene;
+//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
+//            [previousPauseScene.previousScene.previousScene.welcomeBackgroundMusicPlayer play];
+//        } else {
+//            [previousPauseScene.previousScene.previousScene.welcomeBackgroundMusicPlayer stop];
+//        }
+//        previousPauseScene = nil;
+//    }
+//}
 
 @end

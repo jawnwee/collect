@@ -9,6 +9,9 @@
 #import "STSGameOverScene.h"
 #import "STSEndlessGameScene.h"
 #import "STSWelcomeScene.h"
+#import "ObjectAL.h"
+
+#define BACKGROUND_MUSIC_FILE @"background.mp3"
 
 @interface STSGameOverScene ()
 
@@ -24,8 +27,6 @@
 
 @implementation STSGameOverScene
 
-@synthesize previousScene;
-
 #pragma mark - Initialization
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -37,6 +38,10 @@
                                                alpha:1.0];
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self createSceneContents];
+
+        [[OALSimpleAudio sharedInstance] preloadBg:BACKGROUND_MUSIC_FILE];
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
+        [OALSimpleAudio sharedInstance].paused = YES;
     }
     return self;
 }
@@ -62,7 +67,6 @@
     NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
     self.highScoreString = [NSString stringWithFormat:@"%ld", (long)highScore];
     self.scoreString = [self.userData valueForKey:@"scoreString"];
-    [self.previousScene.welcomeBackgroundMusicPlayer stop];
 
     [self addScoreLabel];
     [self addHighScoreLabel];
@@ -173,15 +177,14 @@
     // Touching the retry node presents game scene last played
     if ([node.name isEqualToString:@"retryLabel"] || [node.name isEqualToString:@"retrySymbol"]) {
         STSEndlessGameScene *gameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-        gameScene.previousScene = self.previousScene;
-        self.previousScene = nil;
+        [OALSimpleAudio sharedInstance].paused = NO;
         [self.view presentScene:gameScene transition:reveal];
     }
 
     // Touching the menu node presents the welcome scene
     if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
-        self.previousScene = nil;
+        [OALSimpleAudio sharedInstance].paused = NO;
         [self.view presentScene:welcomeScene transition:reveal];
     }
 }

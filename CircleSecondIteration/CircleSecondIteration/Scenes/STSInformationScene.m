@@ -7,6 +7,7 @@
 //
 
 #import "STSInformationScene.h"
+#import "STSWelcomeScene.h"
 
 @interface STSInformationScene ()
 
@@ -16,8 +17,6 @@
 @end
 
 @implementation STSInformationScene
-
-@synthesize previousScene;
 
 # pragma mark - Initialize scene contents
 
@@ -72,8 +71,8 @@
     if ([node.name isEqualToString:@"exitLabel"]) {
         SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                       duration:0.3];
-        [self.view presentScene:self.previousScene transition:reveal];
-        self.previousScene = nil;
+        STSWelcomeScene *newWelcomeScene = [[STSWelcomeScene alloc] initWithSize:self.frame.size];
+        [self.view presentScene:newWelcomeScene transition:reveal];
     }
 }
 
