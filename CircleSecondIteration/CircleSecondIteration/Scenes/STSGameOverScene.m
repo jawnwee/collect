@@ -12,6 +12,7 @@
 #import "ObjectAL.h"
 #import "ALInterstitialAd.h"
 #import "ALAdview.h"
+#import "Social/Social.h"
 
 #define BACKGROUND_MUSIC_FILE @"background.mp3"
 
@@ -65,7 +66,7 @@
     }
     [self addChild:self.deadOzone];
     SKAction *sequence = [SKAction sequence:@[bounceUp, adjustBounce]];
-    [self.deadOzone runAction: sequence];
+    [self.deadOzone runAction: sequence completion:^(void){[self addShareButtons];}];
     [self addDividers];
     [self addGameOverNode];
     [self addRetrySymbol];
@@ -206,6 +207,32 @@
 
 }
 
+/*remove banner add on gameOver age*/
+- (void)addShareButtons {
+    // initialize facebook button
+    SKTexture *facebookTexture = [SKTexture textureWithImageNamed:@"facebook_logo.png"];
+    SKSpriteNode *facebookNode = [SKSpriteNode spriteNodeWithTexture:facebookTexture];
+    facebookNode.name = @"facebook";
+    facebookNode.position = CGPointMake(self.frame.size.width - (facebookNode.size.width / 2) - 10,
+                                        facebookNode.size.height / 2 + 10);
+    facebookNode.alpha = 0.0;
+    
+    // initialize twitter button
+    SKTexture *twitterTexture = [SKTexture textureWithImageNamed:@"twitter_logo.png"];
+    SKSpriteNode *twitterNode = [SKSpriteNode spriteNodeWithTexture:twitterTexture];
+    twitterNode.name = @"twitter";
+    twitterNode.position = CGPointMake(facebookNode.position.x - twitterNode.size.width -
+                                                                twitterNode.size.width / 2,
+                                       facebookNode.position.y);
+    twitterNode.alpha = 0.0;
+    
+    [self addChild:facebookNode];
+    [self addChild:twitterNode];
+    
+    [facebookNode runAction:[SKAction fadeInWithDuration:0.5]];
+    [twitterNode runAction:[SKAction fadeInWithDuration:0.5]];
+}
+
 # pragma mark - Handle touches
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -234,6 +261,10 @@
             [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
         }
         [self.view presentScene:welcomeScene transition:reveal];
+    } else if ([node.name isEqualToString:@"twitter"]) {
+        [self shareTextToTwitter];
+    } else if ([node.name isEqualToString:@"facebook"]) {
+        [self shareTextToFaceBook];
     }
 
 }
@@ -270,5 +301,88 @@
 
 }
 
+#pragma mark - Sharing logic
+- (void)shareTextToFaceBook{
+    //  Create an instance of the Tweet Sheet
+    SLComposeViewController *facebookSheet = [SLComposeViewController
+                                              composeViewControllerForServiceType: SLServiceTypeFacebook];
+    
+    // Sets the completion handler.  Note that we don't know which thread the
+    // block will be called on, so we need to ensure that any required UI
+    // updates occur on the main queue
+    facebookSheet.completionHandler = ^(SLComposeViewControllerResult result) {
+        switch(result) {
+                //  This means the user cancelled without sending the Tweet
+            case SLComposeViewControllerResultCancelled:
+                break;
+                //  This means the user hit 'Send'
+            case SLComposeViewControllerResultDone:
+                break;
+        }
+    };
+    
+    //  Set the initial body of the Tweet
+    NSString *message = [NSString stringWithFormat:@"I just blocked %@ dots! #Ozone!",
+                                                        self.scoreString];
+    [facebookSheet setInitialText:message];
+    
+    //  Adds an image to the Tweet.  For demo purposes, assume we have an
+    //  image named 'larry.png' that we wish to attach
+    if (![facebookSheet addImage:[UIImage imageNamed:@"icon-home.png"]]) {
+        NSLog(@"Unable to add the image!");
+    }
+    
+    //  Add an URL to the Tweet.  You can add multiple URLs.
+//    if (![facebookSheet addURL:[NSURL URLWithString:@"http://facebook.com/"]]){
+//        NSLog(@"Unable to add the URL!");
+//    }
+    
+    //  Presents the Tweet Sheet to the user
+    [self.view.window.rootViewController presentViewController:facebookSheet animated:NO completion:^{
+        NSLog(@"Tweet sheet has been presented.");
+    }];
+    
+}
+
+- (void)shareTextToTwitter{
+    //  Create an instance of the Tweet Sheet
+    SLComposeViewController *tweetSheet = [SLComposeViewController
+                                           composeViewControllerForServiceType: SLServiceTypeTwitter];
+    
+    // Sets the completion handler.  Note that we don't know which thread the
+    // block will be called on, so we need to ensure that any required UI
+    // updates occur on the main queue
+    tweetSheet.completionHandler = ^(SLComposeViewControllerResult result) {
+        switch(result) {
+                //  This means the user cancelled without sending the Tweet
+            case SLComposeViewControllerResultCancelled:
+                break;
+                //  This means the user hit 'Send'
+            case SLComposeViewControllerResultDone:
+                break;
+        }
+    };
+    
+    //  Set the initial body of the Tweet
+    NSString *message = [NSString stringWithFormat:@"I just blocked %@ dots! #Ozone!",
+                                                        self.scoreString];
+    [tweetSheet setInitialText:message];
+    
+    //  Adds an image to the Tweet.  For demo purposes, assume we have an
+    //  image named 'larry.png' that we wish to attach
+    if (![tweetSheet addImage:[UIImage imageNamed:@"icon-home.png"]]) {
+        NSLog(@"Unable to add the image!");
+    }
+    
+    //  Add an URL to the Tweet.  You can add multiple URLs.
+//    if (![tweetSheet addURL:[NSURL URLWithString:@"http://twitter.com/"]]){
+//        NSLog(@"Unable to add the URL!");
+//    }
+    
+    //  Presents the Tweet Sheet to the user
+    [self.view.window.rootViewController presentViewController:tweetSheet animated:NO completion:^{
+        NSLog(@"Tweet sheet has been presented.");
+    }];
+}
 
 @end
