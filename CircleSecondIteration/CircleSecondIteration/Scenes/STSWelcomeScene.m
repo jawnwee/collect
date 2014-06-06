@@ -11,7 +11,6 @@
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
 #import "STSInformationScene.h"
-#import "ALAdView.h"
 
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
