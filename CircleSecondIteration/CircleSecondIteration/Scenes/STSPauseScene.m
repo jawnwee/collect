@@ -10,6 +10,7 @@
 #import "STSOptionsScene.h"
 #import "STSWelcomeScene.h"
 #import "STSEndlessGameScene.h"
+#import "ObjectAL.h"
 
 @interface STSPauseScene ()
 
@@ -91,8 +92,10 @@
         [self.view presentScene:options transition:optionTransition];
     } else if ([node.name isEqualToString:@"MenuButton"]) {
         STSWelcomeScene *welcome = [[STSWelcomeScene alloc] initWithSize:self.size];
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
-        }
+        [self.previousScene removeAllActions];
+        [self.previousScene removeAllChildren];
+        self.previousScene = nil;
+        [[OALSimpleAudio sharedInstance] stopBg];
         [self.view presentScene:welcome transition:reveal];
     }
 }

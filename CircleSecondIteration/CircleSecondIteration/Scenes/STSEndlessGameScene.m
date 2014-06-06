@@ -17,10 +17,6 @@
 #import "ALAdView.h"
 
 #define HERO_BEEP @"dying_sound.mp3"
-#define BACKGROUND_MUSIC_LEVEL_2 @"background_D.mp3"
-#define BACKGROUND_MUSIC_LEVEL_3 @"background_E.mp3"
-#define BACKGROUND_MUSIC_LEVEL_4 @"background_F.mp3"
-#define BACKGROUND_MUSIC_LEVEL_5 @"background_G.mp3"
 
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -33,12 +29,13 @@
 @property (nonatomic) NSTimeInterval lastIncreaseToScoreTimeInterval;
 @property (nonatomic) SKLabelNode *scoreLabel;
 @property (nonatomic) NSTimer *longGestureTimer;
-@property (nonatomic) NSInteger level;
 
 @property (nonatomic) UILongPressGestureRecognizer *longPress;
 @end
 
 @implementation STSEndlessGameScene
+
+@synthesize level;
 
 #pragma mark - Initialization
 - (id)initWithSize:(CGSize)size {
@@ -49,7 +46,6 @@
                                                green:144.0 / 255.0
                                                 blue:68.0 / 255.0
                                                alpha:1.0];
-
         [[NSNotificationCenter defaultCenter] postNotificationName:@"showAd" object:nil];
 
         [self addScore];
@@ -371,7 +367,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         self.score++;
         if (self.score % 10 == 0) {
             [self increaseSpeed:self.level];
-            [self increaseSoundPitch:self.level];
+            [self increaseSoundPitch];
         }
 
     } else if (first.physicsBody.categoryBitMask == STSColliderTypeNotification) {
@@ -404,7 +400,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     // This incremented here because of the image being named as hero_2 instead of hero_1 so we need
     // to know this information beforehand. Level starts at 1.
     self.level++;
-
+    
     SKSpriteNode *newHero = (SKSpriteNode *)[self.hero childNodeWithName:
                                              [NSString stringWithFormat:@"%ld", (long)self.level]];
 
@@ -432,16 +428,15 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                                                      [SKAction waitForDuration:0.0 withRange:0.0]]];
     [self runAction:[SKAction repeatAction:makeExtraShields count:30]];
 }
-- (void)increaseSoundPitch:(NSInteger)level {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] && [OALSimpleAudio sharedInstance].allowIpod) {
-        if (level == 2) {
-            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_2 loop:YES];
-        } else if (level == 3) {
-            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_3 loop:YES];
-        } else if (level == 4) {
-            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_4 loop:YES];
-        } else {
-            [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_5 loop:YES];
+- (void)increaseSoundPitch {
+    for (int i = 2; i <= 5; i++) {
+        if (self.level == i) {
+            NSString *backgroundMusic = [NSString stringWithFormat:@"background_%d.mp3", i];
+            if ([OALSimpleAudio sharedInstance].bgPaused) {
+                [[OALSimpleAudio sharedInstance] preloadBg:backgroundMusic];
+            } else {
+                [[OALSimpleAudio sharedInstance] playBg:backgroundMusic loop:YES];
+            }
         }
     }
 }

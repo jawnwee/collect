@@ -11,7 +11,9 @@
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
 #import "STSInformationScene.h"
+#import "ObjectAL.h"
 
+#define BACKGROUND_MUSIC_LEVEL_1 @"background.mp3"
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @interface STSWelcomeScene ()
@@ -29,7 +31,7 @@
 
         self.backgroundColor = [SKColor colorWithRed:245.0 / 255.0 green:144.0 / 255.0 
                                                 blue:68.0 / 255.0 alpha:1.0];
-
+        
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self addGameTitleNode];
         [self addHero];
@@ -39,6 +41,12 @@
         [self addOzoneLayer];
     }
     return self;
+}
+
+- (void)didMoveToView:(SKView *)view {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] && ![OALSimpleAudio sharedInstance].bgPlaying) {
+        [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_1 loop:YES];
+    }
 }
 
 #pragma - Adding Sprite Nodes
@@ -56,9 +64,7 @@
     self.ozone.position = CGPointMake(-1.0, 0.4);
     SKTexture *ozoneShadowTexture =[SKTexture textureWithImageNamed:@"Ozone_Title_Hero_Shadow.png"];
     SKSpriteNode *ozoneShadow = [SKSpriteNode spriteNodeWithTexture:ozoneShadowTexture];
-    if (IS_WIDESCREEN) {
 
-    }
     ozoneShadow.position = CGPointMake(CGRectGetMidX(self.frame) - 80.0 ,
                                       self.frame.size.height - 100.0);
     [self addChild:ozoneShadow];
@@ -191,7 +197,7 @@
     }];
 }
 
-#pragma mark - th
+#pragma mark - Pause Logic
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     // If the scene is currently paused, change it to unpaused

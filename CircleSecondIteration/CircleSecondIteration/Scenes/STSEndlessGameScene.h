@@ -11,6 +11,7 @@
 @interface STSEndlessGameScene : SKScene
 
 @property (nonatomic, readwrite) int score;
+@property (nonatomic) NSInteger level;
 
 
 @end
