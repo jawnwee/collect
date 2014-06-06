@@ -14,6 +14,7 @@
 #import "STSVillain.h"
 #import "STSShield.h"
 #import "ObjectAL.h"
+#import "ALAdView.h"
 
 #define HERO_BEEP @"dying_sound.mp3"
 #define BACKGROUND_MUSIC_LEVEL_2 @"background_D.mp3"
@@ -49,6 +50,8 @@
                                                 blue:68.0 / 255.0
                                                alpha:1.0];
 
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showAd" object:nil];
+
         [self addScore];
         [self addPauseButton];
         [self addRestartButton];
@@ -62,6 +65,7 @@
     }
     return self;
 }
+
 
 
 #pragma mark - Scene Contents
@@ -314,6 +318,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             SKTransition *swipeLeft = [SKTransition pushWithDirection:SKTransitionDirectionLeft
                                                               duration:0.3];
             pauseScene.previousScene = self;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"hideAd" object:nil];
             [self.view presentScene:pauseScene transition:swipeLeft];
         }
         else if ([node.name isEqualToString:@"restart"]) {
@@ -325,6 +330,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         }
     }
     else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showAd" object:nil];
         self.paused = NO;
     }
 }
@@ -345,10 +351,12 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
             [[OALSimpleAudio sharedInstance] playEffect:HERO_BEEP];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"hideAd" object:nil];
             [second removeFromParent];
             [self gameOver];
         } else {
             [second removeFromParent];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"hideAd" object:nil];
             [self gameOver];
         }
     } else if ([first isKindOfClass:[STSShield class]] &&

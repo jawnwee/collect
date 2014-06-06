@@ -54,6 +54,11 @@
 		D1D5B4A0193EEC2400120A76 /* shield_regenerate.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1D5B49D193EEC2400120A76 /* shield_regenerate.mp3 */; };
 		D1EA2C5B1939406600175FA6 /* Pause_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */; };
 		D1FFABF71937265F004A2485 /* Play_Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FFABF51937265F004A2485 /* Play_Button@2x.png */; };
+		EB4F2EF119411DB7007FA1C0 /* libAppLovinSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF019411DB7007FA1C0 /* libAppLovinSdk.a */; };
+		EB4F2EF319411DC0007FA1C0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF219411DC0007FA1C0 /* AdSupport.framework */; };
+		EB4F2EF519411DC8007FA1C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF419411DC8007FA1C0 /* CoreTelephony.framework */; };
+		EB4F2EF719411DD4007FA1C0 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF619411DD4007FA1C0 /* MediaPlayer.framework */; };
+		EB4F2EF919411DDD007FA1C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF819411DDD007FA1C0 /* SystemConfiguration.framework */; };
 		EBA1C0FA193B9D5900BA1572 /* Ozone_Title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0F9193B9D5900BA1572 /* Ozone_Title@2x.png */; };
 		EBA1C0FD193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0FB193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png */; };
 		EBA1C100193BB20D00BA1572 /* Ozone_Title_Hero@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA1C0FF193BB20D00BA1572 /* Ozone_Title_Hero@2x.png */; };
@@ -203,6 +208,27 @@
 		D1D5B49D193EEC2400120A76 /* shield_regenerate.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shield_regenerate.mp3; sourceTree = "<group>"; };
 		D1EA2C5A1939406600175FA6 /* Pause_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause_Button@2x.png"; sourceTree = "<group>"; };
 		D1FFABF51937265F004A2485 /* Play_Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play_Button@2x.png"; sourceTree = "<group>"; };
+		EB4F2EE019411DA1007FA1C0 /* ALAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAd.h; sourceTree = "<group>"; };
+		EB4F2EE119411DA1007FA1C0 /* ALAdDisplayDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdDisplayDelegate.h; sourceTree = "<group>"; };
+		EB4F2EE219411DA1007FA1C0 /* ALAdLoadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdLoadDelegate.h; sourceTree = "<group>"; };
+		EB4F2EE319411DA1007FA1C0 /* ALAdRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdRewardDelegate.h; sourceTree = "<group>"; };
+		EB4F2EE419411DA1007FA1C0 /* ALAdService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdService.h; sourceTree = "<group>"; };
+		EB4F2EE519411DA1007FA1C0 /* ALAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdSize.h; sourceTree = "<group>"; };
+		EB4F2EE619411DA1007FA1C0 /* ALAdType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdType.h; sourceTree = "<group>"; };
+		EB4F2EE719411DA1007FA1C0 /* ALAdUpdateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdUpdateDelegate.h; sourceTree = "<group>"; };
+		EB4F2EE819411DA1007FA1C0 /* ALAdVideoPlaybackDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdVideoPlaybackDelegate.h; sourceTree = "<group>"; };
+		EB4F2EE919411DA1007FA1C0 /* ALAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdView.h; sourceTree = "<group>"; };
+		EB4F2EEA19411DA1007FA1C0 /* ALErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALErrorCodes.h; sourceTree = "<group>"; };
+		EB4F2EEB19411DA1007FA1C0 /* ALIncentivizedInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALIncentivizedInterstitialAd.h; sourceTree = "<group>"; };
+		EB4F2EEC19411DA1007FA1C0 /* ALInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALInterstitialAd.h; sourceTree = "<group>"; };
+		EB4F2EED19411DA1007FA1C0 /* ALSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSdk.h; sourceTree = "<group>"; };
+		EB4F2EEE19411DA1007FA1C0 /* ALSdkSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSdkSettings.h; sourceTree = "<group>"; };
+		EB4F2EEF19411DA1007FA1C0 /* ALTargetingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALTargetingData.h; sourceTree = "<group>"; };
+		EB4F2EF019411DB7007FA1C0 /* libAppLovinSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppLovinSdk.a; sourceTree = "<group>"; };
+		EB4F2EF219411DC0007FA1C0 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		EB4F2EF419411DC8007FA1C0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		EB4F2EF619411DD4007FA1C0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		EB4F2EF819411DDD007FA1C0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EBA1C0F9193B9D5900BA1572 /* Ozone_Title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Title@2x.png"; sourceTree = "<group>"; };
 		EBA1C0FB193BB1D400BA1572 /* Ozone_Title_Hero_Shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Title_Hero_Shadow@2x.png"; sourceTree = "<group>"; };
 		EBA1C0FF193BB20D00BA1572 /* Ozone_Title_Hero@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ozone_Title_Hero@2x.png"; sourceTree = "<group>"; };
@@ -269,9 +295,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB4F2EF919411DDD007FA1C0 /* SystemConfiguration.framework in Frameworks */,
+				EB4F2EF719411DD4007FA1C0 /* MediaPlayer.framework in Frameworks */,
+				EB4F2EF519411DC8007FA1C0 /* CoreTelephony.framework in Frameworks */,
+				EB4F2EF319411DC0007FA1C0 /* AdSupport.framework in Frameworks */,
 				EBBCEDE91935B6A600F257D2 /* CoreGraphics.framework in Frameworks */,
 				EBC64419193EA66B005F57D5 /* Crashlytics.framework in Frameworks */,
 				EBBCEDEB1935B6A600F257D2 /* UIKit.framework in Frameworks */,
+				EB4F2EF119411DB7007FA1C0 /* libAppLovinSdk.a in Frameworks */,
 				EBBCEDED1935B6A600F257D2 /* SpriteKit.framework in Frameworks */,
 				EBBCEDE71935B6A600F257D2 /* Foundation.framework in Frameworks */,
 			);
@@ -454,6 +485,29 @@
 			path = WelcomeScreen;
 			sourceTree = "<group>";
 		};
+		EB4F2EDF19411DA1007FA1C0 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				EB4F2EE019411DA1007FA1C0 /* ALAd.h */,
+				EB4F2EE119411DA1007FA1C0 /* ALAdDisplayDelegate.h */,
+				EB4F2EE219411DA1007FA1C0 /* ALAdLoadDelegate.h */,
+				EB4F2EE319411DA1007FA1C0 /* ALAdRewardDelegate.h */,
+				EB4F2EE419411DA1007FA1C0 /* ALAdService.h */,
+				EB4F2EE519411DA1007FA1C0 /* ALAdSize.h */,
+				EB4F2EE619411DA1007FA1C0 /* ALAdType.h */,
+				EB4F2EE719411DA1007FA1C0 /* ALAdUpdateDelegate.h */,
+				EB4F2EE819411DA1007FA1C0 /* ALAdVideoPlaybackDelegate.h */,
+				EB4F2EE919411DA1007FA1C0 /* ALAdView.h */,
+				EB4F2EEA19411DA1007FA1C0 /* ALErrorCodes.h */,
+				EB4F2EEB19411DA1007FA1C0 /* ALIncentivizedInterstitialAd.h */,
+				EB4F2EEC19411DA1007FA1C0 /* ALInterstitialAd.h */,
+				EB4F2EED19411DA1007FA1C0 /* ALSdk.h */,
+				EB4F2EEE19411DA1007FA1C0 /* ALSdkSettings.h */,
+				EB4F2EEF19411DA1007FA1C0 /* ALTargetingData.h */,
+			);
+			path = headers;
+			sourceTree = "<group>";
+		};
 		EBA1C0F21938F9DD00BA1572 /* GameOver */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +519,8 @@
 		EBBCEDDA1935B6A600F257D2 = {
 			isa = PBXGroup;
 			children = (
+				EB4F2EF019411DB7007FA1C0 /* libAppLovinSdk.a */,
+				EB4F2EDF19411DA1007FA1C0 /* headers */,
 				EBBCEDEE1935B6A600F257D2 /* Ozone */,
 				EBBCEE361935C12F00F257D2 /* Assets */,
 				EBBCEE121935B6A600F257D2 /* OzoneTests */,
@@ -485,6 +541,10 @@
 		EBBCEDE51935B6A600F257D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB4F2EF819411DDD007FA1C0 /* SystemConfiguration.framework */,
+				EB4F2EF619411DD4007FA1C0 /* MediaPlayer.framework */,
+				EB4F2EF419411DC8007FA1C0 /* CoreTelephony.framework */,
+				EB4F2EF219411DC0007FA1C0 /* AdSupport.framework */,
 				EBC64418193EA66B005F57D5 /* Crashlytics.framework */,
 				EBBCEDE61935B6A600F257D2 /* Foundation.framework */,
 				EBBCEDE81935B6A600F257D2 /* CoreGraphics.framework */,
@@ -719,6 +779,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "SummaTime Studio";
 				TargetAttributes = {
+					EBBCEDE21935B6A600F257D2 = {
+						DevelopmentTeam = 6UN3N9H6B4;
+					};
 					EBBCEE0A1935B6A600F257D2 = {
 						TestTargetID = EBBCEDE21935B6A600F257D2;
 					};
@@ -990,6 +1053,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -997,7 +1062,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
 				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "Ozone!";
+				PROVISIONING_PROFILE = "F71957FF-C162-425C-A085-DF5CB5D5DAFA";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1008,6 +1082,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1015,7 +1091,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
 				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "Ozone!";
+				PROVISIONING_PROFILE = "F71957FF-C162-425C-A085-DF5CB5D5DAFA";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};

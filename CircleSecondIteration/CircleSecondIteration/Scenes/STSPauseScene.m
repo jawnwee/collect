@@ -82,6 +82,7 @@
     if ([node.name isEqualToString:@"ResumeButton"]) {
         self.previousScene.paused = NO;
         [self.view presentScene:self.previousScene transition:reveal];
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"showAd" object:nil];
     } else if ([node.name isEqualToString:@"SettingsButton"]) {
         STSOptionsScene *options = [[STSOptionsScene alloc] initWithSize:self.size];
         options.previousScene = self;

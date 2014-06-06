@@ -11,6 +11,7 @@
 #import "STSGameOverScene.h"
 #import "STSOptionsScene.h"
 #import "STSInformationScene.h"
+#import "ALAdView.h"
 
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
@@ -173,35 +174,22 @@
     SKAction *upperBounceSequence =[SKAction sequence:@[upperBounceDown, waitShort,
                                                      upperBounceUp, removeFromParent]];
 
-    // Holy fuck this is messy
+    // Animation to make squeeze and pull out for all children nodes
     for (NSInteger i = 0; i < self.children.count; i++) {
         SKNode *node = [self.children objectAtIndex:i];
-        if (i + 1 == self.children.count) {
-            if ([node.name isEqualToString:@"CompanyInfo"] ||
-                [node.name isEqualToString:@"playButton"] ||
-                [node.name isEqualToString:@"OptionMenu"] ||
-                [node.name isEqualToString:@"OzoneLayer"]) {
-                [node runAction:lowerBounceSequence completion:^{
-                    STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-                    [self.view presentScene:newEndlessGameScene];
-                }];
-            } else {
-                [node runAction:upperBounceSequence completion:^{
-                    STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-                    [self.view presentScene:newEndlessGameScene];
-                }];
-            }
-        } else {
-            if ([node.name isEqualToString:@"CompanyInfo"] ||
-                       [node.name isEqualToString:@"playButton"] || 
-                       [node.name isEqualToString:@"OptionMenu"] ||
-                       [node.name isEqualToString:@"OzoneLayer"]) {
-                [node runAction:lowerBounceSequence];
-            } else {
-                [node runAction:upperBounceSequence];
-            }
+        if ([node.name isEqualToString:@"CompanyInfo"] ||
+                   [node.name isEqualToString:@"playButton"] || 
+                   [node.name isEqualToString:@"OptionMenu"]) {
+            [node runAction:lowerBounceSequence];
+        } else if (![node.name isEqualToString:@"OzoneLayer"]){
+            [node runAction:upperBounceSequence];
         }
     }
+    SKNode *lastNode = [self childNodeWithName:@"OzoneLayer"];
+    [lastNode runAction:lowerBounceSequence completion:^{
+        STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+        [self.view presentScene:newEndlessGameScene];
+    }];
 }
 
 #pragma mark - th

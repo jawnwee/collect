@@ -10,12 +10,14 @@
 #import "STSEndlessGameScene.h"
 #import "STSWelcomeScene.h"
 #import "ObjectAL.h"
+#import "ALInterstitialAd.h"
+#import "ALAdview.h"
 
 #define BACKGROUND_MUSIC_FILE @"background.mp3"
 
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
-@interface STSGameOverScene ()
+@interface STSGameOverScene () <ALAdLoadDelegate, ALAdDisplayDelegate>
 
 @property (nonatomic) SKLabelNode *scoreLabel;
 @property (nonatomic) SKLabelNode *highScoreLabel;
@@ -38,8 +40,11 @@
                                                green:241.0 / 255.0
                                                 blue:238.0 / 255.0
                                                alpha:1.0];
+        // [ALInterstitialAd showOver:[[UIApplication sharedApplication] keyWindow]];
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self createSceneContents];
+        [ALInterstitialAd shared].adLoadDelegate = self;
+        [ALInterstitialAd shared].adDisplayDelegate = self;
     }
     return self;
 }
@@ -216,11 +221,13 @@
 
     // Touching the retry node presents game scene last played
     if ([node.name isEqualToString:@"retryLabel"] || [node.name isEqualToString:@"retrySymbol"]) {
-        STSEndlessGameScene *gameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
         }
-        [self.view presentScene:gameScene transition:reveal];
+        // [[ALInterstitialAd shared] showOver: [UIApplication sharedApplication].keyWindow];
+        [ALInterstitialAd showOver:[[UIApplication sharedApplication] keyWindow]];
+
     } else if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
@@ -230,5 +237,38 @@
     }
 
 }
+
+#pragma mark - Handle Ads
+
+- (void)adService:(ALAdService *)adService didLoadAd:(ALAd *)ad {
+    
+}
+
+- (void)adService:(ALAdService *)adService didFailToLoadAdWithError:(int)code {
+
+    SKColor *orangeBackground = [SKColor colorWithRed:245.0 / 255.0 green:144.0 / 255.0
+                                                 blue:68.0 / 255.0 alpha:1.0];
+    SKTransition *reveal = [SKTransition fadeWithColor:orangeBackground duration:0.5];
+    STSEndlessGameScene *gameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+    [self.view presentScene:gameScene transition:reveal];
+}
+
+- (void) ad:(ALAd *)ad wasHiddenIn:(UIView *)view {
+    SKColor *orangeBackground = [SKColor colorWithRed:245.0 / 255.0 green:144.0 / 255.0
+                                                 blue:68.0 / 255.0 alpha:1.0];
+    SKTransition *reveal = [SKTransition fadeWithColor:orangeBackground duration:0.5];
+    STSEndlessGameScene *gameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
+    [self.view presentScene:gameScene transition:reveal];
+}
+
+- (void) ad:(ALAd *)ad wasClickedIn:(UIView *)view {
+
+}
+
+- (void) ad:(ALAd *)ad wasDisplayedIn:(UIView *)view {
+
+
+}
+
 
 @end

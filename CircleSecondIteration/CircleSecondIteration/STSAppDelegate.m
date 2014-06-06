@@ -7,8 +7,11 @@
 //
 
 #import <Crashlytics/Crashlytics.h>
+#import "ALSdk.h"
+#import "ALInterstitialAd.h"
 #import "STSAppDelegate.h"
 #import "STSEndlessGameScene.h"
+#import "STSPauseScene.h"
 #import "ObjectAL/ObjectAL.h"
 
 @implementation STSAppDelegate
@@ -16,6 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [Crashlytics startWithAPIKey:@"15cff1e39186231362a287dbc7407a93ea1631de"];
+    [ALSdk initializeSdk];
     return YES;
 }
 
@@ -26,6 +30,11 @@
     SKView *view = (SKView *)self.window.rootViewController.view;
     view.paused = YES;
     view.scene.paused = YES;
+    if ([view.scene isKindOfClass:[STSEndlessGameScene class]]) {
+        STSPauseScene *pause = [[STSPauseScene alloc] initWithSize:view.scene.size];
+        pause.previousScene = (STSEndlessGameScene *)view.scene;
+        [view presentScene:pause];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
