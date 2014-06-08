@@ -31,21 +31,21 @@
     SKLabelNode *firstMessage = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     firstMessage.fontColor = [SKColor blackColor];
     firstMessage.fontSize = 16.0;
-    firstMessage.text = @"Good Job!";
+    firstMessage.text = @"Good Job :)";
     firstMessage.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 70);
     
     //initialize second line of message
     SKLabelNode *secondMessage = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     secondMessage.fontColor = [SKColor blackColor];
     secondMessage.fontSize = 16.0;
-    secondMessage.text = @"Get ready to play.";
+    secondMessage.text = @"Ozone needs help.";
     secondMessage.position = CGPointMake(firstMessage.position.x, firstMessage.position.y - 20);
     
     //initialize third line of message
     SKLabelNode *thirdMessage = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     thirdMessage.fontColor = [SKColor blackColor];
     thirdMessage.fontSize = 16.0;
-    thirdMessage.text = @"Be careful out there!";
+    thirdMessage.text = @"Block the red dots!";
     thirdMessage.position = CGPointMake(firstMessage.position.x, firstMessage.position.y - 40);
     
     //add the message to the scene

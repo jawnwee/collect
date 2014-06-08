@@ -30,14 +30,14 @@
     SKLabelNode *messageOuch = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     messageOuch.fontColor = [SKColor blackColor];
     messageOuch.fontSize = 16.0;
-    messageOuch.text = @"Ouch!";
+    messageOuch.text = @"Red dots hurt Ozone.";
     messageOuch.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 50);
     
     //initialize second line of message
     SKLabelNode *messageNeedShields = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     messageNeedShields.fontColor = [SKColor blackColor];
     messageNeedShields.fontSize = 16.0;
-    messageNeedShields.text = @"Ozone needs some shields.";
+    messageNeedShields.text = @"We'll need some shields.";
     messageNeedShields.position = CGPointMake(messageOuch.position.x, messageOuch.position.y - 20);
     
     //add the message to the scene

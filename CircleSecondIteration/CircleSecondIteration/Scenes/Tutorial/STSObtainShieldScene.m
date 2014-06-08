@@ -18,8 +18,17 @@
 @property BOOL partialShieldObtained;
 @property BOOL didCompleteShield;
 @property BOOL pulsesAdded;
+@property BOOL messageAdded;
+
+//properites below are used for typing effect
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, strong) NSMutableString *messageSoFar;
+@property NSUInteger characterIndex;
 
 @end
+
+#define MESSAGE_FONT_COLOR [SKColor colorWithRed:211.0 / 255.0 green:92.0 / 255.0 blue:41.0 / 255.0 alpha:1.0];
+#define MESSAGE_FONT_SIZE 22.0
 
 @implementation STSObtainShieldScene
 
@@ -35,6 +44,7 @@
         self.partialShieldObtained = NO;
         self.didCompleteShield = NO;
         self.pulsesAdded = NO;
+        self.messageAdded = NO;
         
         //create hero with empty shields
         [self addHero];
@@ -164,7 +174,7 @@ static float PROJECTILE_VELOCITY = 200/1;
     pulse2.name = @"secondPulse";
     pulse2.position = position2;
     [pulse2 runAction:[self createPulsingAction]];
-    [self addChild:pulse2];
+    [self runAction:[SKAction waitForDuration:0.5] completion:^{[self addChild:pulse2];}];
 }
 
 #pragma mark - Helper Functions for creating Sprites
@@ -237,6 +247,47 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 }
 
 
+#pragma mark - message logic
+- (void)addCompleteShield {
+    self.messageAdded = YES;
+    SKLabelNode *completeShield = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    completeShield.fontColor = MESSAGE_FONT_COLOR
+    completeShield.fontSize = MESSAGE_FONT_SIZE;
+    completeShield.position = CGPointMake(self.size.width / 2, self.size.height / 2 - 120);
+    completeShield.name = @"completeShield";
+    [self addChild:completeShield];
+    [self typingEffectWithString:@"Try filling the rest of the shield."
+                        forLabel:completeShield
+                      completion:^{[self addPulses];}];
+}
+
+- (void)typingEffectWithString:(NSString *)message
+                      forLabel:(SKLabelNode *)labelNode
+                    completion:(dispatch_block_t)block
+{
+    // create actions to update label node with the message character by character
+    self.message = message;
+    self.messageSoFar = [[NSMutableString alloc] initWithCapacity:message.length];
+    self.characterIndex = 0;
+    SKAction *waitToType = [SKAction waitForDuration:1.0];
+    SKAction *addChar = [SKAction runBlock:^(void){
+        [self.messageSoFar appendFormat:@"%c", [self.message characterAtIndex:self.characterIndex]];
+        self.characterIndex+=1;
+    }];
+    SKAction *waitToAddNextCharacter = [SKAction waitForDuration:0.08];
+    SKAction *updateHeroInroductionText = [SKAction runBlock:^(void){
+        NSString *temporaryString = [[NSString alloc] initWithString:self.messageSoFar];
+        labelNode.text = temporaryString;}];
+    SKAction *sequenceOfAddingCharacters = [SKAction sequence:@[addChar,
+                                                                waitToAddNextCharacter,
+                                                                updateHeroInroductionText]];
+    SKAction *repeatMessageLength = [SKAction repeatAction:sequenceOfAddingCharacters
+                                                     count:message.length];
+    
+    // run the sequence of actions and then run the completion block
+    [self runAction:[SKAction sequence:@[waitToType, repeatMessageLength]] completion:block];
+}
+
 #pragma mark - transition
 //Used to determine if the player completed the shield
 - (BOOL)completedShields{
@@ -254,7 +305,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 }
 
 - (void)update:(NSTimeInterval)currentTime{
-    if ([self partialShieldCompleted] && !self.pulsesAdded) {
+    if ([self partialShieldCompleted] && !self.messageAdded) {
         // start making extra shields for player to fill in the gap
         SKAction *makeRandomShields = [SKAction repeatActionForever:
                                        [SKAction sequence:@[
@@ -262,7 +313,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
                                                                              onTarget:self],
                                                             [SKAction waitForDuration:1.0 withRange:0.5]]]];
         [self runAction:[SKAction sequence:@[makeRandomShields]]];
-        [self addPulses];
+        [self addCompleteShield];
     }
     
     //logic to transition scenes if  the shield is completed
@@ -270,6 +321,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
         [self removeAllActions];
         [[self childNodeWithName:@"firstPulse"] removeFromParent];
         [[self childNodeWithName:@"secondPulse"] removeFromParent];
+        [[self childNodeWithName:@"completeShield"] removeFromParent];
         
         for (SKSpriteNode *node in self.children) {
             if ([node.name isEqualToString:@"HeroShield"] ||

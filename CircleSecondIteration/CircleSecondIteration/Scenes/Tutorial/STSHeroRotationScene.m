@@ -15,14 +15,15 @@
 
 #define BACKGROUND_MUSIC_FILE @"background.mp3"
 #define HERO_BEEP @"dying_sound.mp3"
+#define MESSAGE_FONT_COLOR [SKColor colorWithRed:211.0 / 255.0 green:92.0 / 255.0 blue:41.0 / 255.0 alpha:1.0];
+#define MESSAGE_FONT_SIZE 22.0
 
 @interface STSHeroRotationScene () <SKPhysicsContactDelegate>
 
 @property (nonatomic, strong) STSHero *hero;
-@property (nonatomic, strong) SKLabelNode *heroIntroduction;
 @property BOOL firstPulseRevealed;
 
-//two properites below are used for typing effect
+//properites below are used for typing effect
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, strong) NSMutableString *messageSoFar;
 @property NSUInteger characterIndex;
@@ -40,7 +41,7 @@
                                                alpha:1.0];
         self.physicsWorld.contactDelegate = self;
         self.firstPulseRevealed = NO;
-        [self addIntroductionText];
+        [self addIntroText];
         [self addHero];
     }
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"soundToggle"];
@@ -83,7 +84,8 @@ static float PROJECTILE_VELOCITY = 200/1;
     SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
     pulse.name = @"firstPulse";
     pulse.position = position1;
-    [self addChild:pulse];
+    [self runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],
+                                         [SKAction runBlock:^{[self addChild:pulse];}]]]];
     [pulse runAction:[self createPulsingAction]];
 }
 
@@ -93,21 +95,9 @@ static float PROJECTILE_VELOCITY = 200/1;
     SKSpriteNode *pulse = [SKSpriteNode spriteNodeWithImageNamed:@"pulse.png"];
     pulse.name = @"secondPulse";
     pulse.position = position2;
-    [self addChild:pulse];
+    [self runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],
+                                         [SKAction runBlock:^{[self addChild:pulse];}]]]];
     [pulse runAction:[self createPulsingAction]];
-}
-
-- (void)addIntroductionText {
-    // initialize introduction text
-    self.heroIntroduction = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    self.heroIntroduction.fontColor = [SKColor colorWithRed:211.0 / 255.0
-                                                      green:92.0 / 255.0
-                                                       blue:41.0 / 255.0
-                                                      alpha:1.0];
-    self.heroIntroduction.fontSize = 36.0;
-    self.heroIntroduction.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 100);
-    [self addChild:self.heroIntroduction];
-    [self typingEffectForString:@"This is Ozone"];
 }
 
 - (void)addVillain{
@@ -116,20 +106,88 @@ static float PROJECTILE_VELOCITY = 200/1;
     STSVillain *newVillain = [[STSVillain alloc] initAtPosition:position];
     newVillain.name = @"Villain";
     [self addChild:newVillain];
-    float realMoveDuration = distanceFormula(self.hero.position,
-                                             newVillain.position) / PROJECTILE_VELOCITY;
     
     // create notificaiton for villain
     SKSpriteNode *newNotification =
             [newVillain createNotificationOnCircleWithCenter:self.hero.position positionNumber:90];
     [self addChild:newNotification];
-    
-    // move villain to the center
-    [newVillain runAction:[SKAction sequence:@[[SKAction waitForDuration: 0.75],
-                                [SKAction moveTo:self.hero.position duration:realMoveDuration]]]];
+    [self addExplainNotification];
 }
 
-#pragma mark - Helper methods for creating sprites
+#pragma mark - Creating text
+- (void)addIntroText {
+    SKLabelNode *heroIntroduction = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    heroIntroduction.fontColor = MESSAGE_FONT_COLOR;
+    heroIntroduction.fontSize = MESSAGE_FONT_SIZE;
+    heroIntroduction.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 100);
+    heroIntroduction.name = @"heroIntroduction";
+    [self addChild:heroIntroduction];
+    [self typingEffectWithString:@"This is our friend, Ozone."
+                        forLabel:heroIntroduction
+                      completion:^{[self addTapRight];}];
+}
+
+- (void)addTapRight {
+    SKLabelNode *tapRightMessage = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    tapRightMessage.fontColor = MESSAGE_FONT_COLOR
+    tapRightMessage.fontSize = MESSAGE_FONT_SIZE;
+    tapRightMessage.position = CGPointMake(self.size.width / 2, self.size.height / 2 - 100);
+    tapRightMessage.name = @"tapRightMessage";
+    [self addChild:tapRightMessage];
+    [self typingEffectWithString:@"Try Tapping the right side."
+                        forLabel:tapRightMessage
+                      completion:^{[self addFirstPulse];}];
+}
+
+- (void)addObserveMessage {
+    SKLabelNode *observeMessage = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    observeMessage.fontColor = MESSAGE_FONT_COLOR;
+    observeMessage.fontSize = MESSAGE_FONT_SIZE;
+    observeMessage.position = CGPointMake(self.size.width / 2, self.size.height / 2 + 100);
+    observeMessage.name = @"observeMessage";
+    [self addChild:observeMessage];
+    [self typingEffectWithString:@"See how Ozone rotates?"
+                        forLabel:observeMessage
+                      completion:^{[self addTapLeft];}];
+}
+
+- (void)addTapLeft {
+    SKLabelNode *tapLeftMessage = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    tapLeftMessage.fontColor = MESSAGE_FONT_COLOR;
+    tapLeftMessage.fontSize = MESSAGE_FONT_SIZE;
+    tapLeftMessage.position = CGPointMake(self.size.width / 2, self.size.height / 2 - 100);
+    tapLeftMessage.name = @"tapLeftMessage";
+    [self addChild:tapLeftMessage];
+    [self typingEffectWithString:@"Now try the left side."
+                        forLabel:tapLeftMessage
+                      completion:^{[self addSecondPulse];}];
+}
+
+- (void)addExplainNotification {
+    SKLabelNode *explainNotification = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    explainNotification.fontColor = MESSAGE_FONT_COLOR;
+    explainNotification.fontSize = MESSAGE_FONT_SIZE;
+    explainNotification.position = CGPointMake(self.size.width / 2, self.size.height / 2 - 100);
+    explainNotification.name = @"explainNotification";
+    [self addChild:explainNotification];
+    [self typingEffectWithString:@"What's that notification?"
+                        forLabel:explainNotification
+                      completion:^{[self moveVillainIntoScreen];}];
+}
+
+- (void)addScreamRedDot {
+    SKLabelNode *screamRedDot = [SKLabelNode labelNodeWithFontNamed:@"HelveticeNeue-Light"];
+    screamRedDot.fontColor = MESSAGE_FONT_COLOR;
+    screamRedDot.fontSize = MESSAGE_FONT_SIZE;
+    screamRedDot.position = CGPointMake(self.size.width / 2, self.size.height / 2 - 100);
+    screamRedDot.name = @"screamRedDot";
+    [self addChild:screamRedDot];
+    [self typingEffectWithString:@"AAH! A RED DOT!"
+                        forLabel:screamRedDot
+                      completion:^{[self finishMovingVillain];}];
+}
+
+#pragma mark - Helper methods for creating sprites and text
 - (SKAction *)createPulsingAction {
     // create sequence of actions used for pulsing effect
     SKAction *fadeIn = [SKAction fadeInWithDuration:0];
@@ -144,7 +202,32 @@ static float PROJECTILE_VELOCITY = 200/1;
     return pulseForever;
 }
 
-- (void)typingEffectForString:(NSString *)message{
+- (void)moveVillainIntoScreen {
+    SKNode *villain = [self childNodeWithName:@"Villain"];
+    float realMoveDuration = distanceFormula(self.hero.position,
+                                             villain.position) / PROJECTILE_VELOCITY;
+    // move villain to the center
+    [villain runAction:[SKAction moveTo:CGPointMake(self.frame.size.width / 2, self.frame.size.height-100)
+                                duration:realMoveDuration]
+            completion:^{
+                SKNode *explainNotification = [self childNodeWithName:@"explainNotification"];
+                [explainNotification removeFromParent];
+                [self addScreamRedDot];
+            }];
+}
+
+- (void)finishMovingVillain {
+    SKNode *villain = [self childNodeWithName:@"Villain"];
+    float realMoveDuration = distanceFormula(self.hero.position,
+                                             villain.position) / PROJECTILE_VELOCITY;
+    // move villain to the center
+    [villain runAction:[SKAction moveTo:self.hero.position duration:realMoveDuration]];
+}
+
+- (void)typingEffectWithString:(NSString *)message
+                      forLabel:(SKLabelNode *)labelNode
+                    completion:(dispatch_block_t)block
+{
     // create actions to update label node with the message character by character
     self.message = message;
     self.messageSoFar = [[NSMutableString alloc] initWithCapacity:message.length];
@@ -154,25 +237,44 @@ static float PROJECTILE_VELOCITY = 200/1;
         [self.messageSoFar appendFormat:@"%c", [self.message characterAtIndex:self.characterIndex]];
         self.characterIndex+=1;
     }];
-    SKAction *waitToAddNextCharacter = [SKAction waitForDuration:0.2];
+    SKAction *waitToAddNextCharacter = [SKAction waitForDuration:0.08];
     SKAction *updateHeroInroductionText = [SKAction runBlock:^(void){
         NSString *temporaryString = [[NSString alloc] initWithString:self.messageSoFar];
-        self.heroIntroduction.text = temporaryString;}];
+        labelNode.text = temporaryString;}];
     SKAction *sequenceOfAddingCharacters = [SKAction sequence:@[addChar,
                                                                 waitToAddNextCharacter,
                                                                 updateHeroInroductionText]];
     SKAction *repeatMessageLength = [SKAction repeatAction:sequenceOfAddingCharacters
                                                      count:message.length];
     
-    // run the sequence of actions, remove the message, and then add the right pulse
-    [self runAction:[SKAction sequence:@[waitToType, repeatMessageLength]] completion:^(void){
-        // add first pulse after some duration
-        SKAction *waitToRemove = [SKAction waitForDuration:1.0];
-        SKAction *removeMessage = [SKAction runBlock:^(void){[self.heroIntroduction removeFromParent];}];
-        SKAction *addFirstPulse = [SKAction runBlock:^(void){[self addFirstPulse];}];
-        SKAction *waitToAddPulse = [SKAction waitForDuration:0.5];
-        [self runAction:[SKAction sequence:@[waitToRemove, removeMessage, waitToAddPulse, addFirstPulse]]];
+    // run the sequence of actions and then run the completion block
+    [self runAction:[SKAction sequence:@[waitToType, repeatMessageLength]] completion:block];
+}
+
+- (void)typingEffectWithString:(NSString *)message
+                      forLabel:(SKLabelNode *)labelNode
+{
+    // create actions to update label node with the message character by character
+    self.message = message;
+    self.messageSoFar = [[NSMutableString alloc] initWithCapacity:message.length];
+    self.characterIndex = 0;
+    SKAction *waitToType = [SKAction waitForDuration:1.0];
+    SKAction *addChar = [SKAction runBlock:^(void){
+        [self.messageSoFar appendFormat:@"%c", [self.message characterAtIndex:self.characterIndex]];
+        self.characterIndex+=1;
     }];
+    SKAction *waitToAddNextCharacter = [SKAction waitForDuration:0.08];
+    SKAction *updateHeroInroductionText = [SKAction runBlock:^(void){
+        NSString *temporaryString = [[NSString alloc] initWithString:self.messageSoFar];
+        labelNode.text = temporaryString;}];
+    SKAction *sequenceOfAddingCharacters = [SKAction sequence:@[addChar,
+                                                                waitToAddNextCharacter,
+                                                                updateHeroInroductionText]];
+    SKAction *repeatMessageLength = [SKAction repeatAction:sequenceOfAddingCharacters
+                                                     count:message.length];
+    
+    // run the sequence of actions
+    [self runAction:[SKAction sequence:@[waitToType, repeatMessageLength]]];
 }
 
 static inline float distanceFormula(CGPoint a, CGPoint b) {
@@ -189,10 +291,18 @@ static inline float distanceFormula(CGPoint a, CGPoint b) {
     if ([node.name isEqualToString:@"firstPulse"] || [node.name isEqualToString:@"secondPulse"]) {
         STSShield *pulseNode = (STSShield *)node;
         if ([node.name isEqualToString:@"firstPulse"]){
+            SKNode *heroIntroduction = [self childNodeWithName:@"heroIntroduction"];
+            SKNode *tapRightMessage = [self childNodeWithName:@"tapRightMessage"];
+            [heroIntroduction removeFromParent];
+            [tapRightMessage removeFromParent];
             [pulseNode runAction:[SKAction removeFromParent]];
-            [self addSecondPulse];
+            [self addObserveMessage];
         }
         if ([node.name isEqualToString:@"secondPulse"]){
+            SKNode *observeMessage = [self childNodeWithName:@"observeMessage"];
+            SKNode *tapLeftMessage = [self childNodeWithName:@"tapLeftMessage"];
+            [observeMessage removeFromParent];
+            [tapLeftMessage removeFromParent];
             [pulseNode runAction:[SKAction removeFromParent]];
             [self addVillain];
         }
@@ -230,6 +340,8 @@ static inline float distanceFormula(CGPoint a, CGPoint b) {
 /* Animation to make all villains and shields from appearing and make heroes current shields fly out
  Hero then bounces up, then quickly down in order to transition into GameOverScene */
 - (void)gameOver {
+    SKNode *screamRedDot = [self childNodeWithName:@"screamRedDot"];
+    [screamRedDot removeFromParent];
     CGPoint middle = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     SKAction *waitDuration = [SKAction waitForDuration:0.2];
     SKAction *waitAfter = [SKAction waitForDuration:0.3];
