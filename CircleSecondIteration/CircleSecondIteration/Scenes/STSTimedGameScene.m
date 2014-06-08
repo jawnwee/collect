@@ -86,11 +86,11 @@
         SKAction *makeVillain = [SKAction sequence:@[
                                                      [SKAction performSelector:@selector(addVillain)
                                                                       onTarget:self],
-                                                     [SKAction waitForDuration:2.0 withRange:0.5]]];
+                                                     [SKAction waitForDuration:0.9 withRange:0.5]]];
 
         SKAction *makeExtraShields = 
             [SKAction sequence:@[[SKAction performSelector:@selector(addShield) onTarget:self],
-                                                [SKAction waitForDuration:1.0 withRange:0.5]]];
+                                                [SKAction waitForDuration:0.45 withRange:0.5]]];
 
         [self runAction:[SKAction repeatActionForever:makeVillain] withKey:@"makeVillains"];
         [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
@@ -469,6 +469,11 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     [self.hero runAction:bounceSequence];
     [background runAction:backgroundSequence completion:^{
         [self.view removeGestureRecognizer:self.longPress];
+
+        [self.timer invalidate];
+        self.timer = nil;
+
+
         SKTransition *fade = [SKTransition fadeWithColor:endGameSceneBackgroundColor duration:0.5];
         [self.view presentScene:newGameOverScene transition:fade];
     }];
