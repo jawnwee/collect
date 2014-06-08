@@ -10,6 +10,7 @@
 #import "STSOptionsScene.h"
 #import "STSWelcomeScene.h"
 #import "STSEndlessGameScene.h"
+#import "STSTimedGameScene.h"
 #import "ObjectAL.h"
 
 @interface STSPauseScene ()
@@ -82,6 +83,9 @@
     // Touching the retry node presents game scene last played
     if ([node.name isEqualToString:@"ResumeButton"]) {
         self.previousScene.paused = NO;
+        if ([self.previousScene isKindOfClass:[STSTimedGameScene class]]) {
+            [(STSTimedGameScene *)self.previousScene resumeTimer];
+        }
         [self.view presentScene:self.previousScene transition:reveal];
          [[NSNotificationCenter defaultCenter] postNotificationName:@"showAd" object:nil];
     } else if ([node.name isEqualToString:@"SettingsButton"]) {

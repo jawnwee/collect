@@ -16,8 +16,8 @@
 
 @end
 
-static float MAX_TORQUE = 2.5;
-static float MIN_TORQUE = -2.5;
+static float MAX_TORQUE = 2.6;
+static float MIN_TORQUE = -2.6;
 
 @implementation STSHero
 
@@ -40,6 +40,7 @@ static float MIN_TORQUE = -2.5;
     self.physicsBodyRadius = self.size.width / 2.0 + 5.0;
     self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.physicsBodyRadius];
     self.physicsBody.angularDamping = 0.2;
+    self.physicsBody.density = 0.19;
     
     self.physicsBody.dynamic = YES;
     self.physicsBody.allowsRotation = YES;
@@ -61,19 +62,43 @@ static float MIN_TORQUE = -2.5;
 }
 
 - (void)rotate:(CGPoint)location{
+    NSLog(@"%f", self.physicsBody.angularVelocity);
     SKScene *parentView = (SKScene *)self.parent;
     if (location.x > parentView.frame.size.width / 2.0) {
-        if (self.physicsBody.angularVelocity >= 1.0) {
-            [self.physicsBody applyTorque:-4.0];
+        if (self.physicsBody.angularVelocity > 0.3) {
+            [self.physicsBody applyTorque:-3.0];
+        } else if (self.physicsBody.angularVelocity >= -1 && self.physicsBody.angularVelocity < 0){
+            [self.physicsBody applyTorque:-1.7];
         } else if (self.physicsBody.angularVelocity >= MIN_TORQUE) {
             [self.physicsBody applyTorque:-1.0];
         }
     }
     else {
-        if (self.physicsBody.angularVelocity <= -1.0) {
-            [self.physicsBody applyTorque:4.0];
+        if (self.physicsBody.angularVelocity < -0.3) {
+            [self.physicsBody applyTorque:3.0];
+        } else if (self.physicsBody.angularVelocity <= 1 && self.physicsBody.angularVelocity > 0){
+            [self.physicsBody applyTorque:1.7];
         } else if (self.physicsBody.angularVelocity <= MAX_TORQUE) {
             [self.physicsBody applyTorque:1.0];
+        }
+    }
+}
+
+- (void)rotateTimeGameMode:(CGPoint)location{
+    NSLog(@"%f", self.physicsBody.angularVelocity);
+    SKScene *parentView = (SKScene *)self.parent;
+    if (location.x > parentView.frame.size.width / 2.0) {
+        if (self.physicsBody.angularVelocity >= 1.6) {
+            [self.physicsBody applyTorque:-4.7];
+        } else if (self.physicsBody.angularVelocity >= -4.5) {
+            [self.physicsBody applyTorque:-2.0];
+        }
+    }
+    else {
+        if (self.physicsBody.angularVelocity <= -1.6) {
+            [self.physicsBody applyTorque:4.7];
+        } else if (self.physicsBody.angularVelocity <= 4.5) {
+            [self.physicsBody applyTorque:2.0];
         }
     }
 }

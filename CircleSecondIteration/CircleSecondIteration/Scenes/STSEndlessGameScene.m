@@ -15,6 +15,7 @@
 #import "STSShield.h"
 #import "ObjectAL.h"
 #import "ALAdView.h"
+#import "GAIDictionaryBuilder.h"
 
 #define HERO_BEEP @"dying_sound.mp3"
 
@@ -52,6 +53,10 @@
         [self addPauseButton];
         [self addRestartButton];
         [[OALSimpleAudio sharedInstance] preloadEffect:HERO_BEEP];
+
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName value:@"EndlessGame"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 
         // Duration to start song
         SKAction *waitBeforeGameBegins = [SKAction waitForDuration:0.3];
@@ -107,6 +112,17 @@ static float PROJECTILE_VELOCITY = 200/1;
 }
 
 - (void)addRestartButton {
+
+    // Google Analytics
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+    [tracker set:kGAIScreenName value:@"EndlessGameScene"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:@"restart_endless_game" 
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
+
     SKTexture *restartTexture = [SKTexture textureWithImageNamed:@"Retry_Button.png"];
     SKSpriteNode *restartNode = [SKSpriteNode spriteNodeWithTexture:restartTexture];
     CGPoint topLeftCorner = CGPointMake(restartNode.size.width + 10.0,
@@ -270,8 +286,9 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
 
 #pragma mark - Rotation Handler
 - (void)didMoveToView:(SKView *)view {
-    self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                   action:@selector(handleLongPress:)];
+    self.longPress = [[UILongPressGestureRecognizer alloc] 
+                      initWithTarget:self 
+                      action:@selector(handleLongPress:)];
     self.longPress.minimumPressDuration = 0.3;
     [view addGestureRecognizer:self.longPress];
 }
@@ -318,7 +335,8 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
             [self.view presentScene:pauseScene transition:swipeLeft];
         }
         else if ([node.name isEqualToString:@"restart"]) {
-            STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.frame.size];
+            STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] 
+                                                        initWithSize:self.frame.size];
             [self.view presentScene:newEndlessGameScene];
         }
         else {
@@ -341,9 +359,12 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     second = contact.bodyB.node;
 
     // The villain sounds should come and should continue to play as villains hit shields
+    // If the shield hits another shield, (usually to recover the hero's shield, use the 2nd contact
+    // If a villain hits a shield, get rid of that shield (the shield MUST be attached to the hero)
     if ([first isKindOfClass:[STSHero class]] && [second isKindOfClass:[STSVillain class]]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [[OALSimpleAudio sharedInstance] stopBg];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"hideAd" object:nil];
         }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"soundToggle"]) {
             [[OALSimpleAudio sharedInstance] playEffect:HERO_BEEP];
@@ -387,11 +408,14 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     CGFloat newVillainSpeed, newShieldSpeed;
     // Set here for smooth adjustments
     if (withSpeed == 1) {
-        newVillainSpeed = 1.4;
+        newVillainSpeed = 1.8;
         newShieldSpeed = 1.0;
-    } else {
-        newVillainSpeed = 1.4 - withSpeed * 0.1;
+    } else if (withSpeed <= 7){
+        newVillainSpeed = 1.8 - withSpeed * 0.2;
         newShieldSpeed = 1.0 - withSpeed * 0.1;
+    } else {
+        newVillainSpeed = 0.3;
+        newVillainSpeed = 0.3;
     }
     if (self.level % 2 == 0) {
         [self bonus];
@@ -413,18 +437,22 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     SKAction *makeVillains = [SKAction sequence:@[
                                                   [SKAction performSelector:@selector(addVillain)
                                                                    onTarget:self],
-                                                  [SKAction waitForDuration:newVillainSpeed withRange:0.2]]];
+                                                  [SKAction waitForDuration:newVillainSpeed 
+                                                                  withRange:0.2]]];
 
     SKAction *makeExtraShields = [SKAction sequence:@[
-                                                      [SKAction performSelector:@selector(addShield) onTarget:self],
-                                                      [SKAction waitForDuration:newShieldSpeed withRange:0.2]]];
+                                                      [SKAction performSelector:@selector(addShield) 
+                                                                       onTarget:self],
+                                                      [SKAction waitForDuration:newShieldSpeed 
+                                                                      withRange:0.2]]];
     [self runAction:[SKAction repeatActionForever:makeVillains] withKey:@"makeVillains"];
     [self runAction:[SKAction repeatActionForever:makeExtraShields] withKey:@"makeShields"];
 }
 
 - (void)bonus {
     SKAction *makeExtraShields = [SKAction sequence:@[
-                                                     [SKAction performSelector:@selector(addShield) onTarget:self],
+                                                     [SKAction performSelector:@selector(addShield) 
+                                                                      onTarget:self],
                                                      [SKAction waitForDuration:0.0 withRange:0.0]]];
     [self runAction:[SKAction repeatAction:makeExtraShields count:30]];
 }
@@ -432,7 +460,7 @@ static inline CGPoint findCoordinatesAlongACircle(CGPoint center, uint radius, u
     for (int i = 2; i <= 5; i++) {
         if (self.level == i) {
             NSString *backgroundMusic = [NSString stringWithFormat:@"background_%d.mp3", i];
-            if ([OALSimpleAudio sharedInstance].bgPaused) {
+            if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
                 [[OALSimpleAudio sharedInstance] preloadBg:backgroundMusic];
             } else {
                 [[OALSimpleAudio sharedInstance] playBg:backgroundMusic loop:YES];

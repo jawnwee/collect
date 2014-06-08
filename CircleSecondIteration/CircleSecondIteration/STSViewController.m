@@ -33,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // self.screenName = @"Game Loaded";
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     // skView.showsFPS = YES;

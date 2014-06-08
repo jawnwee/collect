@@ -20,6 +20,16 @@
     // Override point for customization after application launch.
     [Crashlytics startWithAPIKey:@"15cff1e39186231362a287dbc7407a93ea1631de"];
     [ALSdk initializeSdk];
+
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+
+    [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
+
+    [GAI sharedInstance].dispatchInterval = 20;
+
+    // Keep this line here. Used for google's analytics
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-51721437-1"];
+
     return YES;
 }
 
@@ -31,6 +41,8 @@
     view.paused = YES;
     view.scene.paused = YES;
     if ([view.scene isKindOfClass:[STSEndlessGameScene class]]) {
+        NSLog(@"called");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"hideAd" object:nil];
         STSPauseScene *pause = [[STSPauseScene alloc] initWithSize:view.scene.size];
         pause.previousScene = (STSEndlessGameScene *)view.scene;
         [view presentScene:pause];

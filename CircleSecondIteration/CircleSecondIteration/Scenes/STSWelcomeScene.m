@@ -12,6 +12,8 @@
 #import "STSOptionsScene.h"
 #import "STSInformationScene.h"
 #import "ObjectAL.h"
+#import "GAIDictionaryBuilder.h"
+#import "STSTimedGameScene.h"
 
 #define BACKGROUND_MUSIC_LEVEL_1 @"background.mp3"
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
@@ -35,7 +37,7 @@
         self.scaleMode = SKSceneScaleModeAspectFill;
         [self addGameTitleNode];
         [self addHero];
-        [self addCompanyInfo];
+        [self addTimedMode];
         [self addPlayButton];
         [self addOptionMenu];
         [self addOzoneLayer];
@@ -44,9 +46,15 @@
 }
 
 - (void)didMoveToView:(SKView *)view {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] && ![OALSimpleAudio sharedInstance].bgPlaying) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"] && 
+            ![OALSimpleAudio sharedInstance].bgPlaying) {
+
         [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_LEVEL_1 loop:YES];
     }
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"WelcomeScene"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma - Adding Sprite Nodes
@@ -107,19 +115,19 @@
     [self addChild:optionButtonNode];
 }
 
-- (void)addCompanyInfo {
-    SKTexture *companyInfoTexture = [SKTexture textureWithImageNamed:@"Company_Info.png"];
-    SKSpriteNode *companyInfoNode = [SKSpriteNode spriteNodeWithTexture:companyInfoTexture];
+- (void)addTimedMode {
+    SKTexture *timedTexture = [SKTexture textureWithImageNamed:@"Timed_Button.png"];
+    SKSpriteNode *timedMode = [SKSpriteNode spriteNodeWithTexture:timedTexture];
     if (IS_WIDESCREEN) {
-        companyInfoNode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
+        timedMode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
                                                 CGRectGetMidY(self.frame) + 15.0);
     } else {
-        companyInfoNode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
+        timedMode.position = CGPointMake(CGRectGetMidX(self.frame) - 100.0,
                                                CGRectGetMidY(self.frame) - 5.0);
 
     }
-    companyInfoNode.name = @"CompanyInfo";
-    [self addChild:companyInfoNode];
+    timedMode.name = @"TimedButton";
+    [self addChild:timedMode];
 }
 
 - (void)addOzoneLayer {
@@ -141,7 +149,16 @@
     CGPoint touchLocation = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:touchLocation];
     if ([node.name isEqualToString:@"playButton"]) {
-        [self transitionToEndlessGameScene];
+        // Google Analytics
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+        [tracker set:kGAIScreenName value:@"WelcomeScene"];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                              action:@"touch"
+                                                               label:@"EndlessGameButton"
+                                                               value:nil] build]];
+        STSEndlessGameScene *newEndlessGame = [[STSEndlessGameScene alloc]initWithSize:self.size];
+        [self transitionToGameScene:newEndlessGame];
     }
 
     // Set up option menu
@@ -153,16 +170,24 @@
         [self.view presentScene:newOptionsScene transition:reveal];
     }
 
-    // TODO add company info scene
-    if ([node.name isEqualToString:@"CompanyInfo"]) {
-        SKTransition *reveal = [SKTransition pushWithDirection:SKTransitionDirectionRight
-                                                      duration:0.3];
-        STSInformationScene *newInformationScene = [[STSInformationScene alloc] initWithSize:self.size];
-        [self.view presentScene:newInformationScene transition:reveal];
+    // Setup timed game mode
+    if ([node.name isEqualToString:@"TimedButton"]) {
+
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+        [tracker set:kGAIScreenName value:@"WelcomeScene"];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                              action:@"touch"
+                                                               label:@"TimedGameButton"
+                                                               value:nil] build]];
+
+        STSTimedGameScene *newEndlessGame = [[STSTimedGameScene alloc]initWithSize:self.size];
+        [self transitionToGameScene:newEndlessGame];
+
     }
 }
 
-- (void)transitionToEndlessGameScene {
+- (void)transitionToGameScene:(SKScene *)scene {
 
     SKAction *waitShort = [SKAction waitForDuration:0.1];
     SKAction *removeFromParent = [SKAction removeFromParent];
@@ -182,7 +207,7 @@
     // Animation to make squeeze and pull out for all children nodes
     for (NSInteger i = 0; i < self.children.count; i++) {
         SKNode *node = [self.children objectAtIndex:i];
-        if ([node.name isEqualToString:@"CompanyInfo"] ||
+        if ([node.name isEqualToString:@"TimedButton"] ||
                    [node.name isEqualToString:@"playButton"] || 
                    [node.name isEqualToString:@"OptionMenu"]) {
             [node runAction:lowerBounceSequence];
@@ -192,8 +217,7 @@
     }
     SKNode *lastNode = [self childNodeWithName:@"OzoneLayer"];
     [lastNode runAction:lowerBounceSequence completion:^{
-        STSEndlessGameScene *newEndlessGameScene = [[STSEndlessGameScene alloc] initWithSize:self.size];
-        [self.view presentScene:newEndlessGameScene];
+        [self.view presentScene:scene];
     }];
 }
 

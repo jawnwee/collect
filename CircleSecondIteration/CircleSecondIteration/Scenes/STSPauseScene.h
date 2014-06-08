@@ -11,7 +11,7 @@
 
 @interface STSPauseScene : SKScene
 
-@property (strong, nonatomic) STSEndlessGameScene *previousScene;
+@property (strong, nonatomic) SKScene *previousScene;
 
 - (id)initWithSize:(CGSize)size;
 

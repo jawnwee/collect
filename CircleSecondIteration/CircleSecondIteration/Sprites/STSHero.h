@@ -20,4 +20,6 @@
 
 - (void)rotate:(CGPoint)location;
 
+- (void)rotateTimeGameMode:(CGPoint)location;
+
 @end

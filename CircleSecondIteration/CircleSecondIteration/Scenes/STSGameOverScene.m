@@ -13,6 +13,7 @@
 #import "ALInterstitialAd.h"
 #import "ALAdview.h"
 #import "Social/Social.h"
+#import "GAIDictionaryBuilder.h"
 
 #define BACKGROUND_MUSIC_FILE @"background.mp3"
 
@@ -32,10 +33,15 @@
 
 @implementation STSGameOverScene
 
+
 #pragma mark - Initialization
 - (id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName value:@"GameOverScene"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 
         self.backgroundColor = [SKColor colorWithRed:240.0 / 255.0
                                                green:241.0 / 255.0
@@ -249,13 +255,23 @@
     // Touching the retry node presents game scene last played
     if ([node.name isEqualToString:@"retryLabel"] || [node.name isEqualToString:@"retrySymbol"]) {
 
+         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName value:@"GameOverScene"];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                              action:@"touch"
+                                                               label:@"restart_game_over"
+                                                               value:nil] build]];
+        [tracker set:kGAIScreenName value:nil];
+        
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
         }
+        
         // [[ALInterstitialAd shared] showOver: [UIApplication sharedApplication].keyWindow];
         [ALInterstitialAd showOver:[[UIApplication sharedApplication] keyWindow]];
 
-    } else if ([node.name isEqualToString:@"menuLabel"] || [node.name isEqualToString:@"menuSymbol"]) {
+    } else if ([node.name isEqualToString:@"menuLabel"] || 
+               [node.name isEqualToString:@"menuSymbol"]) {
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
@@ -304,8 +320,8 @@
 #pragma mark - Sharing logic
 - (void)shareTextToFaceBook{
     //  Create an instance of the Tweet Sheet
-    SLComposeViewController *facebookSheet = [SLComposeViewController
-                                              composeViewControllerForServiceType: SLServiceTypeFacebook];
+    SLComposeViewController *facebookSheet = 
+        [SLComposeViewController composeViewControllerForServiceType: SLServiceTypeFacebook];
     
     // Sets the completion handler.  Note that we don't know which thread the
     // block will be called on, so we need to ensure that any required UI
@@ -328,7 +344,7 @@
     
     //  Adds an image to the Tweet.  For demo purposes, assume we have an
     //  image named 'larry.png' that we wish to attach
-    if (![facebookSheet addImage:[UIImage imageNamed:@"icon-home.png"]]) {
+    if (![facebookSheet addImage:[UIImage imageNamed:@"shareImage.png"]]) {
         NSLog(@"Unable to add the image!");
     }
     
@@ -338,7 +354,8 @@
 //    }
     
     //  Presents the Tweet Sheet to the user
-    [self.view.window.rootViewController presentViewController:facebookSheet animated:NO completion:^{
+    [self.view.window.rootViewController presentViewController:facebookSheet 
+                                                      animated:NO completion:^{
         NSLog(@"Tweet sheet has been presented.");
     }];
     
@@ -346,8 +363,8 @@
 
 - (void)shareTextToTwitter{
     //  Create an instance of the Tweet Sheet
-    SLComposeViewController *tweetSheet = [SLComposeViewController
-                                           composeViewControllerForServiceType: SLServiceTypeTwitter];
+    SLComposeViewController *tweetSheet =
+        [SLComposeViewController composeViewControllerForServiceType: SLServiceTypeTwitter];
     
     // Sets the completion handler.  Note that we don't know which thread the
     // block will be called on, so we need to ensure that any required UI
@@ -370,7 +387,7 @@
     
     //  Adds an image to the Tweet.  For demo purposes, assume we have an
     //  image named 'larry.png' that we wish to attach
-    if (![tweetSheet addImage:[UIImage imageNamed:@"icon-home.png"]]) {
+    if (![tweetSheet addImage:[UIImage imageNamed:@"shareImage.png"]]) {
         NSLog(@"Unable to add the image!");
     }
     
