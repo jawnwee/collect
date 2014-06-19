@@ -7,8 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "STSGameScene.h"
 
-@interface STSEndlessGameScene : SKScene
+@interface STSEndlessGameScene : STSGameScene
 
 @property (nonatomic, readwrite) int score;
 @property (nonatomic) NSInteger level;

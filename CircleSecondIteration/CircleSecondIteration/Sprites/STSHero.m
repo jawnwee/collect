@@ -62,7 +62,6 @@ static float MIN_TORQUE = -2.6;
 }
 
 - (void)rotate:(CGPoint)location{
-    NSLog(@"%f", self.physicsBody.angularVelocity);
     SKScene *parentView = (SKScene *)self.parent;
     if (location.x > parentView.frame.size.width / 2.0) {
         if (self.physicsBody.angularVelocity > 0.3) {
@@ -84,24 +83,6 @@ static float MIN_TORQUE = -2.6;
     }
 }
 
-- (void)rotateTimeGameMode:(CGPoint)location{
-    NSLog(@"%f", self.physicsBody.angularVelocity);
-    SKScene *parentView = (SKScene *)self.parent;
-    if (location.x > parentView.frame.size.width / 2.0) {
-        if (self.physicsBody.angularVelocity >= 1.6) {
-            [self.physicsBody applyTorque:-4.7];
-        } else if (self.physicsBody.angularVelocity >= -4.5) {
-            [self.physicsBody applyTorque:-2.0];
-        }
-    }
-    else {
-        if (self.physicsBody.angularVelocity <= -1.6) {
-            [self.physicsBody applyTorque:4.7];
-        } else if (self.physicsBody.angularVelocity <= 4.5) {
-            [self.physicsBody applyTorque:2.0];
-        }
-    }
-}
 
 
 @end

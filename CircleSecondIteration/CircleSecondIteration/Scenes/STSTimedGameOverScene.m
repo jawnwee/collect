@@ -57,26 +57,7 @@
 }
 
 - (void)createSceneContents {
-    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
-    SKTexture *deadOzoneTexture = [atlas textureNamed:@"Dead_Ozone.png"];
-    self.deadOzone = [SKSpriteNode spriteNodeWithTexture:deadOzoneTexture];
-    self.deadOzone.position = CGPointMake(self.scene.size.width / 2.0, -1000.0);
-
-    SKAction *bounceUp, *adjustBounce;
-    if (IS_WIDESCREEN) {
-        bounceUp = [SKAction moveByX:0.0 y:1000.0 duration:0.8];
-        adjustBounce = [SKAction moveByX:0.0 y:-40.0 duration:0.5];
-    } else {
-        bounceUp = [SKAction moveByX:0.0 y:950.0 duration:0.8];
-        adjustBounce = [SKAction moveByX:0.0 y:-40.0 duration:0.5];
-    }
-    [self addChild:self.deadOzone];
-    SKAction *sequence = [SKAction sequence:@[bounceUp, adjustBounce]];
-    [self.deadOzone runAction: sequence completion:^(void){[self addShareButtons];}];
-    [self addDividers];
-    [self addGameOverNode];
-    [self addRetrySymbol];
-    [self addMenuSymbol];
+    [super createSceneContents];
 }
 
 - (void)didMoveToView:(SKView *)view {
@@ -110,7 +91,9 @@
 }
 
 - (void)addScoreLabel {
-    SKSpriteNode *lastButton = [SKSpriteNode spriteNodeWithImageNamed:@"Last_Score.png"];
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
+    SKTexture *scoreTexture = [atlas textureNamed:@"Last_Score.png"];
+    SKSpriteNode *lastButton = [SKSpriteNode spriteNodeWithTexture:scoreTexture];
 
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.scoreLabel.text = self.scoreString;
@@ -135,8 +118,10 @@
 }
 
 - (void)addHighScoreLabel {
-    SKSpriteNode *bestButton = [SKSpriteNode spriteNodeWithImageNamed:@"Best_Score.png"];
-
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
+    SKTexture *scoreTexture = [atlas textureNamed:@"Best_Score.png"];
+    SKSpriteNode *bestButton = [SKSpriteNode spriteNodeWithTexture:scoreTexture];
+    
     self.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.highScoreLabel.text = self.highScoreString;
     self.highScoreLabel.fontSize = 36.0;
@@ -189,35 +174,7 @@
 }
 
 - (void)addDividers {
-    CGFloat screenMiddleX = CGRectGetMidX(self.frame);
-    CGFloat screenMiddleY = CGRectGetMidY(self.frame);
-
-
-    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
-    SKTexture *longDividerTexture = [atlas textureNamed:@"Long_Bar.png"];
-    SKTexture *middleLongerDivider = [atlas textureNamed:@"Middle_Longer_Bar.png"];
-    SKTexture *middleShorterDivider = [atlas textureNamed:@"Middle_Shorter_bar.png"];
-
-    SKSpriteNode *top = [SKSpriteNode spriteNodeWithTexture:longDividerTexture];
-    SKSpriteNode *firstMiddle = [SKSpriteNode spriteNodeWithTexture:middleLongerDivider];
-    SKSpriteNode *secondMiddle = [SKSpriteNode spriteNodeWithTexture:middleShorterDivider];
-    SKSpriteNode *bottom = [SKSpriteNode spriteNodeWithTexture:longDividerTexture];
-    if (IS_WIDESCREEN) {
-        top.position = CGPointMake(screenMiddleX, screenMiddleY + 195.0);
-        firstMiddle.position = CGPointMake(screenMiddleX, screenMiddleY + 125.0);
-        bottom.position = CGPointMake(screenMiddleX, screenMiddleY + 53.0);
-        secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 5.0);
-    } else {
-        top.position = CGPointMake(screenMiddleX, screenMiddleY + 155.0);
-        firstMiddle.position = CGPointMake(screenMiddleX, screenMiddleY + 85.0);
-        bottom.position = CGPointMake(screenMiddleX, screenMiddleY + 23.0);
-        secondMiddle.position =  CGPointMake(screenMiddleX, screenMiddleY - 40.0);
-    }
-    [self addChild:top];
-    [self addChild:firstMiddle];
-    [self addChild:bottom];
-    [self addChild:secondMiddle];
-
+    [super addDividers];
 }
 
 /*remove banner add on gameOver age*/
@@ -277,8 +234,18 @@
         // [[ALInterstitialAd shared] showOver: [UIApplication sharedApplication].keyWindow];
         [ALInterstitialAd showOver:[[UIApplication sharedApplication] keyWindow]];
 
+        [self removeAllChildren];
+        [self removeAllActions];
+        [super removeAllActions];
+        [super removeAllChildren];
+
     } else if ([node.name isEqualToString:@"menuLabel"] ||
                [node.name isEqualToString:@"menuSymbol"]) {
+        [self removeAllChildren];
+        [self removeAllActions];
+        [super removeAllActions];
+        [super removeAllChildren];
+        self.userData = nil;
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
@@ -327,6 +294,14 @@
 #pragma mark - Sharing logic
 - (void)shareTextToFaceBook{
     //  Create an instance of the Tweet Sheet
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"GameOverTimedScene"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:@"shareFB"
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
+
     SLComposeViewController *facebookSheet =
     [SLComposeViewController composeViewControllerForServiceType: SLServiceTypeFacebook];
 
@@ -345,15 +320,9 @@
     };
 
     //  Set the initial body of the Tweet
-    NSString *message = [NSString stringWithFormat:@"I just blocked %@ dots! #Ozone!",
+    NSString *message = [NSString stringWithFormat:@"I just blocked red dots for %@ minutes! #Ozone!",
                          self.scoreString];
     [facebookSheet setInitialText:message];
-
-    //  Adds an image to the Tweet.  For demo purposes, assume we have an
-    //  image named 'larry.png' that we wish to attach
-    if (![facebookSheet addImage:[UIImage imageNamed:@"shareImage.png"]]) {
-        NSLog(@"Unable to add the image!");
-    }
 
     //  Add an URL to the Tweet.  You can add multiple URLs.
     //    if (![facebookSheet addURL:[NSURL URLWithString:@"http://facebook.com/"]]){
@@ -369,6 +338,15 @@
 }
 
 - (void)shareTextToTwitter{
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"GameOverTimedScene"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:@"shareTwitter"
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
+
     //  Create an instance of the Tweet Sheet
     SLComposeViewController *tweetSheet =
     [SLComposeViewController composeViewControllerForServiceType: SLServiceTypeTwitter];
@@ -388,7 +366,7 @@
     };
 
     //  Set the initial body of the Tweet
-    NSString *message = [NSString stringWithFormat:@"I just blocked %@ dots! #Ozone!",
+    NSString *message = [NSString stringWithFormat:@"I just blocked red dots for %@ minutes! #Ozone!",
                          self.scoreString];
     [tweetSheet setInitialText:message];
 

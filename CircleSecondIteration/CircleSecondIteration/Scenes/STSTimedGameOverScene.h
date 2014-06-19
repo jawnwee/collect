@@ -7,7 +7,8 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "STSGameOverScene.h"
 
-@interface STSTimedGameOverScene : SKScene
+@interface STSTimedGameOverScene : STSGameOverScene
 
 @end

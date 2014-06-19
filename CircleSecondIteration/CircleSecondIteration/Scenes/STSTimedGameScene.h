@@ -7,9 +7,12 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "STSGameScene.h"
 
-@interface STSTimedGameScene : SKScene
+@interface STSTimedGameScene : STSGameScene
 
 - (void)resumeTimer;
+
+- (void)pauseTimer;
 
 @end

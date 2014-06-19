@@ -61,6 +61,7 @@
 		EB4F2EF519411DC8007FA1C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF419411DC8007FA1C0 /* CoreTelephony.framework */; };
 		EB4F2EF719411DD4007FA1C0 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF619411DD4007FA1C0 /* MediaPlayer.framework */; };
 		EB4F2EF919411DDD007FA1C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4F2EF819411DDD007FA1C0 /* SystemConfiguration.framework */; };
+		EB6D8FE219536EB6001436B3 /* STSGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D8FE119536EB6001436B3 /* STSGameScene.m */; };
 		EB9DE7EF194277D2003F5C27 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9DE7EE194277D2003F5C27 /* libGoogleAnalyticsServices.a */; };
 		EB9DE7F119427815003F5C27 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9DE7F019427815003F5C27 /* libsqlite3.0.dylib */; };
 		EB9DE7F31942781F003F5C27 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9DE7F21942781E003F5C27 /* CFNetwork.framework */; };
@@ -242,6 +243,8 @@
 		EB4F2EF419411DC8007FA1C0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		EB4F2EF619411DD4007FA1C0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EB4F2EF819411DDD007FA1C0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EB6D8FE019536EB6001436B3 /* STSGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSGameScene.h; sourceTree = "<group>"; };
+		EB6D8FE119536EB6001436B3 /* STSGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSGameScene.m; sourceTree = "<group>"; };
 		EB9DE7E8194277BF003F5C27 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		EB9DE7E9194277BF003F5C27 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		EB9DE7EA194277BF003F5C27 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
@@ -575,6 +578,8 @@
 		EB9DE7FE1944DDFC003F5C27 /* GameScenes */ = {
 			isa = PBXGroup;
 			children = (
+				EB6D8FE019536EB6001436B3 /* STSGameScene.h */,
+				EB6D8FE119536EB6001436B3 /* STSGameScene.m */,
 				EBBCEE271935BA6800F257D2 /* STSEndlessGameScene.h */,
 				C4BE5AAD19392693007B7D28 /* STSEndlessGameScene.m */,
 				EB9DE7F41943CD94003F5C27 /* STSTimedGameScene.h */,
@@ -871,7 +876,7 @@
 				ORGANIZATIONNAME = "SummaTime Studio";
 				TargetAttributes = {
 					EBBCEDE21935B6A600F257D2 = {
-						DevelopmentTeam = BJAYWJUEC7;
+						DevelopmentTeam = 6UN3N9H6B4;
 					};
 					EBBCEE0A1935B6A600F257D2 = {
 						TestTargetID = EBBCEDE21935B6A600F257D2;
@@ -1018,6 +1023,7 @@
 				EB9DE7FD19444642003F5C27 /* STSTimedGameOverScene.m in Sources */,
 				C4131AB9193FAFF5001B79F8 /* ALSoundSourcePool.m in Sources */,
 				C4131AB0193FAFF5001B79F8 /* OALAudioTrackNotifications.m in Sources */,
+				EB6D8FE219536EB6001436B3 /* STSGameScene.m in Sources */,
 				C4131AB8193FAFF5001B79F8 /* ALListener.m in Sources */,
 				C4131AB5193FAFF5001B79F8 /* ALChannelSource.m in Sources */,
 				C4131AC2193FAFF5001B79F8 /* NSMutableDictionary+WeakReferences.m in Sources */,
@@ -1159,7 +1165,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
 				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1172,7 +1178,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Ozone!";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1AE97361-BC10-4AAB-BC79-6AA5347634BD";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1192,7 +1198,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleSecondIteration/Ozone!-Prefix.pch";
 				INFOPLIST_FILE = "CircleSecondIteration/Ozone!-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1205,7 +1211,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Ozone!";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1AE97361-BC10-4AAB-BC79-6AA5347634BD";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};

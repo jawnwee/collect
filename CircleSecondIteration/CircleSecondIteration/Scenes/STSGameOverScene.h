@@ -11,4 +11,8 @@
 
 @interface STSGameOverScene : SKScene
 
+- (void)createSceneContents;
+- (void)addDividers;
+- (void)addShareButtons;
+
 @end

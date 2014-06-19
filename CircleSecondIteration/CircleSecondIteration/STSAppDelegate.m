@@ -12,6 +12,7 @@
 #import "STSAppDelegate.h"
 #import "STSEndlessGameScene.h"
 #import "STSPauseScene.h"
+#import "STSTimedGameScene.h"
 #import "ObjectAL/ObjectAL.h"
 
 @implementation STSAppDelegate
@@ -40,11 +41,14 @@
     SKView *view = (SKView *)self.window.rootViewController.view;
     view.paused = YES;
     view.scene.paused = YES;
-    if ([view.scene isKindOfClass:[STSEndlessGameScene class]]) {
+    if ([view.scene isKindOfClass:[STSEndlessGameScene class]] || [view.scene isKindOfClass:[STSTimedGameScene class]]) {
         NSLog(@"called");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"hideAd" object:nil];
         STSPauseScene *pause = [[STSPauseScene alloc] initWithSize:view.scene.size];
-        pause.previousScene = (STSEndlessGameScene *)view.scene;
+        pause.previousScene = view.scene;
+        if ([view.scene isKindOfClass:[STSTimedGameScene class]]) {
+            [(STSTimedGameScene *)view.scene pauseTimer];
+        }
         [view presentScene:pause];
     }
 }

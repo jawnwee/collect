@@ -103,7 +103,9 @@
 }
 
 - (void)addScoreLabel {
-    SKSpriteNode *lastButton = [SKSpriteNode spriteNodeWithImageNamed:@"Last_Score.png"];
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
+    SKTexture *scoreTexture = [atlas textureNamed:@"Last_Score.png"];
+    SKSpriteNode *lastButton = [SKSpriteNode spriteNodeWithTexture:scoreTexture];
 
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.scoreLabel.text = self.scoreString;
@@ -128,7 +130,9 @@
 }
 
 - (void)addHighScoreLabel {
-    SKSpriteNode *bestButton = [SKSpriteNode spriteNodeWithImageNamed:@"Best_Score.png"];
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameOverSymbols"];
+    SKTexture *scoreTexture = [atlas textureNamed:@"Best_Score.png"];
+    SKSpriteNode *bestButton = [SKSpriteNode spriteNodeWithTexture:scoreTexture];
 
     self.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
     self.highScoreLabel.text = self.highScoreString;
@@ -167,7 +171,7 @@
 }
 
 - (void)addMenuSymbol {
-    SKTexture *menuTexture = [SKTexture textureWithImageNamed:@"MenuSymbol@2x.png"];
+    SKTexture *menuTexture = [SKTexture textureWithImageNamed:@"MenuSymbol.png"];
     SKSpriteNode *menuSymbol = [[SKSpriteNode alloc] initWithTexture:menuTexture];
     menuSymbol.name = @"menuSymbol";
     if (IS_WIDESCREEN) {
@@ -272,6 +276,8 @@
 
     } else if ([node.name isEqualToString:@"menuLabel"] || 
                [node.name isEqualToString:@"menuSymbol"]) {
+        [self removeAllActions];
+        [self removeAllChildren];
         STSWelcomeScene *welcomeScene = [[STSWelcomeScene alloc] initWithSize:self.size];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicToggle"]) {
             [[OALSimpleAudio sharedInstance] playBg:BACKGROUND_MUSIC_FILE loop:YES];
@@ -320,7 +326,15 @@
 #pragma mark - Sharing logic
 - (void)shareTextToFaceBook{
     //  Create an instance of the Tweet Sheet
-    SLComposeViewController *facebookSheet = 
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"GameOverTimedScene"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:@"shareFB"
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
+
+    SLComposeViewController *facebookSheet =
         [SLComposeViewController composeViewControllerForServiceType: SLServiceTypeFacebook];
     
     // Sets the completion handler.  Note that we don't know which thread the
@@ -342,12 +356,6 @@
                                                         self.scoreString];
     [facebookSheet setInitialText:message];
     
-    //  Adds an image to the Tweet.  For demo purposes, assume we have an
-    //  image named 'larry.png' that we wish to attach
-    if (![facebookSheet addImage:[UIImage imageNamed:@"shareImage.png"]]) {
-        NSLog(@"Unable to add the image!");
-    }
-    
     //  Add an URL to the Tweet.  You can add multiple URLs.
 //    if (![facebookSheet addURL:[NSURL URLWithString:@"http://facebook.com/"]]){
 //        NSLog(@"Unable to add the URL!");
@@ -362,6 +370,14 @@
 }
 
 - (void)shareTextToTwitter{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"GameOverTimedScene"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:@"shareTwitter"
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
+
     //  Create an instance of the Tweet Sheet
     SLComposeViewController *tweetSheet =
         [SLComposeViewController composeViewControllerForServiceType: SLServiceTypeTwitter];

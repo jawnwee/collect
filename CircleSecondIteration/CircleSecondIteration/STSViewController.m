@@ -74,21 +74,21 @@
 }
 
 -(void)hidesBanner {
-    [self.banner removeFromSuperview];
+    // [self.banner removeFromSuperview];
 }
 
 
 -(void)showBanner {
-    self.banner = [[ALAdView alloc] initWithSize:[ALAdSize sizeBanner]];
-    CGFloat y = self.view.frame.size.height - 50;
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    self.banner.frame = CGRectMake(0, y, width, 50);
-
-    [self.view addSubview:self.banner];
-    double rand = arc4random() % 100;
-    if (rand <= 66) {
-        [self.banner loadNextAd];
-    }
+//    self.banner = [[ALAdView alloc] initWithSize:[ALAdSize sizeBanner]];
+//    CGFloat y = self.view.frame.size.height - 50;
+//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//    self.banner.frame = CGRectMake(0, y, width, 50);
+//
+//    [self.view addSubview:self.banner];
+//    double rand = arc4random() % 100;
+//    if (rand <= 66) {
+//        [self.banner loadNextAd];
+//    }
 }
 
 - (BOOL)shouldAutorotate {
