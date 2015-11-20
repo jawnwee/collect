@@ -19,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Crashlytics startWithAPIKey:@"15cff1e39186231362a287dbc7407a93ea1631de"];
+    //[Crashlytics startWithAPIKey:@"15cff1e39186231362a287dbc7407a93ea1631de"];
     [ALSdk initializeSdk];
 
     [GAI sharedInstance].trackUncaughtExceptions = YES;
